@@ -16,8 +16,8 @@ sed "s/blue/$COLOR_ONE/" .tmux.conf > .tmux.conf_tmp
 mv .tmux.conf_tmp .tmux.conf
 
 # Modify ZSH configuration
-sed "s/fg\[blue\]/fg[$COLOR_ONE]/" .zshrc > .zshrc_tmp
-sed "s/fg\[yellow\]/fg[$COLOR_TWO]/" .zshrc_tmp > .zshrc
+sed "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc > .zshrc_tmp
+sed "s/fg\[yellow\]/fg[$COLOR_TWO]/g" .zshrc_tmp > .zshrc
 rm .zshrc_tmp
 
 # Prepare Vim
