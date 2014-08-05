@@ -30,7 +30,7 @@
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
 
-  Bundle "gmarik/Vundle.vim"
+  Bundle 'gmarik/Vundle.vim'
   Bundle 'tpope/vim-surround'
   Bundle 'tpope/vim-fugitive'
   Bundle 'tpope/vim-liquid'
@@ -38,9 +38,10 @@
   Bundle 'justinmk/vim-syntax-extra'
   Bundle 'kien/ctrlp.vim'
   Bundle 'bling/vim-airline'
-  Bundle "garbas/vim-snipmate"
+  Bundle 'garbas/vim-snipmate'
+  Bundle 'tomtom/tlib_vim'
   Bundle 'MarcWeber/vim-addon-mw-utils'
-  Bundle "honza/vim-snippets"
+  Bundle 'honza/vim-snippets'
   Bundle 'junegunn/vim-easy-align'
   Bundle 'DoxygenToolkit.vim'
 
@@ -89,15 +90,13 @@
   set clipboard=unnamed     " Use the unnamed register as the clipboard register
 
   set foldenable            " Enable folding
-  set foldmethod=marker     " Fold according to the markers
+  set foldmethod=syntax     " Fold according to the markers
   set foldlevelstart=99     " Open without folding
 
   set list                                       " Highlight special characters
   set listchars=tab:>─,extends:˺,trail:\ ,nbsp:. " List the special characters
 
   set backspace=eol,indent,start " Fix the backspace behavior
-
-  set paste                 " Paste correctly
 
   colorscheme jellybeans    " Colorscheme
 
@@ -116,7 +115,10 @@
   set smartindent           " Smart indent...
   set autoindent            " Use the basic previous line indentation
 
-  set textwidth=80
+  set wrap
+  set linebreak
+  set textwidth=79
+  set fo=1
   set colorcolumn=+1
 
 " }
@@ -134,18 +136,18 @@
   imap hh <Esc>
 
   " Hardcore gamer (should be used though)
-  "inoremap <up> <nop>
-  "vnoremap <up> <nop>
-  "noremap <up> <nop>
-  "inoremap <down> <nop>
-  "vnoremap <down> <nop>
-  "noremap <down> <nop>
-  "inoremap <left> <nop>
-  "vnoremap <left> <nop>
-  "noremap <left> <nop>
-  "inoremap <right> <nop>
-  "vnoremap <right> <nop>
-  "noremap <right> <nop>
+  inoremap <up> <nop>
+  vnoremap <up> <nop>
+  noremap <up> <nop>
+  inoremap <down> <nop>
+  vnoremap <down> <nop>
+  noremap <down> <nop>
+  inoremap <left> <nop>
+  vnoremap <left> <nop>
+  noremap <left> <nop>
+  inoremap <right> <nop>
+  vnoremap <right> <nop>
+  noremap <right> <nop>
 
   " Center screen
   nmap <space> zz
