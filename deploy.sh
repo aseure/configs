@@ -10,11 +10,12 @@ EPITA_PASS_SOCKS="password"
 COLOR_ONE="blue"
 COLOR_TWO="yellow"
 
-# Remove existing files
+# Remove existing files and checkout the current Git repository on HEAD
 rm -rf ~/.jogsoul*
 rm -rf ~/.tmux*
 rm -rf ~/.vim*
 rm -rf ~/.zsh*
+git reset --hard HEAD
 
 # Modify SOUL configuration
 sed "s/login_x/$EPITA_LOGIN/" .jogsoul/jogsoul.conf > .jogsoul_tmp
