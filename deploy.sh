@@ -1,9 +1,13 @@
 #! /bin/bash
 
+echo "> Your configurations files for Jogsoul, Tmux, Vim and ZSH will be erased."
+echo "> Press any key to continue or press ^C to abort"
+read
+
 # Set those variables to fit your configuration
-EPITA_LOGIN="seure-_a"
-EPITA_PASS_SOCKS="toto"
-COLOR_ONE="red"
+EPITA_LOGIN="login_x"
+EPITA_PASS_SOCKS="password"
+COLOR_ONE="blue"
 COLOR_TWO="yellow"
 
 # Remove existing files
@@ -28,8 +32,8 @@ rm .zshrc_tmp
 
 # Prepare Vim
 mkdir -p .vim/bundle
+rm -rf .vim/bundle/*
 git clone https://github.com/gmarik/Vundle.vim .vim/bundle/Vundle.vim
-vim +BundleInstall +qa!
 
 # Mac specific
 PLATFORM=`uname`
@@ -44,4 +48,8 @@ ln -s `echo $PWD`/.tmux* ~
 ln -s `echo $PWD`/.vim* ~
 ln -s `echo $PWD`/.zsh* ~
 
-source .zshrc
+cd
+vim +BundleInstall +qa!
+
+echo
+echo "> Configurations updated. Now just run \`source .zshrc\`"
