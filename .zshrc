@@ -24,6 +24,7 @@ alias sl='ls -l `find . -maxdepth 1 -type l`'
 alias we='weechat-curses'
 alias grep='grep --color'
 alias soul='./jogsoul/jogsoul.pl .jogsoul/jogsoul.conf'
+alias resource='source ~/.zshrc'
 
 # Exports
 export PAGER='most'
