@@ -3,8 +3,14 @@
 # Set those variables to fit your configuration
 EPITA_LOGIN="seure-_a"
 EPITA_PASS_SOCKS="toto"
-COLOR_ONE="green"
-COLOR_TWO="red"
+COLOR_ONE="red"
+COLOR_TWO="yellow"
+
+# Remove existing files
+rm -rf ~/.jogsoul*
+rm -rf ~/.tmux*
+rm -rf ~/.vim*
+rm -rf ~/.zsh*
 
 # Modify SOUL configuration
 sed "s/login_x/$EPITA_LOGIN/" .jogsoul/jogsoul.conf > .jogsoul_tmp
@@ -32,14 +38,10 @@ if [[ $platform == "Darwin" ]]; then
   mv .zshrc_tmp .zshrc
 fi
 
-## Remove existing files
-#rm -rf ~/.jogsoul*
-#rm -rf ~/.tmux*
-#rm -rf ~/.vim*
-#rm -rf ~/.zsh*
+# Create relatives links
+ln -s `echo $PWD`/.jogsoul* ~
+ln -s `echo $PWD`/.tmux* ~
+ln -s `echo $PWD`/.vim* ~
+ln -s `echo $PWD`/.zsh* ~
 
-## Create relatives links
-#ln -s `echo $PWD`/.jogsoul* ~
-#ln -s `echo $PWD`/.tmux* ~
-#ln -s `echo $PWD`/.vim* ~
-#ln -s `echo $PWD`/.zsh* ~
+source .zshrc
