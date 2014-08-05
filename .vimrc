@@ -118,7 +118,6 @@
   set wrap
   set linebreak
   set textwidth=79
-  set fo=1
   set colorcolumn=+1
 
 " }
