@@ -38,7 +38,7 @@ git clone https://github.com/gmarik/Vundle.vim .vim/bundle/Vundle.vim
 
 # Mac specific
 PLATFORM=`uname`
-if [[ $platform == "Darwin" ]]; then
+if [[ $PLATFORM == "Darwin" ]]; then
   sed "s/ls --color=auto/ls -G/" .zshrc > .zshrc_tmp
   mv .zshrc_tmp .zshrc
 fi
