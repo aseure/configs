@@ -45,6 +45,8 @@
   Bundle 'honza/vim-snippets'
   Bundle 'junegunn/vim-easy-align'
   Bundle 'DoxygenToolkit.vim'
+  Bundle 'plasticboy/vim-markdown'
+  Bundle 'nelstrom/vim-markdown-folding'
 
   call vundle#end()
 
@@ -252,4 +254,14 @@
   " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
   nmap <Leader>a <Plug>(EasyAlign)
 
+" }
+
+" vim-markdown plugin {
+  " Disable markdown folding since I prefer the one from nelstrom
+  let g:vim_markdown_folding_disabled=1
+" }
+
+" vim-markdown-folding plugin {
+  " Treat *.md files as Markdown files
+  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " }
