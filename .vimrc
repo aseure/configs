@@ -208,8 +208,17 @@
 
 " Airline plugin {
 
-  " Airline
   let g:airline_powerline_fonts = 1
+
+" }
+
+" Fugitive plugin {
+
+  " Use .. to go back in the tree buffer when using Fugitive
+  autocmd User fugitive 
+    \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+    \   nnoremap <buffer> .. :edit %:h<CR> |
+    \ endif
 
 " }
 
