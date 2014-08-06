@@ -7,7 +7,8 @@ It perfectly works on both my Mac and my Linux systems.
 ## Deployment
 
 Those are guidelines to install my Jogsoul, Tmux, Vim and ZSH configurations
-but you probably want to modify several steps.
+but you probably want to modify several steps such as the variables at the
+beginning of the deploy.sh script.
 
 Basically, all the configurations are inside a directory separate from your
 HOME. They are then symbolically linked in your HOME.
