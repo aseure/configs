@@ -34,6 +34,7 @@
   Bundle 'tpope/vim-surround'
   Bundle 'tpope/vim-fugitive'
   Bundle 'tpope/vim-liquid'
+  Bundle 'tpope/vim-unimpaired'
   Bundle 'scrooloose/nerdcommenter'
   Bundle 'justinmk/vim-syntax-extra'
   Bundle 'kien/ctrlp.vim'
