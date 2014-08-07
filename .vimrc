@@ -145,18 +145,18 @@
   imap hh <Esc>
 
   " Hardcore gamer (should be used though)
-  inoremap <up> <nop>
-  vnoremap <up> <nop>
-  noremap <up> <nop>
-  inoremap <down> <nop>
-  vnoremap <down> <nop>
-  noremap <down> <nop>
-  inoremap <left> <nop>
-  vnoremap <left> <nop>
-  noremap <left> <nop>
-  inoremap <right> <nop>
-  vnoremap <right> <nop>
-  noremap <right> <nop>
+  "inoremap <up> <nop>
+  "vnoremap <up> <nop>
+  "noremap <up> <nop>
+  "inoremap <down> <nop>
+  "vnoremap <down> <nop>
+  "noremap <down> <nop>
+  "inoremap <left> <nop>
+  "vnoremap <left> <nop>
+  "noremap <left> <nop>
+  "inoremap <right> <nop>
+  "vnoremap <right> <nop>
+  "noremap <right> <nop>
 
   " Center screen
   nmap <space> zz
