@@ -93,13 +93,20 @@
   set clipboard=unnamed     " Use the unnamed register as the clipboard register
 
   set foldenable            " Enable folding
-  set foldmethod=syntax     " Fold according to the markers
+  set foldmethod=syntax     " Fold according to the syntax
   set foldlevelstart=99     " Open without folding
 
   set list                                       " Highlight special characters
   set listchars=tab:>─,extends:˺,trail:\ ,nbsp:. " List the special characters
 
   set backspace=eol,indent,start " Fix the backspace behavior
+
+  " Disable Background Color Erase (BCE) so that color schemes render properly
+  " when inside 256-color tmux and GNU screen.
+  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  if &term =~ '256color'
+    set t_ut=
+  endif
 
   colorscheme jellybeans    " Colorscheme
 
