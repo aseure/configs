@@ -186,6 +186,10 @@
   " Yank from cursor to end of line, to be consistent with C and D
   nnoremap Y y$
 
+  " Move between misspelled words
+  nmap mn ]s
+  nmap mp [s
+
 " }
 
 " Search {
