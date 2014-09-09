@@ -21,6 +21,9 @@ git reset --hard HEAD
 sed -i '' -e "s/login_x/$EPITA_LOGIN/" .jogsoul/jogsoul.conf
 sed -i '' -e "s/password/$EPITA_PASS_SOCKS/" .jogsoul/jogsoul.conf
 
+# Modify TMUX configuration
+sed -i '' -e "s/yellow/$COLOR_TWO/" .tmux.conf
+
 # Modify ZSH configuration
 sed -i '' -e "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
 sed -i '' -e "s/fg\[yellow\]/fg[$COLOR_TWO]/g" .zshrc
