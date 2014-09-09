@@ -18,18 +18,12 @@ rm -rf ~/.zsh*
 git reset --hard HEAD
 
 # Modify SOUL configuration
-sed "s/login_x/$EPITA_LOGIN/" .jogsoul/jogsoul.conf > .jogsoul_tmp
-sed "s/password/$EPITA_PASS_SOCKS/" .jogsoul_tmp > .jogsoul/jogsoul.conf
-rm .jogsoul_tmp
-
-# Modify TMUX configuration
-sed "s/blue/$COLOR_ONE/" .tmux.conf > .tmux.conf_tmp
-mv .tmux.conf_tmp .tmux.conf
+sed -i '' -e "s/login_x/$EPITA_LOGIN/" .jogsoul/jogsoul.conf
+sed -i '' -e "s/password/$EPITA_PASS_SOCKS/" .jogsoul/jogsoul.conf
 
 # Modify ZSH configuration
-sed "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc > .zshrc_tmp
-sed "s/fg\[yellow\]/fg[$COLOR_TWO]/g" .zshrc_tmp > .zshrc
-rm .zshrc_tmp
+sed -i '' -e "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
+sed -i '' -e "s/fg\[yellow\]/fg[$COLOR_TWO]/g" .zshrc
 
 # Prepare Vim
 mkdir -p .vim/bundle
@@ -39,8 +33,7 @@ git clone https://github.com/gmarik/Vundle.vim .vim/bundle/Vundle.vim
 # Mac specific
 PLATFORM=`uname`
 if [[ $PLATFORM == "Darwin" ]]; then
-  sed "s/ls --color=auto/ls -G/" .zshrc > .zshrc_tmp
-  mv .zshrc_tmp .zshrc
+  sed -i '' -e "s/ls --color=auto/ls -G/" .zshrc
 fi
 
 # Create relatives links

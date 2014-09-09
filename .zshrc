@@ -23,8 +23,10 @@ alias tree='tree -C'
 alias sl='ls -l `find . -maxdepth 1 -type l`'
 alias we='weechat-curses'
 alias grep='grep --color'
-alias soul='./jogsoul/jogsoul.pl .jogsoul/jogsoul.conf'
+alias soul='~/.jogsoul/jogsoul.pl ~/.jogsoul/jogsoul.conf'
 alias resource='source ~/.zshrc'
+alias tmu='tmux'
+alias ta='tmux a'
 
 # Exports
 export PAGER='most'
