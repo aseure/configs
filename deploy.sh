@@ -8,7 +8,7 @@ read
 EPITA_LOGIN="login_x"
 EPITA_PASS_SOCKS="password"
 COLOR_ONE="blue"
-COLOR_TWO="yellow"
+COLOR_TWO="green"
 
 # Remove existing files and checkout the current Git repository on HEAD
 rm -rf ~/.jogsoul*

@@ -90,8 +90,6 @@
   set visualbell            " Same
   set t_vb=                 " Same
 
-  set clipboard=unnamed     " Use the unnamed register as the clipboard register
-
   set foldenable            " Enable folding
   set foldmethod=syntax     " Fold according to the syntax
   set foldlevelstart=99     " Open without folding
