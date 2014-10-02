@@ -16,7 +16,7 @@ autoload -Uz compinit
 compinit
 
 # Aliases
-alias ls='ls --color=auto'
+alias ls='ls -G'
 alias ll='ls -lh'
 alias la='ls -al'
 alias tree='tree -C'
@@ -33,4 +33,4 @@ export PAGER='most'
 export EDITOR='vim'
 
 # Prompt
-export PROMPT="%{$fg[blue]%}%n%{$reset_color%}%{$fg[yellow]%} :: %{$reset_color%}%{$fg[blue]%}%m%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%} %{$fg[blue]%}%#%{$reset_color%} "
+export PROMPT="%{$fg[blue]%}%n%{$reset_color%}%{$fg[green]%} :: %{$reset_color%}%{$fg[blue]%}%m%{$reset_color%} %{$fg[green]%}%~%{$reset_color%} %{$fg[blue]%}%#%{$reset_color%} "

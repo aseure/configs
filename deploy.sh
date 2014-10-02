@@ -23,7 +23,7 @@ sed -i '' -e "s/password/$EPITA_PASS_SOCKS/" .jogsoul/jogsoul.conf
 
 # Modify ZSH configuration
 sed -i '' -e "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
-sed -i '' -e "s/fg\[yellow\]/fg[$COLOR_TWO]/g" .zshrc
+sed -i '' -e "s/fg\[green\]/fg[$COLOR_TWO]/g" .zshrc
 
 # Prepare Vim
 mkdir -p .vim/bundle
