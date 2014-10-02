@@ -167,6 +167,20 @@
   nnoremap tn :tabnew<CR>
   nnoremap tt :tabclose<CR>
 
+  " Tags jumps
+  if has("unix")
+    let s:uname = system("uname -s")
+      if s:uname == "Darwin\n"
+        au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !/opt/local/bin/ctags -R &
+      else
+        au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !ctags -R &
+      endif
+  endif
+
+  nmap <leader>t <C-]>
+  nmap <leader>u <C-t>
+
+
   " Spelling
   map <silent> <F7> "<Esc>:silent setlocal spell! spelllang=en<CR>"
   map <silent> <F8> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
