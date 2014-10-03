@@ -16,7 +16,7 @@ autoload -Uz compinit
 compinit
 
 # Aliases
-alias ls='ls -G'
+alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -al'
 alias tree='tree -C'
