@@ -7,6 +7,8 @@ read
 # Set those variables to fit your configuration
 COLOR_ONE="blue"
 COLOR_TWO="green"
+GIT_CONFIG_NAME="Anthony Seure"
+GIT_CONFIG_EMAIL="anthony.seure@gmail.com"
 
 # Remove existing files and checkout the current Git repository on HEAD
 rm -rf ~/.tmux*
@@ -15,6 +17,10 @@ rm -rf ~/.zsh*
 rm -f ~/.gitconfig
 rm -f ~/.gitignore_global
 git reset --hard HEAD
+
+# Modify Git configuration
+sed -i '' -e "s/Anthony Seure/$GIT_CONFIG_NAME/g" .gitconfig
+sed -i '' -e "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
 
 # Modify ZSH configuration
 sed -i '' -e "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc

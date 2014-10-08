@@ -6,7 +6,7 @@ It perfectly works on both my Mac and my Linux systems.
 
 ## Deployment
 
-Those are guidelines to install my Jogsoul, Tmux, Vim and ZSH configurations
+Those are guidelines to install my Git, Tmux, Vim and ZSH configurations
 but you probably want to modify several steps such as the variables at the
 beginning of the deploy.sh script.
 
