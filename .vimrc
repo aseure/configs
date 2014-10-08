@@ -140,7 +140,7 @@
 
   " Escape is too far away (QWERTY and Dvorak layout)
   "imap jj <Esc>
-  imap hh <Esc>
+  imap uu <Esc>
 
   " Hardcore gamer (should be used though)
   "inoremap <up> <nop>
