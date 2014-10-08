@@ -1,27 +1,20 @@
 #! /bin/bash
 
-echo "> Your configurations files for Jogsoul, Tmux, Vim and ZSH will be erased."
+echo "> Your configurations files for Git, Tmux, Vim and ZSH will be erased."
 echo "> Press any key to continue or press ^C to abort"
 read
 
 # Set those variables to fit your configuration
-EPITA_LOGIN="login_x"
-EPITA_PASS_SOCKS="password"
 COLOR_ONE="blue"
 COLOR_TWO="green"
 
 # Remove existing files and checkout the current Git repository on HEAD
-rm -rf ~/.jogsoul*
 rm -rf ~/.tmux*
 rm -rf ~/.vim*
 rm -rf ~/.zsh*
 rm -f ~/.gitconfig
 rm -f ~/.gitignore_global
 git reset --hard HEAD
-
-# Modify SOUL configuration
-sed -i '' -e "s/login_x/$EPITA_LOGIN/" .jogsoul/jogsoul.conf
-sed -i '' -e "s/password/$EPITA_PASS_SOCKS/" .jogsoul/jogsoul.conf
 
 # Modify ZSH configuration
 sed -i '' -e "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
@@ -39,7 +32,6 @@ if [[ $PLATFORM == "Darwin" ]]; then
 fi
 
 # Create relatives links
-ln -s `echo $PWD`/.jogsoul* ~
 ln -s `echo $PWD`/.tmux* ~
 ln -s `echo $PWD`/.vim* ~
 ln -s `echo $PWD`/.zsh* ~
