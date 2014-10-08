@@ -15,6 +15,8 @@ rm -rf ~/.jogsoul*
 rm -rf ~/.tmux*
 rm -rf ~/.vim*
 rm -rf ~/.zsh*
+rm -f ~/.gitconfig
+rm -f ~/.gitignore_global
 git reset --hard HEAD
 
 # Modify SOUL configuration
@@ -41,6 +43,8 @@ ln -s `echo $PWD`/.jogsoul* ~
 ln -s `echo $PWD`/.tmux* ~
 ln -s `echo $PWD`/.vim* ~
 ln -s `echo $PWD`/.zsh* ~
+ln -s `echo $PWD`/.gitconfig ~
+ln -s `echo $PWD`/.gitignore_global ~
 
 cd
 vim +BundleInstall +qa!

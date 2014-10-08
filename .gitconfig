@@ -1,0 +1,20 @@
+[user]
+	email = anthony.seure@gmail.com
+	name = Anthony Seure
+[color]
+	ui = true
+	branch = true
+	diff = true
+	interactive = true
+	status = true
+[alias]
+	st = status
+	br = branch
+	ci = commit
+	co = checkout
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+	default = simple
+[core]
+	excludesfile = ~/.gitignore_global
+	ignorecase = false
