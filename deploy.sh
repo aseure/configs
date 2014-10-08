@@ -10,6 +10,9 @@ COLOR_TWO="green"
 GIT_CONFIG_NAME="Anthony Seure"
 GIT_CONFIG_EMAIL="anthony.seure@gmail.com"
 
+# Mac specific
+PLATFORM=`uname`
+
 # Remove existing files and checkout the current Git repository on HEAD
 rm -rf ~/.tmux*
 rm -rf ~/.vim*
@@ -19,12 +22,22 @@ rm -f ~/.gitignore_global
 git reset --hard HEAD
 
 # Modify Git configuration
-sed -i '' -e "s/Anthony Seure/$GIT_CONFIG_NAME/g" .gitconfig
-sed -i '' -e "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
+if [[ $PLATFORM == "Darwin" ]]; then
+  sed -i '' "s/Anthony Seure/$GIT_CONFIG_NAME/g" .gitconfig
+  sed -i '' "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
+else
+  sed -i "s/Anthony Seure/$GIT_CONFIG_NAME/g" .gitconfig
+  sed -i "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
+fi
 
 # Modify ZSH configuration
-sed -i '' -e "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
-sed -i '' -e "s/fg\[green\]/fg[$COLOR_TWO]/g" .zshrc
+if [[ $PLATFORM == "Darwin" ]]; then
+  sed -i '' "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
+  sed -i '' "s/fg\[green\]/fg[$COLOR_TWO]/g" .zshrc
+else
+  sed -i "s/fg\[blue\]/fg[$COLOR_ONE]/g" .zshrc
+  sed -i "s/fg\[green\]/fg[$COLOR_TWO]/g" .zshrc
+fi
 
 # Prepare Vim
 mkdir -p .vim/bundle
@@ -32,9 +45,8 @@ rm -rf .vim/bundle/*
 git clone https://github.com/gmarik/Vundle.vim .vim/bundle/Vundle.vim
 
 # Mac specific
-PLATFORM=`uname`
 if [[ $PLATFORM == "Darwin" ]]; then
-  sed -i '' -e "s/ls --color=auto/ls -G/" .zshrc
+  sed -i '' "s/ls --color=auto/ls -G/" .zshrc
 fi
 
 # Create relatives links
