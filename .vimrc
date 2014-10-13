@@ -45,7 +45,6 @@
   Bundle 'honza/vim-snippets'
   Bundle 'junegunn/vim-easy-align'
   Bundle 'DoxygenToolkit.vim'
-  Bundle 'plasticboy/vim-markdown'
   Bundle 'nelstrom/vim-markdown-folding'
 
   call vundle#end()
