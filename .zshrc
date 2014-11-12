@@ -16,7 +16,7 @@ autoload -Uz compinit
 compinit
 
 # Aliases
-alias ls='ls --color=auto'
+alias ls='ls -G'
 alias ll='ls -lh'
 alias la='ls -al'
 alias tree='tree -C'
@@ -28,9 +28,5 @@ alias resource='source ~/.zshrc'
 alias tmu='tmux'
 alias ta='tmux a'
 
-# Exports
-export PAGER='most'
-export EDITOR='vim'
-
-# Prompt
+# Promt
 export PROMPT="%{$fg[blue]%}%n%{$reset_color%}%{$fg[green]%} :: %{$reset_color%}%{$fg[blue]%}%m%{$reset_color%} %{$fg[green]%}%~%{$reset_color%} %{$fg[blue]%}%#%{$reset_color%} "
