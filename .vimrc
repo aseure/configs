@@ -46,6 +46,7 @@
   Bundle 'junegunn/vim-easy-align'
   Bundle 'DoxygenToolkit.vim'
   Bundle 'nelstrom/vim-markdown-folding'
+  Bundle 'Lokaltog/vim-easymotion'
 
   call vundle#end()
 
@@ -286,4 +287,12 @@
 " vim-markdown-folding plugin {
   " Treat *.md files as Markdown files
   autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" }
+
+" Easymotion plugin {
+  " Replace default search
+  map  / <Plug>(easymotion-sn)
+  omap / <Plug>(easymotion-tn)
+  map  n <Plug>(easymotion-next)
+  map  N <Plug>(easymotion-prev)
 " }
