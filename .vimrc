@@ -161,6 +161,12 @@
   nmap n nzz
   nmap N Nzz
 
+  " Buffer navigation
+  nnoremap gp :bp<CR>
+  nnoremap gn :bn<CR>
+  nnoremap gl :ls<CR>
+  nnoremap gb :ls<CR>:b
+
   " Tabs navigation
   nnoremap tj :tabnext<CR>
   nnoremap tk :tabprevious<CR>
@@ -170,11 +176,7 @@
   " Tags jumps
   if has("unix")
     let s:uname = system("uname -s")
-      if s:uname == "Darwin\n"
-        au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !/opt/local/bin/ctags -R &
-      else
-        au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !ctags -R &
-      endif
+      au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !ctags -R &
   endif
 
   nmap <leader>t <C-]>
