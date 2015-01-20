@@ -109,6 +109,8 @@
 
   colorscheme jellybeans    " Colorscheme
 
+  set clipboard=unnamed
+
 " }
 
 " Formatting {
@@ -175,10 +177,11 @@
   nnoremap tt :tabclose<CR>
 
   " Tags jumps
-  if has("unix")
-    let s:uname = system("uname -s")
-      au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !ctags -R &
-  endif
+  " TO FIX
+  "if has("unix")
+    "let s:uname = system("uname -s")
+      "au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !ctags -R &
+  "endif
 
   nmap <leader>t <C-]>
   nmap <leader>u <C-t>
