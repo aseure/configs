@@ -53,6 +53,7 @@ fi
 # Create relatives links
 ln -s `echo $PWD`/.tmux* ~
 ln -s `echo $PWD`/.vim* ~
+ln -s `echo $PWD`/.gvimrc ~
 ln -s `echo $PWD`/.zsh* ~
 ln -s `echo $PWD`/.gitconfig ~
 ln -s `echo $PWD`/.gitignore_global ~

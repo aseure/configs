@@ -33,9 +33,8 @@
   Bundle 'gmarik/Vundle.vim'
   Bundle 'tpope/vim-surround'
   Bundle 'tpope/vim-fugitive'
-  Bundle 'tpope/vim-liquid'
-  Bundle 'tpope/vim-unimpaired'
   Bundle 'scrooloose/nerdcommenter'
+  Bundle 'scrooloose/nerdtree'
   Bundle 'justinmk/vim-syntax-extra'
   Bundle 'kien/ctrlp.vim'
   Bundle 'bling/vim-airline'
@@ -44,7 +43,6 @@
   Bundle 'MarcWeber/vim-addon-mw-utils'
   Bundle 'honza/vim-snippets'
   Bundle 'junegunn/vim-easy-align'
-  Bundle 'DoxygenToolkit.vim'
   Bundle 'nelstrom/vim-markdown-folding'
   Bundle 'Lokaltog/vim-easymotion'
   Bundle 'Shougo/neocomplete'
@@ -111,6 +109,9 @@
   colorscheme jellybeans    " Colorscheme
 
   set clipboard=unnamed
+
+  " Use the `W' command to save as root
+  command Ws :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " }
 
@@ -251,6 +252,13 @@
     \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
     \   nnoremap <buffer> .. :edit %:h<CR> |
     \ endif
+
+" }
+
+" Nerd Tree plugin {
+
+  nnoremap <silent> <F9> :NERDTreeToggle<CR>
+  nnoremap <silent> <F10> :TlistToggle<CR>
 
 " }
 
