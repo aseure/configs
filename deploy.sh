@@ -1,6 +1,6 @@
 #! /bin/bash
 
-echo "> Your configurations files for Git, Tmux, Vim and ZSH will be erased."
+echo "> Your configurations files for Git, Tmux, Vim, ZSH and Pentadactyl will be erased."
 echo "> Press any key to continue or press ^C to abort"
 read
 
@@ -19,6 +19,7 @@ rm -rf ~/.vim*
 rm -rf ~/.zsh*
 rm -f ~/.gitconfig
 rm -f ~/.gitignore_global
+rm -f ~/.pentadactyl*
 git reset --hard HEAD
 
 # Modify Git configuration
@@ -55,6 +56,7 @@ ln -s `echo $PWD`/.vim* ~
 ln -s `echo $PWD`/.zsh* ~
 ln -s `echo $PWD`/.gitconfig ~
 ln -s `echo $PWD`/.gitignore_global ~
+ln -s `echo $PWD`/.pentadactyl* ~
 
 cd
 vim +BundleInstall +qa!

@@ -48,6 +48,7 @@
   Bundle 'nelstrom/vim-markdown-folding'
   Bundle 'Lokaltog/vim-easymotion'
   Bundle 'Shougo/neocomplete'
+  Bundle 'fatih/vim-go'
 
   call vundle#end()
 
@@ -96,7 +97,7 @@
   set foldlevelstart=99     " Open without folding
 
   set list                                       " Highlight special characters
-  set listchars=tab:>─,extends:˺,trail:\ ,nbsp:. " List the special characters
+  set listchars=tab:›\ ,extends:˺,trail:\ ,nbsp:. " List the special characters
 
   set backspace=eol,indent,start " Fix the backspace behavior
 
@@ -118,7 +119,7 @@
   set expandtab             " Spaces instead of tabulations
   set cindent
 
-  set tabstop=8             " Length of a tabulation
+  set tabstop=4             " Length of a tabulation
   set shiftwidth=2          " Number of spaces inserted by < and >
   set softtabstop=2         " Number of spaces when hitting TAB
 

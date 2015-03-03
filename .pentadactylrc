@@ -1,0 +1,8 @@
+" Set Duck Duck Go as the default search engine
+set defsearch=duckduckgo
+
+" Set the colorscheme
+colorscheme vimium
+
+" Change GUI options
+set guioptions=nT
