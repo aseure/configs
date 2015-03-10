@@ -18,6 +18,10 @@
 " <chewie@deliciousmuffins.net>
 " https://bitbucket.org/Chmool/linux-conf
 "
+" Marc "null" Angel
+" <marc@angel.pm>
+" https://bitbucket.org/null_/configs/src
+"
 " And others.
 "
 """"""""""""""""""""""""""""""""""""""""""""
@@ -94,10 +98,21 @@
   set foldmethod=syntax     " Fold according to the syntax
   set foldlevelstart=99     " Open without folding
 
-  set list                                       " Highlight special characters
+  set shortmess=a           " Shorter messages
+  set autochdir             " Set working directory to the current file
+  set clipboard=unnamed     " Merge unamed register and "* register
+
+  colorscheme jellybeans    " Colorscheme
+
+  set backspace=eol,indent,start                  " Fix the backspace behavior
+  set list                                        " Highlight special characters
   set listchars=tab:›\ ,extends:˺,trail:\ ,nbsp:. " List the special characters
 
-  set backspace=eol,indent,start " Fix the backspace behavior
+  " Use the `W' command to save as root
+  command Ws :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+  " Use longer pipe as vertical separation
+  set fillchars-=vert:\| | set fillchars+=vert:\⎜
 
   " Disable Background Color Erase (BCE) so that color schemes render properly
   " when inside 256-color tmux and GNU screen.
@@ -105,13 +120,6 @@
   if &term =~ '256color'
     set t_ut=
   endif
-
-  colorscheme jellybeans    " Colorscheme
-
-  set clipboard=unnamed
-
-  " Use the `W' command to save as root
-  command Ws :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " }
 
@@ -143,9 +151,8 @@
   " Change the map leader key
   let mapleader=" "
 
-  " Escape is too far away (QWERTY and Dvorak layout)
-  "imap jj <Esc>
-  imap uu <Esc>
+  imap uu <Esc>             " Escape is too far away (QWERTY and Dvorak layout)
+  set noesckeys             " Faster <Esc>
 
   " Hardcore gamer (should be used though)
   "inoremap <up> <nop>
