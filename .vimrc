@@ -26,7 +26,7 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""
 
-" Vundle {
+" {{{ Vundle
 
   set nocompatible
   filetype off
@@ -54,9 +54,9 @@
 
   call vundle#end()
 
-" }
+" }}}
 
-" General {
+" {{{ General
 
   language C                " English please (General)
   set langmenu=en_US.UTF-8  " English please (GVim menu)
@@ -95,7 +95,7 @@
   set t_vb=                 " Same
 
   set foldenable            " Enable folding
-  set foldmethod=syntax     " Fold according to the syntax
+  set foldmethod=indent     " Fold according to the indentation
   set foldlevelstart=99     " Open without folding
 
   set shortmess=a           " Shorter messages
@@ -121,9 +121,9 @@
     set t_ut=
   endif
 
-" }
+" }}}
 
-" Formatting {
+" {{{ Formatting
 
   set expandtab             " Spaces instead of tabulations
   set cindent
@@ -141,9 +141,9 @@
   set textwidth=79
   set colorcolumn=+1
 
-" }
+" }}}
 
-" Mappings {
+" {{{ Mappings
 
   " Disable Ex mode
   nnoremap Q <nop>
@@ -180,10 +180,8 @@
   nnoremap gb :ls<CR>:b
 
   " Tabs navigation
-  nnoremap tj :tabnext<CR>
-  nnoremap tk :tabprevious<CR>
-  nnoremap tn :tabnew<CR>
-  nnoremap tt :tabclose<CR>
+  nnoremap tj :bnext<CR>
+  nnoremap tk :bprevious<CR>
 
   " Tags jumps
   " TO FIX
@@ -217,9 +215,9 @@
   nmap mn ]s
   nmap mp [s
 
-" }
+" }}}
 
-" Search {
+" {{{ Search
 
   set magic                 " Improve the search
 
@@ -233,9 +231,9 @@
   set hls                   " Highlight search toggle <C-H>
   map <C-h> :set hls!<CR>
 
-" }
+" }}}
 
-" Syntax {
+" {{{ Syntax
 
   " Markdown
   let g:pandoc_use_hard_wraps = 1
@@ -244,15 +242,16 @@
   " Tiger
   au BufNewFile,BufRead *.tig so ~/.vim/syntax/tiger.vim
 
-" }
+" }}}
 
-" Airline plugin {
+" {{{ Airline plugin
 
   let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
 
-" }
+" }}}
 
-" Fugitive plugin {
+" {{{ Fugitive plugin
 
   " Use .. to go back in the tree buffer when using Fugitive
   autocmd User fugitive 
@@ -260,16 +259,16 @@
     \   nnoremap <buffer> .. :edit %:h<CR> |
     \ endif
 
-" }
+" }}}
 
-" Nerd Tree plugin {
+" {{{ Nerd Tree plugin
 
   nnoremap <silent> <F9> :NERDTreeToggle<CR>
   nnoremap <silent> <F10> :TlistToggle<CR>
 
-" }
+" }}}
 
-" ctrlp plugin {
+" {{{ ctrlp plugin
 
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.o
   set wildignore+=*\\tmp\\*,*.exe,*.swp,*.zip,*.pdf,*.o
@@ -289,9 +288,9 @@
   "\ 'file': '\v\.(exe|so|dll)$'
   "\ }
 
-" }
+" }}}
 
-" Easy align plugin {
+" {{{ Easy align plugin
 
   " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
   vmap <Enter> <Plug>(EasyAlign)
@@ -299,29 +298,29 @@
   " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
   nmap <Leader>a <Plug>(EasyAlign)
 
-" }
+" }}}
 
-" vim-markdown plugin {
+" {{{ vim-markdown plugin
   " Disable markdown folding since I prefer the one from nelstrom
   let g:vim_markdown_folding_disabled=1
-" }
+" }}}
 
-" vim-markdown-folding plugin {
+" {{{ vim-markdown-folding plugin
   " Treat *.md files as Markdown files
   autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-" }
+" }}}
 
-" Easymotion plugin {
+" {{{ Easymotion plugin
   " Replace default search
   map  / <Plug>(easymotion-sn)
   omap / <Plug>(easymotion-tn)
   map  n <Plug>(easymotion-next)
   map  N <Plug>(easymotion-prev)
-" }
+" }}}
 
-" Neocomplete plugin {
+" {{{ Neocomplete plugin
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
 
   inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" }
+" }}}
