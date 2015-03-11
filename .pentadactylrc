@@ -5,7 +5,7 @@ set defsearch=duckduckgo
 colorscheme vimium
 
 " Change GUI options
-set guioptions=nT
+set guioptions=brnT
 
 " Set the editor (Mac only for now)
 set editor='/usr/local/bin/mvim -f +<line> +"sil! call cursor(0, <column>)" <file>a'
