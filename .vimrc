@@ -99,7 +99,6 @@
   set foldlevelstart=99     " Open without folding
 
   set shortmess=a           " Shorter messages
-  set autochdir             " Set working directory to the current file
   set clipboard=unnamed     " Merge unamed register and "* register
 
   colorscheme jellybeans    " Colorscheme
@@ -179,9 +178,10 @@
   nnoremap gl :ls<CR>
   nnoremap gb :ls<CR>:b
 
-  " Tabs navigation
+  " Buffer navigation
   nnoremap tj :bnext<CR>
   nnoremap tk :bprevious<CR>
+  nnoremap tt :bdelete<CR>
 
   " Tags jumps
   " TO FIX
@@ -288,6 +288,7 @@
   "\ 'file': '\v\.(exe|so|dll)$'
   "\ }
 
+  nnoremap <C-.> :CtrlPTag<CR>
 " }}}
 
 " {{{ Easy align plugin
@@ -301,26 +302,48 @@
 " }}}
 
 " {{{ vim-markdown plugin
+
   " Disable markdown folding since I prefer the one from nelstrom
   let g:vim_markdown_folding_disabled=1
+
 " }}}
 
 " {{{ vim-markdown-folding plugin
+
   " Treat *.md files as Markdown files
   autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
 " }}}
 
 " {{{ Easymotion plugin
+
   " Replace default search
   map  / <Plug>(easymotion-sn)
   omap / <Plug>(easymotion-tn)
   map  n <Plug>(easymotion-next)
   map  N <Plug>(easymotion-prev)
+
 " }}}
 
 " {{{ Neocomplete plugin
+
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
 
   inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" }}}
+
+" {{{ vim-go
+
+  " Enable syntax highlighting
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+
+  " Automatically imports modules
+  let g:go_fmt_command = "goimports"
+
 " }}}
