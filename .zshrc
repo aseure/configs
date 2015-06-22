@@ -15,10 +15,23 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 autoload -Uz compinit
 compinit
 
+# History
+HISTSIZE=1000
+if (( ! EUID )); then
+  HISTFILE=~/.history_root
+else
+  HISTFILE=~/.history
+fi
+SAVEHIST=1000
+
+setopt inc_append_history
+setopt share_history
+
 # Aliases
 alias ls='ls -G'
 alias ll='ls -lh'
 alias la='ls -al'
+alias ccat='vimcat'
 alias tree='tree -C'
 alias sl='ls -l `find . -maxdepth 1 -type l`'
 alias we='weechat-curses'
