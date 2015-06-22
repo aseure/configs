@@ -28,7 +28,14 @@ setopt inc_append_history
 setopt share_history
 
 # Aliases
-alias ls='ls -G'
+case `uname` in
+  Darwin)
+    alias ls='ls -FG'
+    ;;
+  Linux)
+    alias ls='ls -F --color=auto'
+    ;;
+esac
 alias ll='ls -lh'
 alias la='ls -al'
 alias ccat='vimcat'
