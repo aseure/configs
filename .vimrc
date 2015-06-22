@@ -49,7 +49,6 @@
   Bundle 'junegunn/vim-easy-align'
   Bundle 'nelstrom/vim-markdown-folding'
   Bundle 'Lokaltog/vim-easymotion'
-  Bundle 'Shougo/neocomplete'
   Bundle 'fatih/vim-go'
 
   call vundle#end()
@@ -322,15 +321,6 @@
   omap / <Plug>(easymotion-tn)
   map  n <Plug>(easymotion-next)
   map  N <Plug>(easymotion-prev)
-
-" }}}
-
-" {{{ Neocomplete plugin
-
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " }}}
 
