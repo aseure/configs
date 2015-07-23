@@ -172,12 +172,6 @@
   nmap N Nzz
 
   " Buffer navigation
-  nnoremap gp :bp<CR>
-  nnoremap gn :bn<CR>
-  nnoremap gl :ls<CR>
-  nnoremap gb :ls<CR>:b
-
-  " Buffer navigation
   nnoremap tj :bnext<CR>
   nnoremap tk :bprevious<CR>
   nnoremap tt :bdelete<CR>
