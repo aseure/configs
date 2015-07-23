@@ -252,6 +252,13 @@
     \   nnoremap <buffer> .. :edit %:h<CR> |
     \ endif
 
+  " Personnal bindings
+  nmap > :cprevious<CR>
+  nmap <leader>> :cfirst<CR>
+  nmap < :cnext<CR>
+  nmap <leader>< :clast<CR>
+  nmap <leader>gl :silent! Glog<CR>
+
 " }}}
 
 " {{{ Nerd Tree plugin
