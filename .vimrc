@@ -153,18 +153,24 @@
   set noesckeys             " Faster <Esc>
 
   " Hardcore gamer (should be used though)
-  "inoremap <up> <nop>
-  "vnoremap <up> <nop>
-  "noremap <up> <nop>
-  "inoremap <down> <nop>
-  "vnoremap <down> <nop>
-  "noremap <down> <nop>
-  "inoremap <left> <nop>
-  "vnoremap <left> <nop>
-  "noremap <left> <nop>
-  "inoremap <right> <nop>
-  "vnoremap <right> <nop>
-  "noremap <right> <nop>
+  inoremap <up> <nop>
+  vnoremap <up> <nop>
+  noremap <up> <nop>
+  inoremap <down> <nop>
+  vnoremap <down> <nop>
+  noremap <down> <nop>
+  inoremap <left> <nop>
+  vnoremap <left> <nop>
+  noremap <left> <nop>
+  inoremap <right> <nop>
+  vnoremap <right> <nop>
+  noremap <right> <nop>
+
+  " Move in quickfix list using arrow keys
+  nmap <silent> <right> :cprevious<CR>
+  nmap <silent> <left> :cnext<CR>
+  nmap <silent> <up> :cfirst<CR>
+  nmap <silent> <down> :clast<CR>
 
   " Center screen
   nmap <space> zz
@@ -252,11 +258,7 @@
     \   nnoremap <buffer> .. :edit %:h<CR> |
     \ endif
 
-  " Personnal bindings
-  nmap > :cprevious<CR>
-  nmap <leader>> :cfirst<CR>
-  nmap < :cnext<CR>
-  nmap <leader>< :clast<CR>
+  " Alias gl on :Glog
   nmap <leader>gl :silent! Glog<CR>
 
 " }}}
