@@ -20,6 +20,7 @@ rm -rf ~/.zsh*
 rm -f ~/.gitconfig
 rm -f ~/.gitignore_global
 rm -f ~/.pentadactyl*
+rm -f ~/.Xresources
 git reset --hard HEAD
 
 # Modify Git configuration
@@ -58,6 +59,7 @@ ln -s `echo $PWD`/.zsh* ~
 ln -s `echo $PWD`/.gitconfig ~
 ln -s `echo $PWD`/.gitignore_global ~
 ln -s `echo $PWD`/.pentadactyl* ~
+ln -s `echo $PWD`/.Xresources ~
 
 cd
 vim +BundleInstall +qa!
