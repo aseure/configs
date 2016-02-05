@@ -119,6 +119,8 @@
     set t_ut=
   endif
 
+  set tags=~/tags
+
 " }}}
 
 " {{{ Formatting
@@ -183,15 +185,8 @@
   nnoremap tt :bdelete<CR>
 
   " Tags jumps
-  " TO FIX
-  "if has("unix")
-    "let s:uname = system("uname -s")
-      "au BufWritePost *.c,*.h,*.hh,*.cpp,*.hpp,*.cc,*.hh,*.hxx silent! !ctags -R &
-  "endif
-
   nmap <leader>t <C-]>
-  nmap <leader>u <C-t>
-
+  nmap <leader>e <C-t>
 
   " Spelling
   map <silent> <F7> "<Esc>:silent setlocal spell! spelllang=en<CR>"
