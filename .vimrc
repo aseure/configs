@@ -41,7 +41,8 @@
   Bundle 'scrooloose/nerdtree'
   Bundle 'justinmk/vim-syntax-extra'
   Bundle 'kien/ctrlp.vim'
-  Bundle 'bling/vim-airline'
+  Bundle 'vim-airline/vim-airline'
+  Bundle 'vim-airline/vim-airline-themes'
   Bundle 'garbas/vim-snipmate'
   Bundle 'tomtom/tlib_vim'
   Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -50,6 +51,8 @@
   Bundle 'nelstrom/vim-markdown-folding'
   Bundle 'Lokaltog/vim-easymotion'
   Bundle 'fatih/vim-go'
+  Bundle 'chrisbra/csv.vim'
+  Bundle 'kchmck/vim-coffee-script'
 
   call vundle#end()
 
@@ -136,7 +139,7 @@
   set smartindent           " Smart indent...
   set autoindent            " Use the basic previous line indentation
 
-  set wrap
+  set nowrap
   set linebreak
   set textwidth=79
   set colorcolumn=+1
@@ -236,6 +239,9 @@
   " Tiger
   au BufNewFile,BufRead *.tig so ~/.vim/syntax/tiger.vim
 
+  " Dockerfile
+  au BufNewFile,BufRead Dockerfile* set syntax=dockerfile
+
 " }}}
 
 " {{{ Airline plugin
@@ -267,23 +273,18 @@
 
 " {{{ ctrlp plugin
 
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.o
-  set wildignore+=*\\tmp\\*,*.exe,*.swp,*.zip,*.pdf,*.o
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.o,*.pyc
 
   let g:ctrlp_map = '<c-p>'
   let g:ctrlp_cmd = 'CtrlPMixed'
 
   let g:ctrlp_working_path_mode = 'ra'
 
-  " MacOSX/Linux mode
-  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-  let g:ctrlp_extensions = ['tag']
+  let g:ctrlp_max_files = 0
 
-  " Windows mode
-  "let g:ctrlp_custom_ignore = {
-  "\ 'dir': '\v[\/]\.(git|hg|svn)$',
-  "\ 'file': '\v\.(exe|so|dll)$'
-  "\ }
+  " MacOSX/Linux mode
+  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
+  let g:ctrlp_extensions = ['tag']
 
   " Use the_silver_search instead of grep if installed
   if executable('ag')
