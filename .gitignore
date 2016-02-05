@@ -1,3 +1,4 @@
 .vim/.netrwhist
-.vim/spell
 .vim/bundle
+.vim/spell
+tmux*.log
