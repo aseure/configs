@@ -62,6 +62,7 @@
 
   language C                " English please (General)
   set langmenu=en_US.UTF-8  " English please (GVim menu)
+  set encoding=utf8         " Vim character encoding
 
   filetype plugin indent on " Load syntax plugins
 
