@@ -53,6 +53,7 @@
   Bundle 'fatih/vim-go'
   Bundle 'chrisbra/csv.vim'
   Bundle 'kchmck/vim-coffee-script'
+  Bundle 'rizzatti/dash.vim'
 
   call vundle#end()
 
@@ -348,5 +349,11 @@
 
   " Automatically imports modules
   let g:go_fmt_command = "goimports"
+
+" }}}
+
+" {{{ dash.vim
+
+  nmap <silent> <leader>d <Plug>DashSearch
 
 " }}}
