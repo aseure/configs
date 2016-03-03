@@ -361,3 +361,9 @@
   nmap <silent> <leader>d <Plug>DashSearch
 
 " }}}
+
+" {{{ vim-action-ag
+
+  nmap <silent> <leader>ag gagiw
+
+" }}}
