@@ -70,5 +70,10 @@ export GOPATH="$HOME/go"
 export HOMEBREW_GITHUB_API_TOKEN="869e36494440c684507e6834b293806f8019e209"
 export MANPAGER="most -s"
 export PAGER="most"
-export PATH="$HOME/.configs/scripts:$HOME/go/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.configs/scripts:$HOME/go/bin:$PATH"
 export PROMPT="%{$fg[blue]%}%n%{$reset_color%}%{$fg[green]%} :: %{$reset_color%}%{$fg[blue]%}%m%{$reset_color%} %{$fg[green]%}%~%{$reset_color%} %{$fg[blue]%}%#%{$reset_color%} "
+
+###############################################################################
+#                                                                        Misc #
+###############################################################################
+eval "$(rbenv init -)"
