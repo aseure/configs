@@ -34,26 +34,30 @@
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
 
+  Bundle 'Chun-Yang/vim-action-ag'
+  Bundle 'Lokaltog/vim-easymotion'
+  Bundle 'MarcWeber/vim-addon-mw-utils'
+  Bundle 'chrisbra/csv.vim'
+  Bundle 'ervandew/supertab'
+  Bundle 'fatih/vim-go'
+  Bundle 'garbas/vim-snipmate'
   Bundle 'gmarik/Vundle.vim'
-  Bundle 'tpope/vim-surround'
-  Bundle 'tpope/vim-fugitive'
-  Bundle 'scrooloose/nerdcommenter'
-  Bundle 'scrooloose/nerdtree'
+  Bundle 'honza/vim-snippets'
+  Bundle 'jiangmiao/auto-pairs'
+  Bundle 'junegunn/vim-easy-align'
   Bundle 'justinmk/vim-syntax-extra'
   Bundle 'kien/ctrlp.vim'
+  Bundle 'nelstrom/vim-markdown-folding'
+  Bundle 'rizzatti/dash.vim'
+  Bundle 'rking/ag.vim'
+  Bundle 'scrooloose/nerdcommenter'
+  Bundle 'scrooloose/nerdtree'
+  Bundle 'tomtom/tlib_vim'
+  Bundle 'tpope/vim-fugitive'
+  Bundle 'tpope/vim-speeddating'
+  Bundle 'tpope/vim-surround'
   Bundle 'vim-airline/vim-airline'
   Bundle 'vim-airline/vim-airline-themes'
-  Bundle 'garbas/vim-snipmate'
-  Bundle 'tomtom/tlib_vim'
-  Bundle 'MarcWeber/vim-addon-mw-utils'
-  Bundle 'honza/vim-snippets'
-  Bundle 'junegunn/vim-easy-align'
-  Bundle 'nelstrom/vim-markdown-folding'
-  Bundle 'Lokaltog/vim-easymotion'
-  Bundle 'fatih/vim-go'
-  Bundle 'chrisbra/csv.vim'
-  Bundle 'kchmck/vim-coffee-script'
-  Bundle 'rizzatti/dash.vim'
 
   call vundle#end()
 
@@ -355,5 +359,11 @@
 " {{{ dash.vim
 
   nmap <silent> <leader>d <Plug>DashSearch
+
+" }}}
+
+" {{{ SuperTab
+
+  "let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " }}}
