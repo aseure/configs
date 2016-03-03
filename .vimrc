@@ -361,9 +361,3 @@
   nmap <silent> <leader>d <Plug>DashSearch
 
 " }}}
-
-" {{{ SuperTab
-
-  "let g:SuperTabDefaultCompletionType = "<c-n>"
-
-" }}}
