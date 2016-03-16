@@ -43,7 +43,6 @@
   Bundle 'garbas/vim-snipmate'
   Bundle 'gmarik/Vundle.vim'
   Bundle 'honza/vim-snippets'
-  Bundle 'jiangmiao/auto-pairs'
   Bundle 'junegunn/vim-easy-align'
   Bundle 'justinmk/vim-syntax-extra'
   Bundle 'kien/ctrlp.vim'
@@ -228,11 +227,12 @@
   set smartcase             " Ignore case unless there is an uppercase letter in the pattern
 
   set incsearch             " Move cursor to the matched string
-  set nohlsearch            " Highlight matched string
+  set hls                   " Highlight matched string
   set gdefault              " Set the 'g' option for substitution (don't hit me)
 
-  set hls                   " Highlight search toggle <C-H>
+  " Highlight search toggle <C-H>
   map <C-h> :set hls!<CR>
+  hi Search cterm=NONE ctermfg=Black ctermbg=Yellow
 
 " }}}
 
