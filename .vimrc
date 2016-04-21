@@ -57,6 +57,8 @@
   Bundle 'tpope/vim-surround'
   Bundle 'vim-airline/vim-airline'
   Bundle 'vim-airline/vim-airline-themes'
+  Bundle 'vim-scripts/AnsiEsc.vim'
+  Bundle 'altercation/vim-colors-solarized'
 
   call vundle#end()
 
@@ -108,7 +110,8 @@
   set shortmess=a           " Shorter messages
   set clipboard=unnamed     " Merge unamed register and "* register
 
-  colorscheme jellybeans    " Colorscheme
+  set background=light
+  colorscheme solarized     " Colorscheme
 
   set backspace=eol,indent,start                  " Fix the backspace behavior
   set list                                        " Highlight special characters
@@ -128,6 +131,8 @@
   endif
 
   set tags=~/tags
+
+  set guioptions-=r         " Disable the scrollbar
 
 " }}}
 
@@ -216,6 +221,9 @@
   " Move between misspelled words
   nmap mn ]s
   nmap mp [s
+
+  " Sort the block of lines around the cursor
+  nmap <leader>s vip:sort<CR>
 
 " }}}
 
@@ -365,5 +373,11 @@
 " {{{ vim-action-ag
 
   nmap <silent> <leader>ag gagiw
+
+" }}}
+
+" {{{ AnsiEsc.vim
+
+  nmap <leader>a :AnsiEsc<CR>
 
 " }}}
