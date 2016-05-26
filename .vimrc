@@ -58,7 +58,7 @@
   Bundle 'vim-airline/vim-airline'
   Bundle 'vim-airline/vim-airline-themes'
   Bundle 'vim-scripts/AnsiEsc.vim'
-  Bundle 'altercation/vim-colors-solarized'
+  Bundle 'morhetz/gruvbox'
 
   call vundle#end()
 
@@ -110,8 +110,8 @@
   set shortmess=a           " Shorter messages
   set clipboard=unnamed     " Merge unamed register and "* register
 
-  set background=light
-  colorscheme solarized     " Colorscheme
+  set background=dark
+  colorscheme gruvbox       " Colorscheme
 
   set backspace=eol,indent,start                  " Fix the backspace behavior
   set list                                        " Highlight special characters
