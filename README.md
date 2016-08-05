@@ -14,8 +14,7 @@ Basically, all the configurations are inside a directory separate from your
 HOME. They are then symbolically linked in your HOME.
 
 ```
-git clone https://github.com/aseure/configs
-mv configs .configs
+git clone https://github.com/aseure/configs .configs
 cd .configs
 ./deploy.sh
 ```
