@@ -38,6 +38,7 @@
   Bundle 'Lokaltog/vim-easymotion'
   Bundle 'MarcWeber/vim-addon-mw-utils'
   Bundle 'chrisbra/csv.vim'
+  Bundle 'ctrlpvim/ctrlp.vim'
   Bundle 'ervandew/supertab'
   Bundle 'fatih/vim-go'
   Bundle 'garbas/vim-snipmate'
@@ -45,7 +46,7 @@
   Bundle 'honza/vim-snippets'
   Bundle 'junegunn/vim-easy-align'
   Bundle 'justinmk/vim-syntax-extra'
-  Bundle 'kien/ctrlp.vim'
+  Bundle 'morhetz/gruvbox'
   Bundle 'nelstrom/vim-markdown-folding'
   Bundle 'rizzatti/dash.vim'
   Bundle 'rking/ag.vim'
@@ -58,7 +59,6 @@
   Bundle 'vim-airline/vim-airline'
   Bundle 'vim-airline/vim-airline-themes'
   Bundle 'vim-scripts/AnsiEsc.vim'
-  Bundle 'morhetz/gruvbox'
 
   call vundle#end()
 
