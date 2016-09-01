@@ -1,4 +1,0 @@
-#!/bin/bash
-
-pids=$(ps ax | grep $1 | grep -v -e $0 -e grep | awk '{print $1}')
-for p in $pids; do kill -9 $p; done
