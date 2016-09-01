@@ -1,5 +1,7 @@
 .vim/.netrwhist
 .vim/bundle
+.vim/init.vim
 .vim/spell
 .vim/view
+.zshenv
 tmux*.log
