@@ -43,6 +43,8 @@ setopt share_history
 case `uname` in
   Darwin)
     alias ls='ls -FG'
+    alias sed='gsed'
+    alias strace='sudo dtruss'
     ;;
   Linux)
     alias ls='ls -F --color=auto'
@@ -50,15 +52,10 @@ case `uname` in
 esac
 
 alias ccat='vimcat'
-alias docker-down='docker-machine stop default'
-alias docker-env='eval `docker-machine env default`'
-alias docker-restart='docker-machine restart default'
-alias docker-up='docker-machine start default'
 alias la='ls -al'
 alias ll='ls -lh'
 alias resource='source ~/.zshrc'
 alias sl='ls -l `find . -maxdepth 1 -type l`'
-alias strace='sudo dtruss'
 alias ta='tmux a'
 alias tmu='tmux'
 alias tree='tree -C'
