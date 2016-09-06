@@ -16,6 +16,8 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 autoload -Uz compinit && compinit
 
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 # Stop `backward-kill-word` on directory delimiter
 autoload -U select-word-style && select-word-style bash
 
@@ -74,4 +76,27 @@ export PATH="$GEMPATH:$SCRIPTSPATH:$GOPATH/bin:$PATH"
 export HOMEBREW_GITHUB_API_TOKEN="869e36494440c684507e6834b293806f8019e209"
 export MANPAGER="most -s"
 export PAGER="most"
-export PROMPT="%{$fg[blue]%}%n%{$reset_color%}%{$fg[green]%} :: %{$reset_color%}%{$fg[blue]%}%m%{$reset_color%} %{$fg[green]%}%~%{$reset_color%} %{$fg[blue]%}%#%{$reset_color%} "
+
+###############################################################################
+#                                                                  Completion #                                                                        #
+###############################################################################
+
+# Autocomplete hosts from ~/.ssh/{config,known_hosts}
+h=()
+if [[ -r ~/.ssh/config ]]; then
+  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+fi
+#if [[ -r ~/.ssh/known_hosts ]]; then
+  #h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+#fi
+if [[ $#h -gt 0 ]]; then
+  zstyle ':completion:*:ssh:*' hosts $h
+  #zstyle ':completion:*:slogin:*' hosts $h
+fi
+
+###############################################################################
+#                                                               Own functions #
+###############################################################################
+
+fpath=( ~/.configs/.zfuncs "${fpath[@]}" )
+autoload -Uz prompt && prompt
