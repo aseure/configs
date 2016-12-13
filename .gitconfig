@@ -8,11 +8,14 @@
 	interactive = true
 	status = true
 [alias]
-	st = status
+	an = commit --amend --no-edit
 	br = branch
 	ci = commit
 	co = checkout
+	dc = diff --cached
+	df = diff
 	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status
 [push]
 	default = simple
 [core]
