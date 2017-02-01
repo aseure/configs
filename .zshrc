@@ -25,14 +25,10 @@ autoload -U select-word-style && select-word-style bash
 autoload -U colors && colors
 
 # History
-HISTSIZE=1000
-if (( ! EUID )); then
-  HISTFILE=~/.history_root
-else
-  HISTFILE=~/.history
-fi
+HISTSIZE=1000000
+HISTFILE=~/.zhistory
 SAVEHIST=1000
-
+setopt hist_find_no_dups
 setopt inc_append_history
 setopt share_history
 
@@ -60,6 +56,11 @@ alias ta='tmux a'
 alias tmu='tmux'
 alias tree='tree -C'
 alias we='weechat-curses'
+
+# Chef-related
+alias knl='knife node list'
+alias kec='knife environment compare'
+alias kns='knife node show'
 
 ###############################################################################
 #                                                       Environment variables #
