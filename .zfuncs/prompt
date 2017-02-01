@@ -1,36 +1,27 @@
-function preexec() {
-  _start=$SECONDS
-}
-
 function precmd() {
-  _rcode=$?
 
-  # Define aliases for colors
+  #############################
+  # Define aliases for colors #
+  #############################
+
   _red=%{$fg[red]%}
   _blue=%{$fg[blue]%}
   _green=%{$fg[green]%}
   _yellow=%{$fg[yellow]%}
   _reset=%{$reset_color%}
 
-  # Status code prompt
-  if [[ $_rcode == 0 ]]; then
-    _rcolor=$_green
-  else
-    _rcolor=$_red
-  fi
-  _rcode=$(printf "%3d" $_rcode)
-  _status_prompt="$_rcolor $_rcode $_blue:"
+  #############################
+  # Time/hostname/path promts #
+  #############################
 
-  # Time and timer prompt
-  if [ $_start ]; then
-    _timer=$(( $SECONDS - $_start ))
-  else
-    _timer="0"
-  fi
-  _timer=$(printf "%3d" $_timer)
-  _time_prompt=" $_green%* $_timer $_blue:"
+  _time="$_green%*$_blue"
+  _host="$_green$(hostname)$_blue"
+  _path="$_green%~$_git"
 
-  # Git prompt
+  #############################
+  #         Git prompt        #
+  #############################
+
   _ref=$(git symbolic-ref HEAD 2> /dev/null)
   if [ $_ref ]; then
     _git_branch=$(echo $_ref | cut -d'/' -f3,4)
@@ -41,15 +32,15 @@ function precmd() {
       _git_color=$_yellow
     fi
 
-    _git_prompt=" $_git_color($_git_branch)$_blue"
+    _git=" $_git_color($_git_branch)$_blue"
   fi
 
-  # Path prompt
-  _path_prompt="$_green%~$_git_prompt $_blue:"
+  #############################
+  #      Export the prompt    #
+  #############################
 
-  export PROMPT="$_blue:: $_reset"
-  export RPROMPT="$_path_prompt$_time_prompt$_status_prompt:$_reset"
+  export PROMPT="$_blue::$_reset $_time : $_host : $_path
+$_blue:: $_reset"
 
-  unset _git_prompt
-  unset _git_stage
+  unset _git
 }
