@@ -51,7 +51,6 @@
   Bundle 'rizzatti/dash.vim'
   Bundle 'rking/ag.vim'
   Bundle 'scrooloose/nerdcommenter'
-  Bundle 'scrooloose/nerdtree'
   Bundle 'tomtom/tlib_vim'
   Bundle 'tpope/vim-fugitive'
   Bundle 'tpope/vim-speeddating'
@@ -59,6 +58,7 @@
   Bundle 'vim-airline/vim-airline'
   Bundle 'vim-airline/vim-airline-themes'
   Bundle 'vim-scripts/AnsiEsc.vim'
+  Bundle 'w0rp/ale'
 
   call vundle#end()
 
@@ -224,6 +224,8 @@
 
   " Sort the block of lines around the cursor
   nmap <leader>s vip:sort<CR>
+
+  set pastetoggle=<F2>
 
 " }}}
 
