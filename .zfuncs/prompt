@@ -32,14 +32,14 @@ function precmd() {
       _git_color=$_yellow
     fi
 
-    _git=" $_git_color($_git_branch)$_blue"
+    _git="$_git_color($_git_branch)$_blue"
   fi
 
   #############################
   #      Export the prompt    #
   #############################
 
-  export PROMPT="$_blue::$_reset $_time : $_host : $_path
+  export PROMPT="$_blue::$_reset $_time : $_host : $_path $_git
 $_blue:: $_reset"
 
   unset _git
