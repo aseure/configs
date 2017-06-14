@@ -1,7 +1,0 @@
-#!/bin/bash
-
-FILE=`date +%Y-%m-%d`.md
-JOURNAL_PATH=~/Google\ Drive/journal/$FILE
-
-touch "${JOURNAL_PATH}"
-vim "${JOURNAL_PATH}"
