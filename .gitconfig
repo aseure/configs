@@ -8,7 +8,6 @@
 	interactive = true
 	status = true
 [alias]
-	an = commit --amend --no-edit
 	br = branch
 	ci = commit
 	co = checkout
@@ -16,6 +15,7 @@
 	df = diff
 	lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status
+	ssn = shortlog -sn
 [push]
 	default = current
 [core]
