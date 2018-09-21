@@ -34,31 +34,29 @@
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
 
-  Bundle 'Chun-Yang/vim-action-ag'
   Bundle 'Lokaltog/vim-easymotion'
-  Bundle 'MarcWeber/vim-addon-mw-utils'
+  Bundle 'SirVer/ultisnips'
+  Bundle 'cespare/vim-toml'
   Bundle 'chrisbra/csv.vim'
+  Bundle 'chriskempson/vim-tomorrow-theme'
   Bundle 'ctrlpvim/ctrlp.vim'
-  Bundle 'ervandew/supertab'
+  Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'fatih/vim-go'
-  Bundle 'garbas/vim-snipmate'
   Bundle 'gmarik/Vundle.vim'
+  Bundle 'godlygeek/tabular'
   Bundle 'honza/vim-snippets'
+  Bundle 'jiangmiao/auto-pairs'
+  Bundle 'junegunn/goyo.vim'
   Bundle 'junegunn/vim-easy-align'
-  Bundle 'justinmk/vim-syntax-extra'
-  Bundle 'morhetz/gruvbox'
-  Bundle 'nelstrom/vim-markdown-folding'
-  Bundle 'rizzatti/dash.vim'
-  Bundle 'rking/ag.vim'
+  Bundle 'rust-lang/rust.vim'
   Bundle 'scrooloose/nerdcommenter'
-  Bundle 'tomtom/tlib_vim'
+  Bundle 'tpope/vim-abolish'
   Bundle 'tpope/vim-fugitive'
+  Bundle 'tpope/vim-repeat'
   Bundle 'tpope/vim-speeddating'
   Bundle 'tpope/vim-surround'
   Bundle 'vim-airline/vim-airline'
   Bundle 'vim-airline/vim-airline-themes'
-  Bundle 'vim-scripts/AnsiEsc.vim'
-  Bundle 'w0rp/ale'
 
   call vundle#end()
 
@@ -72,10 +70,7 @@
 
   filetype plugin indent on " Load syntax plugins
 
-  syntax on                 " Really?
-
-  let &t_SI .= "\<Esc>[6 q" " Set vertical bar cursor in insert mode
-  let &t_EI .= "\<Esc>[2 q" " Same
+  syntax on
 
   set mouse=a               " Allow mouse use
   set showmatch             " Highlight matching parenthesis
@@ -111,7 +106,7 @@
   set clipboard=unnamed     " Merge unamed register and "* register
 
   set background=dark
-  colorscheme gruvbox       " Colorscheme
+  colorscheme Tomorrow-Night
 
   set backspace=eol,indent,start                  " Fix the backspace behavior
   set list                                        " Highlight special characters
@@ -126,13 +121,16 @@
   " Disable Background Color Erase (BCE) so that color schemes render properly
   " when inside 256-color tmux and GNU screen.
   " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  if &term =~ '256color'
-    set t_ut=
-  endif
+  "if &term =~ '256color'
+    "set t_ut=
+  "endif
 
   set tags=~/tags
 
   set guioptions-=r         " Disable the scrollbar
+
+  set spell spelllang=en    " Enable spell checking for English
+  set nospell
 
 " }}}
 
@@ -165,7 +163,9 @@
   let mapleader=" "
 
   imap uu <Esc>             " Escape is too far away (QWERTY and Dvorak layout)
-  set noesckeys             " Faster <Esc>
+  if exists('&esckeys')
+    set noesckeys           " Faster <Esc>
+  endif
 
   " Hardcore gamer (should be used though)
   inoremap <up> <nop>
@@ -222,48 +222,34 @@
   nmap mn ]s
   nmap mp [s
 
-  " Sort the block of lines around the cursor
-  nmap <leader>s vip:sort<CR>
+  " Suggest alternatives for the word under the cursor according to spell
+  " checking
+  map <leader>s z=
 
   set pastetoggle=<F2>
+  inoremap <C-v> <F2><C-r>+<F2>
+
+  nmap <leader>w :set wrap!<CR>
+
+  nmap <leader>g :Goyo<CR>
 
 " }}}
 
 " {{{ Search
 
-  set magic                 " Improve the search
-
-  set ignorecase            " Ignore case
-  set smartcase             " Ignore case unless there is an uppercase letter in the pattern
-
-  set incsearch             " Move cursor to the matched string
-  set hls                   " Highlight matched string
   set gdefault              " Set the 'g' option for substitution (don't hit me)
+  set hls                   " Highlight matched string
+  set ignorecase            " Ignore case
+  set incsearch             " Move cursor to the matched string
+  set magic                 " Improve the search
+  set smartcase             " Ignore case unless there is an uppercase letter in the pattern
 
   " Highlight search toggle <C-H>
   map <C-h> :set hls!<CR>
   hi Search cterm=NONE ctermfg=Black ctermbg=Yellow
 
-" }}}
-
-" {{{ Syntax
-
-  " Markdown
-  let g:pandoc_use_hard_wraps = 1
-  let g:pandoc_auto_format = 1
-
-  " Tiger
-  au BufNewFile,BufRead *.tig so ~/.vim/syntax/tiger.vim
-
-  " Dockerfile
-  au BufNewFile,BufRead Dockerfile* set syntax=dockerfile
-
-" }}}
-
-" {{{ Airline plugin
-
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#enabled = 1
+  " Refine `Find` command to use ripgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " }}}
 
@@ -280,41 +266,22 @@
 
 " }}}
 
-" {{{ Nerd Tree plugin
-
-  nnoremap <silent> <F9> :NERDTreeToggle<CR>
-  nnoremap <silent> <F10> :TlistToggle<CR>
-
-" }}}
-
 " {{{ ctrlp plugin
 
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.o,*.pyc
-
-  let g:ctrlp_map = '<c-p>'
-  let g:ctrlp_cmd = 'CtrlPMixed'
-
-  let g:ctrlp_working_path_mode = 'ra'
-
-  let g:ctrlp_max_files = 0
-
-  " MacOSX/Linux mode
+  let g:ctrlp_cmd = 'CtrlP'
   let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
   let g:ctrlp_extensions = ['tag']
+  let g:ctrlp_map = '<c-p>'
+  let g:ctrlp_max_files = 0
+  let g:ctrlp_working_path_mode = 'ra'
+  nnoremap <C-.> :CtrlPTag<CR>
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pdf,*.o,*.pyc
 
-  " Use the_silver_search instead of grep if installed
-  if executable('ag')
-    " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
-
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
+  if executable('rg')
+    set grepprg=rg\ --color=never
+    let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
     let g:ctrlp_use_caching = 0
   endif
-
-  nnoremap <C-.> :CtrlPTag<CR>
 
 " }}}
 
@@ -325,20 +292,6 @@
 
   " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
   nmap <Leader>a <Plug>(EasyAlign)
-
-" }}}
-
-" {{{ vim-markdown plugin
-
-  " Disable markdown folding since I prefer the one from nelstrom
-  let g:vim_markdown_folding_disabled=1
-
-" }}}
-
-" {{{ vim-markdown-folding plugin
-
-  " Treat *.md files as Markdown files
-  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " }}}
 
@@ -369,20 +322,22 @@
 
 " }}}
 
-" {{{ dash.vim
+" {{{ vim-table-mode
 
-  nmap <silent> <leader>d <Plug>DashSearch
-
-" }}}
-
-" {{{ vim-action-ag
-
-  nmap <silent> <leader>ag gagiw
+  let g:table_mode_corner='|'
 
 " }}}
 
-" {{{ AnsiEsc.vim
+" {{{ rust.vim
 
-  nmap <leader>a :AnsiEsc<CR>
+  let g:rustfmt_autosave = 1
+
+" }}}
+
+" {{{ vim-airline
+
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme='tomorrow'
 
 " }}}
