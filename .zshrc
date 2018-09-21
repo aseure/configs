@@ -1,67 +1,54 @@
-# ZSH loading
-fpath=(
-  ~/.zfunctions/pure
+fpath=( 
+  "$HOME/.zfunctions"
   $fpath
 )
-autoload -U compinit && compinit
+
+autoload -U colors && colors
+autoload -U compinit compdef && compinit
 autoload -U promptinit && promptinit
 autoload -U select-word-style && select-word-style bash
-autoload -U colors && colors
 
-# ZSH completion
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
-zstyle ':completion:*:cd:*' ignore-parents parent pwd
-
-# ZSH prompt (Pure)
-PURE_CMD_MAX_EXEC_TIME=1
-PURE_GIT_PULL=0
-PURE_PROMPT_SYMBOL='$'
 prompt pure
 
-# ZSH History
-HISTSIZE=100000
-SAVEHIST=100000
-HISTFILE=~/.history
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
+zstyle ':completion:*' menu select
+zstyle ':completion:*:*:git:*' user-commands fixup:'Create a fixup commit'
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+zstyle ':completion:*:match:*' original only
 
-# General environment variables
 export EDITOR="vim"
+export GOPATH="$HOME/go"
+export HISTFILE=~/.history
+export HISTFILESIZE=100000
+export HISTSIZE=100000
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export MANPAGER="most -s"
 export PAGER="most"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PYENV_ROOT="${HOME}/.pyenv"
 
-# Path-related environment variables
-export GCPPATH="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
-export GOPATH="${HOME}/go"
-export MSPATH="/opt/metasploit-framework/bin"
-export OPENSSLPATH="/usr/local/opt/openssl/bin"
-export PGPATH="/Library/PostgreSQL/9.6/bin"
-export SCRIPTSPATH="${HOME}/.configs/scripts"
-export ULBINPATH="/usr/local/bin"
-
-# Define PATH environment variable
-export PATH="${GCPPATH}:${GOPATH}/bin:${MSPATH}:${OPENSSLPATH}:${PGPATH}:${SCRIPTSPATH}:${ULBINPATH}:${PATH}"
-
-# Aliases
-case `uname` in
-  Darwin)
-    alias ls='ls -FG'
-    ;;
-  Linux)
-    alias ls='ls -F --color=auto'
-    ;;
-esac
-
+alias env="env | sort"
+alias g++='g++-8'
+alias gcc='gcc-8'
 alias kec='knife environment compare'
 alias knl='knife node list'
 alias kns='knife node show'
 alias la='ls -al'
 alias ll='ls -lh'
+alias ls='ls -FG'
+alias rake='noglob rake -s'
 alias resource='source ~/.zshrc'
+alias rg='rg --smart-case'
 alias tree='tree -C'
 
-# Misc
+[ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -f ~/.fzf.zsh                              ] && source ~/.fzf.zsh
 
-## Autojump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+eval "$(fasd --init auto)"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+#eval "$(rbenv init -)"
+
