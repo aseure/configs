@@ -12,7 +12,7 @@
 "
 " Kévin "Chewie" Sztern
 " <chewie@deliciousmuffins.net>
-" https://github.com/Chewie/configs
+" https://github.com/Chewie/dotfiles
 "
 " Romain "Chmool" Lannel
 " <chewie@deliciousmuffins.net>
@@ -20,7 +20,7 @@
 "
 " Marc "null" Angel
 " <marc@angel.pm>
-" https://bitbucket.org/null_/configs/src
+" https://bitbucket.org/null_/configs
 "
 " And others.
 "
