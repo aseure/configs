@@ -1,8 +1,9 @@
 .vim/.netrwhist
+.vim/autoload/plug.vim
 .vim/bundle
 .vim/init.vim
+.vim/plugged/
 .vim/spell
 .vim/view
 .zshenv
 pure/
-tmux*.log

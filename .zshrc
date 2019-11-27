@@ -1,5 +1,6 @@
 fpath=( 
   "$HOME/.zfunctions"
+  "$HOME/.zfunctions/pure"
   $fpath
 )
 
@@ -18,37 +19,31 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 zstyle ':completion:*:match:*' original only
 
+export LC_COLLATE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+export LC_MONETARY=en_US.UTF-8
+export LC_NUMERIC=en_US.UTF-8
+export LC_TIME=en_US.UTF-8
+
 export EDITOR="vim"
 export GOPATH="$HOME/go"
-export HISTFILE=~/.history
+export HISTFILE="~/.history"
 export HISTFILESIZE=100000
 export HISTSIZE=100000
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export MANPAGER="most -s"
 export PAGER="most"
+
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PYENV_ROOT="${HOME}/.pyenv"
+export PATH="/usr/local/bin:$PATH"
 
-alias env="env | sort"
-alias g++='g++-8'
-alias gcc='gcc-8'
-alias kec='knife environment compare'
-alias knl='knife node list'
-alias kns='knife node show'
+alias j='fasd_cd -d'
 alias la='ls -al'
 alias ll='ls -lh'
 alias ls='ls -FG'
-alias rake='noglob rake -s'
-alias resource='source ~/.zshrc'
-alias rg='rg --smart-case'
-alias tree='tree -C'
 
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
 [ -f ~/.fzf.zsh                              ] && source ~/.fzf.zsh
-
 eval "$(fasd --init auto)"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-#eval "$(rbenv init -)"
 

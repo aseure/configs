@@ -1,8 +1,7 @@
 *.DS_Store
-*.agignore
 *.o
 *~
+.vs
+.vscode
 TAGS
 tags
-.vscode
-.vs

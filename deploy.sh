@@ -1,6 +1,6 @@
 #! /bin/bash
 
-echo "> Your configurations files for Git, Tmux, Vim, ZSH and Pentadactyl will be erased."
+echo "> Current configuration files for Git, Vim and ZSH will be overriden."
 echo "> Press any key to continue or press ^C to abort"
 read
 
@@ -15,34 +15,32 @@ git reset --hard HEAD
 
 # Modify Git configuration
 if [[ $PLATFORM == "Darwin" ]]; then
-  sed -i '' "s/Anthony Seure/$GIT_CONFIG_NAME/g" .gitconfig
+  sed -i '' "s/Anthony Seure/$GIT_CONFIG_NAME/g"              .gitconfig
   sed -i '' "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
 else
-  sed -i "s/Anthony Seure/$GIT_CONFIG_NAME/g" .gitconfig
-  sed -i "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
+  sed -i    "s/Anthony Seure/$GIT_CONFIG_NAME/g"              .gitconfig
+  sed -i    "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
 fi
 
-# Prepare Vim
-mkdir -p .vim/bundle && rm -rf .vim/bundle/*
-git clone https://github.com/gmarik/Vundle.vim .vim/bundle/Vundle.vim
+# Reinstall Vim Plug
+rm -f .vim/autoload/plug.vim
+curl -fLo .vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Prepare ZSH (Pure prompt)
-mkdir -p ~/.zfunctions/pure && rm -rf ~/.zfunctions/pure/*
-git clone git@github.com:sindresorhus/pure.git
+rm -rf .zfunctions/pure
+git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
 # Create relatives links
-rm -f ~/.Xresources       && ln -s $PWD/.Xresources ~
 rm -f ~/.gitconfig        && ln -s $PWD/.gitconfig ~
 rm -f ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
-rm -f ~/.pentadactyl*     && ln -s $PWD/.pentadactyl* ~
-rm -f ~/.tmux*            && ln -s $PWD/.tmux* ~
 rm -f ~/.vim*             && ln -s $PWD/.vim* ~
 rm -f ~/.zshrc            && ln -s $PWD/.zshrc ~
+rm -f ~/.zfunctions       && ln -s $PWD/.zfunctions ~
 ln -s $PWD/pure/pure.zsh  ~/.zfunctions/pure/prompt_pure_setup
 ln -s $PWD/pure/async.zsh ~/.zfunctions/pure/async
 
 cd
-vim +BundleInstall +qa!
+vim +PlugInstall +qa!
 
 echo
 echo "> Configurations updated. Now just run \`source .zshrc\`"
