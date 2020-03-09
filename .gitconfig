@@ -21,3 +21,9 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	ignorecase = false
+	pager = less -F -X
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -17,6 +17,7 @@ git reset --hard HEAD
 if [[ $PLATFORM == "Darwin" ]]; then
   sed -i '' "s/Anthony Seure/$GIT_CONFIG_NAME/g"              .gitconfig
   sed -i '' "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig
+  defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
 else
   sed -i    "s/Anthony Seure/$GIT_CONFIG_NAME/g"              .gitconfig
   sed -i    "s/anthony\.seure@gmail\.com/$GIT_CONFIG_EMAIL/g" .gitconfig

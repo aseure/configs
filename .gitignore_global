@@ -1,7 +1,13 @@
 *.DS_Store
+*.iml
 *.o
+*.pyc
 *~
+.idea
 .vs
 .vscode
 TAGS
+a.out
+aaaa/
+node_modules/
 tags

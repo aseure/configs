@@ -4,6 +4,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
+Plug 'govim/govim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
@@ -19,7 +20,9 @@ call plug#end()
 "                                                                    General "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set background=dark
 colorscheme nord
+
 filetype off
 filetype plugin indent on
 language C
@@ -27,33 +30,36 @@ syntax on
 
 set autoindent
 set autoread
-set background=dark
 set backspace=eol,indent,start
-set gdefault
-set hls
-set ignorecase
-set incsearch
-set magic
-set smartcase
 set cindent
 set clipboard=unnamed
+set cmdheight=2
 set colorcolumn=+1
+set colorcolumn=80
 set encoding=utf8
 set expandtab
 set fillchars-=vert:\| | set fillchars+=vert:\⎜
 set foldenable
 set foldlevelstart=99
 set foldmethod=indent
+set formatprg=gfmt\ -w\ 80\ -u\ -c
+set gdefault
 set guioptions-=r
 set hidden
+set hls
+set ignorecase
+set incsearch
 set langmenu=en_US.UTF-8
 set laststatus=2
 set linebreak
 set list
 set listchars=tab:›\ ,extends:˺,trail:\ ,nbsp:.
+set magic
 set mouse=a
+set nobackup
 set nocompatible
 set noerrorbells
+set nojoinspaces
 set noshowmode
 set nospell
 set noswapfile
@@ -64,15 +70,19 @@ set number
 set ruler
 set scrolloff=10
 set shiftwidth=2
+set shortmess+=c
 set shortmess=a
 set showmatch
+set signcolumn=yes
+set smartcase
 set smartindent
 set smarttab
 set softtabstop=2
 set t_vb=
 set tabstop=4
 set tags=~/tags
-set textwidth=79
+set textwidth=80
+set updatetime=300
 set visualbell
 set wildignorecase
 set wildmenu
@@ -83,6 +93,7 @@ set wildmode=list:longest:full
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command Ws :execute ':silent w !sudo tee % > /dev/null' | :edit!
+autocmd BufWritePre * %s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                   Mappings "
@@ -143,20 +154,25 @@ nnoremap Y y$
 set pastetoggle=<F2>
 inoremap <C-v> <F2><C-r>+<F2>
 
-" Highlight search toggle <C-H>
-map <C-h> :set hls!<CR>
+nnoremap <C-h> :set hlsearch!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                           junegunn/fzf.vim "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --glob "!{*.pyc}" --color=always '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%'),
+  \   <bang>0)
+nnoremap <C-p> :Files<Cr>
+nnoremap <C-g> :Rg<Cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                         tpope/vim-fugitive "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd User fugitive 
+autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
@@ -172,3 +188,22 @@ omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                      itchyny/lightline.vim "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                         tpope/vim-surround "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>s ysiW
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                govim/govim "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:go_fmt_command = "goimports"
