@@ -42,7 +42,7 @@ export HISTSIZE=10000
 export JAVA_HOME_11=`/usr/libexec/java_home -v 11`
 export JAVA_HOME_8=`/usr/libexec/java_home -v 1.8`
 export JAVA_HOME="$JAVA_HOME_8"
-export MANPAGER="most -s"
+export MANPAGER="most"
 export PAGER="most"
 export SAVEHIST=10000
 
