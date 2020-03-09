@@ -9,6 +9,8 @@ autoload -U compinit compdef && compinit
 autoload -U promptinit && promptinit
 autoload -U select-word-style && select-word-style bash
 
+autoload -U public
+
 prompt pure
 
 # Ensure that IntellJ doesn't use his own history file...

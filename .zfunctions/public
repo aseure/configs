@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+public () {
+  scp $1 anthony@aseure.fr:~/public.aseure.fr/ >/dev/null 2>&1
+  ssh anthony@aseure.fr 'chmod -R o+r ~/public.aseure.fr/'
+  BASENAME="$(basename $1)"
+  URL="https://public.aseure.fr/$BASENAME"
+  echo "$URL" | pbcopy
+  echo "$URL (has been copied in your clipboard)"
+}
