@@ -1,9 +1,15 @@
 *.DS_Store
+*.idea
 *.iml
+*.jar
 *.o
 *.pyc
+*.zip
 *~
+.classpath
 .idea
+.project
+.settings/
 .vs
 .vscode
 TAGS
@@ -11,3 +17,4 @@ a.out
 aaaa/
 node_modules/
 tags
+target/
