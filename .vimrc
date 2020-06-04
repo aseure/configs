@@ -20,6 +20,7 @@ call plug#end()
 "                                                                    General "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set t_Co=256
 set background=dark
 colorscheme nord
 
@@ -152,7 +153,6 @@ nnoremap Y y$
 
 " Improve copy pasting by automatically switching to paste mode
 set pastetoggle=<F2>
-inoremap <C-v> <F2><C-r>+<F2>
 
 nnoremap <C-h> :set hlsearch!<CR>
 
