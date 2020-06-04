@@ -3,8 +3,8 @@ call plug#begin()
 Plug '/usr/local/opt/fzf'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'arcticicestudio/nord-vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
-Plug 'govim/govim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
@@ -69,7 +69,7 @@ set nowritebackup
 set number
 set ruler
 set scrolloff=10
-set shiftwidth=2
+set shiftwidth=4
 set shortmess+=c
 set shortmess=a
 set showmatch
@@ -77,7 +77,7 @@ set signcolumn=yes
 set smartcase
 set smartindent
 set smarttab
-set softtabstop=2
+set softtabstop=4
 set t_vb=
 set tabstop=4
 set tags=~/tags
@@ -201,9 +201,3 @@ let g:lightline = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <leader>s ysiW
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                govim/govim "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:go_fmt_command = "goimports"
