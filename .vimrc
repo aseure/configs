@@ -93,7 +93,10 @@ set wildmode=list:longest:full
 "                                                                   Commands "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Save as root with :W command
 command Ws :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+" Remove all trailing spaces on save
 autocmd BufWritePre * %s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
