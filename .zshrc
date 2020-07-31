@@ -49,16 +49,16 @@ export MANPAGER="most"
 export PAGER="most"
 export SAVEHIST=10000
 
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-export PATH="$PATH:/Library/TeX/texbin"
-export PATH="$PATH:/usr/local/bin"
-export PATH="$PATH:/usr/local/opt/grep/libexec/gnubin"
-export PATH="$PATH:/usr/local/sbin"
-export PATH="$PATH:$GOPATH/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:$HOME/.emacs.d/bin"
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+export PATH="/Library/TeX/texbin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.rvm/bin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
 alias j='fasd_cd -d'
