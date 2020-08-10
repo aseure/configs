@@ -6,8 +6,10 @@
 *.pyc
 *.zip
 *~
+.bloop/
 .classpath
 .idea
+.metals/
 .project
 .settings/
 .vs
@@ -15,6 +17,7 @@
 TAGS
 a.out
 aaaa/
+metals.sbt
 node_modules/
 tags
 target/
