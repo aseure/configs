@@ -16,10 +16,6 @@ fi
 rm -f .vim/autoload/plug.vim
 curl -fLo .vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# Reinstall iTerm2 integration
-rm -f .iterm2_shell_integration.zsh
-curl -L https://iterm2.com/shell_integration/zsh -o .iterm2_shell_integration.zsh
-
 # Prepare ZSH (Pure prompt)
 rm -rf .zfunctions/pure
 git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
@@ -27,7 +23,6 @@ git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 # Create relatives links
 rm -f  ~/.gitconfig                    && ln -s $PWD/.gitconfig ~
 rm -f  ~/.gitignore_global             && ln -s $PWD/.gitignore_global ~
-rm -f  ~/.iterm2_shell_integration.zsh && ln -s $PWD/.iterm2_shell_integration.zsh ~
 rm -f  ~/.zshrc                        && ln -s $PWD/.zshrc ~
 rm -rf ~/.vim*                         && ln -s $PWD/.vim* ~
 rm -rf ~/.zfunctions                   && ln -s $PWD/.zfunctions ~

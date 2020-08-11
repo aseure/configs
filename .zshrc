@@ -74,7 +74,6 @@ export NVM_DIR="$HOME/.nvm"
 export SDKMAN_DIR="/Users/anthony.seure/.sdkman"
 
 [ -f ~/.fzf.zsh                                   ] && source ~/.fzf.zsh
-[ -f ~/.iterm2_shell_integration.zsh              ] && source ~/.iterm2_shell_integration.zsh
 [ -f ~/.rvm/scripts/rvm                           ] && source ~/.rvm/scripts/rvm
 [ -f ~/.sdkman/bin/sdkman-init.sh                 ] && source ~/.sdkman/bin/sdkman-init.sh
 [ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && source /usr/local/opt/nvm/etc/bash_completion.d/nvm
