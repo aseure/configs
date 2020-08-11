@@ -49,16 +49,19 @@ export MANPAGER="most"
 export PAGER="most"
 export SAVEHIST=10000
 
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.rvm/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-export PATH="$GOPATH/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.dotnet/tools:$PATH"
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.rvm/bin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
 alias j='fasd_cd -d'
