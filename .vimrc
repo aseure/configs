@@ -21,14 +21,15 @@ call plug#end()
 "                                                                    General "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set t_Co=256
-set background=dark
-colorscheme nord
-
 filetype off
 filetype plugin indent on
 language C
 syntax on
+
+set t_Co=256
+colorscheme nord
+set background=dark
+highlight Comment ctermfg=Yellow
 
 set autoindent
 set autoread
