@@ -70,12 +70,16 @@ alias ll='ls -lh'
 alias ls='ls -FG'
 alias rg="rg --smart-case --no-line-number"
 
+export NVM_DIR="$HOME/.nvm"
 export SDKMAN_DIR="/Users/anthony.seure/.sdkman"
-[ -f ~/.sdkman/bin/sdkman-init.sh    ] && source ~/.sdkman/bin/sdkman-init.sh
-[ -f ~/.rvm/scripts/rvm              ] && source ~/.rvm/scripts/rvm
-[ -f ~/.fzf.zsh                      ] && source ~/.fzf.zsh
-[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
+
+[ -f ~/.fzf.zsh                                   ] && source ~/.fzf.zsh
+[ -f ~/.iterm2_shell_integration.zsh              ] && source ~/.iterm2_shell_integration.zsh
+[ -f ~/.rvm/scripts/rvm                           ] && source ~/.rvm/scripts/rvm
+[ -f ~/.sdkman/bin/sdkman-init.sh                 ] && source ~/.sdkman/bin/sdkman-init.sh
+[ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && source /usr/local/opt/nvm/etc/bash_completion.d/nvm
+[ -s /usr/local/opt/nvm/nvm.sh                    ] && source /usr/local/opt/nvm/nvm.sh
 
 eval "$(fasd --init auto)"
-eval "$(pyenv init -)"
 eval "$(gh completion -s zsh)"
+eval "$(pyenv init -)"
