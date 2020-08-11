@@ -1,6 +1,6 @@
 [user]
-	email = anthony.seure@gmail.com
 	name = Anthony Seure
+	email = anthony.seure@gmail.com
 [color]
 	ui = true
 	branch = true
@@ -12,6 +12,7 @@
 	ci = commit
 	co = checkout
 	dc = diff --cached
+	ds = diff --staged
 	df = diff
 	lg =  log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lgs = log --color --graph       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
