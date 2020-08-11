@@ -31,13 +31,6 @@ setopt share_history
 # https://github.com/JetBrains/intellij-community/blob/master/plugins/terminal/resources/.zshrc
 unset __INTELLIJ_COMMAND_HISTFILE__
 
-export LANG=en_US.UTF-8
-export LC_COLLATE=en_US.UTF-8
-export LC_MESSAGES=en_US.UTF-8
-export LC_MONETARY=en_US.UTF-8
-export LC_NUMERIC=en_US.UTF-8
-export LC_TIME=en_US.UTF-8
-
 export CCACHE_CPP2=yes
 export EDITOR="vim"
 export GOPATH="$HOME/go"
@@ -45,9 +38,17 @@ export GPG_TTY=$(tty)
 export HISTFILE="$HOME/.history"
 export HISTFILESIZE=10000
 export HISTSIZE=10000
+export LANG=en_US.UTF-8
+export LC_COLLATE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+export LC_MONETARY=en_US.UTF-8
+export LC_NUMERIC=en_US.UTF-8
+export LC_TIME=en_US.UTF-8
 export MANPAGER="most"
+export NVM_DIR="$HOME/.nvm"
 export PAGER="most"
 export SAVEHIST=10000
+export SDKMAN_DIR="/Users/anthony.seure/.sdkman"
 
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -69,9 +70,6 @@ alias la='ls -al'
 alias ll='ls -lh'
 alias ls='ls -FG'
 alias rg="rg --smart-case --no-line-number"
-
-export NVM_DIR="$HOME/.nvm"
-export SDKMAN_DIR="/Users/anthony.seure/.sdkman"
 
 [ -f ~/.fzf.zsh                                   ] && source ~/.fzf.zsh
 [ -f ~/.rvm/scripts/rvm                           ] && source ~/.rvm/scripts/rvm
