@@ -45,6 +45,7 @@ export LC_MONETARY=en_US.UTF-8
 export LC_NUMERIC=en_US.UTF-8
 export LC_TIME=en_US.UTF-8
 export MANPAGER="most"
+export NOTES_DIR="$HOME/Dropbox/notes"
 export NVM_DIR="$HOME/.nvm"
 export PAGER="most"
 export SAVEHIST=10000
