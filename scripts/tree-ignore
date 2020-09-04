@@ -1,9 +1,0 @@
-#!/bin/bash
-
-ignored=""
-
-for i in `cat .gitignore`; do
-  ignored="$ignored|$i"
-done
-
-tree -CI "${ignored:1}"

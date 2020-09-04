@@ -1,3 +1,0 @@
-#!/bin/bash
-
-fgrep 'Host ' ~/.ssh/config | awk '{print $2}'
