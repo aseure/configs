@@ -57,7 +57,7 @@ export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.rvm/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
@@ -73,7 +73,6 @@ alias ls='ls -FG'
 alias rg="rg --smart-case --no-line-number"
 
 [ -f ~/.fzf.zsh                                   ] && source ~/.fzf.zsh
-[ -f ~/.rvm/scripts/rvm                           ] && source ~/.rvm/scripts/rvm
 [ -f ~/.sdkman/bin/sdkman-init.sh                 ] && source ~/.sdkman/bin/sdkman-init.sh
 [ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && source /usr/local/opt/nvm/etc/bash_completion.d/nvm
 [ -s /usr/local/opt/nvm/nvm.sh                    ] && source /usr/local/opt/nvm/nvm.sh
@@ -81,3 +80,4 @@ alias rg="rg --smart-case --no-line-number"
 eval "$(fasd --init auto)"
 eval "$(gh completion -s zsh)"
 eval "$(pyenv init -)"
+eval "$(rbenv init -)"
