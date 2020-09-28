@@ -86,7 +86,6 @@ set smarttab
 set softtabstop=4
 set t_vb=
 set tabstop=4
-set tags=~/tags
 set textwidth=80
 set updatetime=300
 set visualbell
