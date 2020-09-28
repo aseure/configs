@@ -45,10 +45,10 @@ export LC_MESSAGES=en_US.UTF-8
 export LC_MONETARY=en_US.UTF-8
 export LC_NUMERIC=en_US.UTF-8
 export LC_TIME=en_US.UTF-8
-export MANPAGER="most"
+export MANPAGER="less -r"
 export NOTES_DIR="$HOME/Dropbox/notes"
 export NVM_DIR="$HOME/.nvm"
-export PAGER="most"
+export PAGER="less -r"
 export SAVEHIST=10000
 export SDKMAN_DIR="/Users/anthony.seure/.sdkman"
 
