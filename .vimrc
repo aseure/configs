@@ -32,6 +32,7 @@ set t_Co=256
 colorscheme nord
 set background=dark
 highlight Comment ctermfg=Yellow
+highlight LineNr ctermfg=Yellow
 
 set autoindent
 set autoread
