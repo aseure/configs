@@ -83,9 +83,9 @@ set signcolumn=yes
 set smartcase
 set smartindent
 set smarttab
-set softtabstop=4
+set softtabstop=2
 set t_vb=
-set tabstop=4
+set tabstop=2
 set textwidth=80
 set updatetime=300
 set visualbell
