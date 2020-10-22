@@ -140,6 +140,10 @@ nmap <space> zz
 nmap n nzz
 nmap N Nzz
 
+" Navigate back and forth between locations
+nmap <leader>[ <C-o>
+nmap <leader>] <C-i>
+
 " Buffer navigation
 nnoremap tj :bnext<CR>
 nnoremap tk :bprevious<CR>
