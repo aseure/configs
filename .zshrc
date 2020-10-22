@@ -26,6 +26,12 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history
 
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^[^?" backward-kill-word
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
+
 # Ensure that IntellJ doesn't use his own history file. See the source code
 # of the terminal plugin of IntelliJ for more details:
 # https://github.com/JetBrains/intellij-community/blob/master/plugins/terminal/resources/.zshrc
