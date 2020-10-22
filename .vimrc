@@ -17,6 +17,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -177,6 +178,13 @@ command! -bang -nargs=* Rg
   \   'rg --column --line-number --no-heading --glob "!{*.pyc}" --color=always '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%'),
   \   <bang>0)
+
+command! -bang -nargs=* WikiRg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --glob "!{*.pyc}" --color=always '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'dir': '~/Dropbox/wiki/wiki/'}, 'up:60%'),
+  \   <bang>0)
+
 nnoremap <C-p> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
 
@@ -213,6 +221,14 @@ let g:lightline = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <leader>s ysiW
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                            vimwiki/vimwiki "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vimwiki_list = [{'path': '~/Dropbox/wiki/wiki', 'path_html': '~/Dropbox/wiki/html', 'diary_rel_path': ''}]
+nmap <leader>wf :Files ~/Dropbox/wiki/wiki/<CR>
+nmap <leader>wg :WikiRg<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                         preservim/nerdtree "
