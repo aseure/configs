@@ -32,12 +32,6 @@ bindkey "^[^?" backward-kill-word
 bindkey "^[b" backward-word
 bindkey "^[f" forward-word
 
-# Ensure that IntellJ doesn't use his own history file. See the source code
-# of the terminal plugin of IntelliJ for more details:
-# https://github.com/JetBrains/intellij-community/blob/master/plugins/terminal/resources/.zshrc
-unset __INTELLIJ_COMMAND_HISTFILE__
-
-export CCACHE_CPP2=yes
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export GOPATH="$HOME/go"
@@ -52,22 +46,14 @@ export LC_MONETARY=en_US.UTF-8
 export LC_NUMERIC=en_US.UTF-8
 export LC_TIME=en_US.UTF-8
 export MANPAGER="less -r"
-export NOTES_DIR="$HOME/Dropbox/notes"
-export NVM_DIR="$HOME/.nvm"
 export PAGER="less -r"
 export SAVEHIST=10000
-export SDKMAN_DIR="/Users/anthony.seure/.sdkman"
 
 export PATH="$GOPATH/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/.dotnet/tools:$PATH"
-export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
-export PATH="/Library/TeX/texbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
@@ -79,12 +65,7 @@ alias ll='ls -lh'
 alias ls='ls -FG'
 alias rg="rg --smart-case --no-line-number"
 
-[ -f ~/.fzf.zsh                                   ] && source ~/.fzf.zsh
-[ -f ~/.sdkman/bin/sdkman-init.sh                 ] && source ~/.sdkman/bin/sdkman-init.sh
-[ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && source /usr/local/opt/nvm/etc/bash_completion.d/nvm
-[ -s /usr/local/opt/nvm/nvm.sh                    ] && source /usr/local/opt/nvm/nvm.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(fasd --init auto)"
 eval "$(gh completion -s zsh)"
-eval "$(pyenv init -)"
-eval "$(rbenv init -)"
