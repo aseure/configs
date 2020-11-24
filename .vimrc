@@ -222,3 +222,4 @@ nnoremap <leader>s ysiW
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 map <C-t> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize=60
