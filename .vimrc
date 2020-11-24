@@ -116,6 +116,8 @@ if exists('&esckeys')
   set noesckeys
 endif
 
+imap <Esc><BS> <C-w>
+
 " Hardcore gamer (should be used though)
 inoremap <up> <nop>
 vnoremap <up> <nop>
