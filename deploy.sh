@@ -25,11 +25,17 @@ rm -rf .zfunctions/pure
 git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
 # Create relatives links
+rm -f  ~/.git-completion.zsh           && ln -s $PWD/.git-completion.zsh ~
 rm -f  ~/.gitconfig                    && ln -s $PWD/.gitconfig ~
 rm -f  ~/.gitignore_global             && ln -s $PWD/.gitignore_global ~
 rm -f  ~/.zshrc                        && ln -s $PWD/.zshrc ~
 rm -rf ~/.vim*                         && ln -s $PWD/.vim* ~
 rm -rf ~/.zfunctions                   && ln -s $PWD/.zfunctions ~
+
+# Download Git completion for ZSH
+mkdir -p ~/.zsh
+curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 
 cd
 vim +PlugInstall +qa!
