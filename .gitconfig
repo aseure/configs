@@ -46,3 +46,5 @@
 	insteadOf = https://github.com/aircall
 [url "git@bitbucket.org:aircall"]
 	insteadOf = https://bitbucket.org/aircall
+[diff]
+	wsErrorHighlight = all
