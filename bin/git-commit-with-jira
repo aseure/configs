@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+#PROJECT="$1"
+#SHA1="$2"
+
+#TITLE=$(git show --no-patch --format=%s ${SHA1})
+
+PROJECT="ARC"
+TITLE="test"
+
+# Create a JIRA issue using the given title as a summary for the issue which
+# returns with the following output on STDOUT:
+#
+#     OK ARC-293 https://aircall-product.atlassian.net/browse/ARC-293
+#        ^^^^^^^
+#     JIRA_ISSUE_ID
+
+OUTPUT=$(jira create             \
+            --project ${PROJECT} \
+            --issuetype Task     \
+            --editor "vim -c 'execute \"normal! 6jA${TITLE}\<esc>\"' -c 'x' 2>&1 >/dev/null")
+JIRA_ISSUE_ID=$(echo ${OUTPUT} | gawk '{print $2}')
+
+echo $OUTPUT
+echo $JIRA_ISSUE_ID
+
+#git filter-branch --msg-filter "gsed 's/${TITLE}/${TITLE} [${JIRA_ISSUE_ID}]/'" master...HEAD
