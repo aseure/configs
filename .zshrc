@@ -86,6 +86,7 @@ alias ns="note_search"
 alias nf="note_search"
 
 [ -f $NVM_DIR/nvm.sh                     ] && source $NVM_DIR/nvm.sh
+[ -f /usr/local/share/zsh/site-functions ] && source /usr/local/share/zsh/site-functions
 [ -f ~/.fzf.zsh                          ] && source ~/.fzf.zsh
 [ -f ~/.rvm/scripts/rvm                  ] && source ~/.rvm/scripts/rvm
 [ -f ~/.sdkman/bin/sdkman-init.sh        ] && source ~/.sdkman/bin/sdkman-init.sh
