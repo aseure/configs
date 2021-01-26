@@ -2,6 +2,7 @@ call plug#begin()
 
 Plug '/usr/local/opt/fzf'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-terraform'
