@@ -30,10 +30,14 @@ language C
 syntax on
 
 set t_Co=256
+set termguicolors
 colorscheme nord
 set background=dark
-highlight Comment ctermfg=Yellow
-highlight LineNr ctermfg=Yellow
+highlight Comment guifg=#EBCB8B
+highlight LineNr guifg=#B48EAD
+let g:lightline = {
+    \ 'colorscheme': 'nord',
+    \ }
 
 set autoindent
 set autoread
@@ -202,14 +206,6 @@ map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                      itchyny/lightline.vim "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                         tpope/vim-surround "
