@@ -70,7 +70,9 @@ export PATH="$HOME/.rvm/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
