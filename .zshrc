@@ -8,6 +8,9 @@ autoload -U colors && colors
 autoload -U compinit compdef && compinit
 autoload -U promptinit && promptinit
 autoload -U public
+autoload -U note_file
+autoload -U note_new
+autoload -U note_search
 autoload -U select-word-style && select-word-style bash
 prompt pure
 
@@ -48,6 +51,7 @@ export LC_TIME=en_US.UTF-8
 export MANPAGER="less -r"
 export PAGER="less -r"
 export SAVEHIST=10000
+export NOTES_DIR="$HOME/icloud/notes"
 
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -64,6 +68,9 @@ alias la='ls -al'
 alias ll='ls -lh'
 alias ls='ls -FG'
 alias rg="rg --smart-case --no-line-number"
+alias n="note_new"
+alias ns="note_search"
+alias nf="note_search"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

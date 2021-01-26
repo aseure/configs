@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+note_search () {
+  local selected_file=$(for f in $(find $NOTES_DIR -depth 1 -type f -name '*.md'); do
+    local filename="$(basename $f)"
+    local content="$(echo $(cat $f))"
+    if [ -n "$content" ]; then echo "$filename | $content"; fi
+  done | fzf --reverse --border | awk '{print $1}')
+  bat --style=header,grid $NOTES_DIR/$selected_file
+}
