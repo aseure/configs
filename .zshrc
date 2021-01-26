@@ -56,6 +56,7 @@ export LC_MONETARY=en_US.UTF-8
 export LC_NUMERIC=en_US.UTF-8
 export LC_TIME=en_US.UTF-8
 export MANPAGER="most -S"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 export PAGER="less -S"
 export SAVEHIST=10000
 export NOTES_DIR="$HOME/icloud/notes"
@@ -80,6 +81,7 @@ alias ns="note_search"
 alias nf="note_search"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $NVM_DIR/nvm.sh                     ] && source $NVM_DIR/nvm.sh
 
 eval "$(fasd --init auto)"
 eval "$(gh completion -s zsh)"
