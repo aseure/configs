@@ -48,3 +48,5 @@
 	insteadOf = https://bitbucket.org/aircall
 [diff]
 	wsErrorHighlight = all
+[init]
+	defaultBranch = main
