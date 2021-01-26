@@ -59,6 +59,7 @@ export MANPAGER="most -S"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 export PAGER="less -S"
 export SAVEHIST=10000
+export SDKMAN_DIR="$HOME/.sdkman"
 export NOTES_DIR="$HOME/icloud/notes"
 
 export PATH="$GOPATH/bin:$PATH"
@@ -82,6 +83,7 @@ alias nf="note_search"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f $NVM_DIR/nvm.sh                     ] && source $NVM_DIR/nvm.sh
+[ -f ~/.sdkman/bin/sdkman-init.sh        ] && source ~/.sdkman/bin/sdkman-init.sh
 
 eval "$(fasd --init auto)"
 eval "$(gh completion -s zsh)"
