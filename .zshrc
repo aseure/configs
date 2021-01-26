@@ -38,6 +38,7 @@ bindkey "^[f" forward-word
 
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --type f'
+export GO111MODULE="on"
 export GOPATH="$HOME/go"
 export GPG_TTY=$(tty)
 export HISTFILE="$HOME/.history"
