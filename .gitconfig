@@ -42,3 +42,7 @@
 	old = red
 	new = green
 	whitespace = red reverse
+[url "git@github.com:aircall"]
+	insteadOf = https://github.com/aircall
+[url "git@bitbucket.org:aircall"]
+	insteadOf = https://bitbucket.org/aircall
