@@ -63,6 +63,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export NOTES_DIR="$HOME/icloud/notes"
 
 export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
