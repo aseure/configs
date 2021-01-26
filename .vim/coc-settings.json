@@ -1,0 +1,13 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "rust",
+    "go",
+    "json",
+    "ts",
+    "js",
+    "jsx",
+    "tsx"
+  ],
+  "rust.all_features": true,
+  "languageserver": {}
+}
