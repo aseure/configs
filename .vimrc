@@ -85,7 +85,6 @@ set ruler
 set scrolloff=10
 set shiftwidth=2
 set shortmess+=c
-set shortmess=a
 set showmatch
 set signcolumn=yes
 set smartcase
