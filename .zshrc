@@ -66,6 +66,7 @@ export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.rvm/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
@@ -84,6 +85,7 @@ alias nf="note_search"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f $NVM_DIR/nvm.sh                     ] && source $NVM_DIR/nvm.sh
+[ -f ~/.rvm/scripts/rvm                  ] && source ~/.rvm/scripts/rvm
 [ -f ~/.sdkman/bin/sdkman-init.sh        ] && source ~/.sdkman/bin/sdkman-init.sh
 
 eval "$(fasd --init auto)"
