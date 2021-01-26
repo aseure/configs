@@ -83,7 +83,7 @@ set nowritebackup
 set number
 set ruler
 set scrolloff=10
-set shiftwidth=4
+set shiftwidth=2
 set shortmess+=c
 set shortmess=a
 set showmatch
@@ -93,7 +93,7 @@ set smartindent
 set smarttab
 set softtabstop=2
 set t_vb=
-set tabstop=2
+set tabstop=4
 set textwidth=80
 set updatetime=300
 set visualbell
