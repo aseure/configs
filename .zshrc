@@ -93,4 +93,4 @@ alias nf="note_search"
 [ -f ~/.sdkman/bin/sdkman-init.sh        ] && source ~/.sdkman/bin/sdkman-init.sh
 
 eval "$(fasd --init auto)"
-eval "$(gh completion -s zsh)"
+eval "$(jira --completion-script-zsh)"
