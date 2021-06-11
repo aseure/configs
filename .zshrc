@@ -39,6 +39,7 @@ bindkey "^[^?" backward-kill-word
 bindkey "^[b" backward-word
 bindkey "^[f" forward-word
 
+export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
