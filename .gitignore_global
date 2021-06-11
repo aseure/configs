@@ -8,9 +8,11 @@
 *.zip
 *~
 .bloop/
+.build/
 .classpath
 .idea
 .metals/
+.nvmrc
 .project
 .settings/
 .vs
