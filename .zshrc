@@ -7,6 +7,7 @@ fpath=(
 
 autoload -U colors && colors
 autoload -U compinit compdef && compinit
+autoload -U bashcompinit && bashcompinit
 autoload -U promptinit && promptinit
 autoload -U public
 autoload -U note_file
@@ -14,6 +15,8 @@ autoload -U note_new
 autoload -U note_search
 autoload -U select-word-style && select-word-style bash
 prompt pure
+
+complete -C '/usr/local/bin/aws_completer' aws
 
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
