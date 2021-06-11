@@ -175,6 +175,10 @@ set pastetoggle=<F2>
 
 nnoremap <C-h> :set hlsearch!<CR>
 
+" Insert timestamp
+nmap <F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                           junegunn/fzf.vim "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
