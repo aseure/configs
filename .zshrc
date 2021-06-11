@@ -78,6 +78,7 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export PATH="/usr/local/opt/terraform@0.13/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
