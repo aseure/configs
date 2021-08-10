@@ -65,6 +65,7 @@ export PAGER="less -S"
 export SAVEHIST=10000
 export SDKMAN_DIR="$HOME/.sdkman"
 export NOTES_DIR="$HOME/icloud/notes"
+export BAT_THEME="Nord"
 
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
