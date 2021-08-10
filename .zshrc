@@ -81,6 +81,8 @@ export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH="/usr/local/opt/terraform@0.13/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
 alias j='fasd_cd -d'
