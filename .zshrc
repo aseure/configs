@@ -94,11 +94,16 @@ alias n="note_new"
 alias ns="note_search"
 alias nf="note_search"
 
-[ -f $NVM_DIR/nvm.sh                     ] && source $NVM_DIR/nvm.sh
-[ -f /usr/local/share/zsh/site-functions ] && source /usr/local/share/zsh/site-functions
-[ -f ~/.fzf.zsh                          ] && source ~/.fzf.zsh
-[ -f ~/.iterm2_shell_integration.zsh     ] && source ~/.iterm2_shell_integration.zsh
-[ -f ~/.rvm/scripts/rvm                  ] && source ~/.rvm/scripts/rvm
-[ -f ~/.sdkman/bin/sdkman-init.sh        ] && source ~/.sdkman/bin/sdkman-init.sh
+function source_if_exists () {
+  [ -f "$1" ] && source "$1"
+}
+
+source_if_exists /opt/homebrew/opt/nvm/nvm.sh
+source_if_exists /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm
+source_if_exists /usr/local/share/zsh/site-functions
+source_if_exists ~/.fzf.zsh
+source_if_exists ~/.iterm2_shell_integration.zsh
+source_if_exists ~/.rvm/scripts/rvm
+source_if_exists ~/.sdkman/bin/sdkman-init.sh
 
 eval "$(fasd --init auto)"
