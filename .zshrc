@@ -85,6 +85,7 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
+alias tok='tokei'
 alias j='fasd_cd -d'
 alias la='ls -al'
 alias ll='ls -lh'
