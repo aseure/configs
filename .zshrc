@@ -63,17 +63,12 @@ export MANPAGER="most -S"
 export NVM_DIR="$HOME/.nvm"
 export PAGER="less -S"
 export SAVEHIST=10000
-export SDKMAN_DIR="$HOME/.sdkman"
 export NOTES_DIR="$HOME/icloud/notes"
 export BAT_THEME="Nord"
 
 export PATH="$GOPATH/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.configs/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.rvm/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
@@ -83,6 +78,8 @@ export PATH="/usr/local/opt/terraform@0.13/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
 alias tok='tokei'
@@ -91,20 +88,15 @@ alias la='ls -al'
 alias ll='ls -lh'
 alias ls='ls -FG'
 alias rg="rg --smart-case --no-line-number"
-alias n="note_new"
-alias ns="note_search"
-alias nf="note_search"
 
 function source_if_exists () {
   [ -f "$1" ] && source "$1"
 }
 
-source_if_exists /opt/homebrew/opt/nvm/nvm.sh
-source_if_exists /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm
+source_if_exists "$NVM_DIR/nvm.sh"
+source_if_exists "$NVM_DIR/bash_completion"
 source_if_exists /usr/local/share/zsh/site-functions
 source_if_exists ~/.fzf.zsh
 source_if_exists ~/.iterm2_shell_integration.zsh
-source_if_exists ~/.rvm/scripts/rvm
-source_if_exists ~/.sdkman/bin/sdkman-init.sh
 
 eval "$(fasd --init auto)"
