@@ -9,10 +9,6 @@ autoload -U colors && colors
 autoload -U compinit compdef && compinit
 autoload -U bashcompinit && bashcompinit
 autoload -U promptinit && promptinit
-autoload -U public
-autoload -U note_file
-autoload -U note_new
-autoload -U note_search
 autoload -U select-word-style && select-word-style bash
 prompt pure
 
@@ -43,10 +39,10 @@ export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-    --color=fg:#e5e9f0,bg:#2E3440,hl:#81a1c1
-    --color=fg+:#e5e9f0,bg+:#2E3440,hl+:#81a1c1
-    --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
-    --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
+--color=fg:#e5e9f0,bg:#2E3440,hl:#81a1c1
+--color=fg+:#e5e9f0,bg+:#2E3440,hl+:#81a1c1
+--color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
+--color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
 export GO111MODULE="on"
 export GOPATH="$HOME/go"
 export GPG_TTY=$(tty)
@@ -60,26 +56,25 @@ export LC_MONETARY=en_US.UTF-8
 export LC_NUMERIC=en_US.UTF-8
 export LC_TIME=en_US.UTF-8
 export MANPAGER="most -S"
-export NVM_DIR="$HOME/.nvm"
 export PAGER="less -S"
 export SAVEHIST=10000
 export NOTES_DIR="$HOME/icloud/notes"
 export BAT_THEME="Nord"
+export PROJECT_HOME="$HOME/kmtx"
 
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.configs/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-export PATH="/usr/local/opt/terraform@0.13/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-export PATH="/opt/homebrew/sbin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 alias bat='bat --pager="less" --wrap=never'
 alias tok='tokei'
@@ -87,16 +82,44 @@ alias j='fasd_cd -d'
 alias la='ls -al'
 alias ll='ls -lh'
 alias ls='ls -FG'
+alias k='kubectl'
 alias rg="rg --smart-case --no-line-number"
+alias gui='gitui'
 
 function source_if_exists () {
   [ -f "$1" ] && source "$1"
 }
 
-source_if_exists "$NVM_DIR/nvm.sh"
-source_if_exists "$NVM_DIR/bash_completion"
 source_if_exists /usr/local/share/zsh/site-functions
 source_if_exists ~/.fzf.zsh
 source_if_exists ~/.iterm2_shell_integration.zsh
+source_if_exists ~/.cargo/env
+
+_fzf_complete_git() {
+  ARGS="$@"
+  if [[ $ARGS == 'git cp'*          || \
+        $ARGS == 'git cherry-pick'* || \
+        $ARGS == 'git co'*          || \
+        $ARGS == 'git checkout'*    || \
+        $ARGS == 'git show'*        || \
+        $ARGS == 'git diff'*        || \
+        $ARGS == 'git ds'*          || \
+        $ARGS == 'git reset'* ]]; then
+    _fzf_complete "--reverse --multi" "$@" < <(
+      git log \
+        --graph \
+        --all \
+        --abbrev-commit \
+        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  )
+  else
+    eval "zle ${fzf_default_completion:-expand-or-complete}"
+  fi
+}
+
+_fzf_complete_git_post() {
+  sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
+}
 
 eval "$(fasd --init auto)"
+eval "$(kubectl completion zsh)"

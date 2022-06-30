@@ -1,6 +1,7 @@
 [user]
 	name = Anthony Seure
 	email = anthony.seure@gmail.com
+	signingkey = AE5B04620F0B1DCC
 [color]
 	ui = true
 	branch = true
@@ -42,11 +43,13 @@
 	old = red
 	new = green
 	whitespace = red reverse
-[url "git@github.com:aircall"]
-	insteadOf = https://github.com/aircall
-[url "git@bitbucket.org:aircall"]
-	insteadOf = https://bitbucket.org/aircall
 [diff]
 	wsErrorHighlight = all
 [init]
 	defaultBranch = main
+[url "git@github.com:keymantics"]
+    insteadOf = https://github.com/keymantics
+[commit]
+	gpgsign = true
+[github]
+	user = aseure

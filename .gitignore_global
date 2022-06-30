@@ -1,3 +1,4 @@
+**/sandbox
 *.DS_Store
 *.bak
 *.idea
@@ -25,3 +26,4 @@ metals.sbt
 node_modules/
 tags
 target/
+values-override.yaml
