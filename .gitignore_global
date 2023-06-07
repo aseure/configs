@@ -13,7 +13,6 @@
 .classpath
 .idea
 .metals/
-.nvmrc
 .project
 .settings/
 .vs

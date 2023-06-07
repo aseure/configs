@@ -1,7 +1,6 @@
 [user]
 	name = Anthony Seure
-	email = anthony.seure@gmail.com
-	signingkey = AE5B04620F0B1DCC
+	email = aseure@cloudflare.com
 [color]
 	ui = true
 	branch = true
@@ -15,8 +14,8 @@
 	dc = diff --cached
 	ds = diff --staged
 	df = diff
-	lg =  log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgs = log --color --graph       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg =  log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgs = log --color --graph       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status
 	ssn = shortlog -sn
 	rs = restore --staged
@@ -49,7 +48,5 @@
 	defaultBranch = main
 [url "git@github.com:keymantics"]
     insteadOf = https://github.com/keymantics
-[commit]
-	gpgsign = true
 [github]
 	user = aseure
