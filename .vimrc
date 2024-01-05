@@ -3,7 +3,6 @@ call plug#begin()
 Plug '/usr/homebrew/bin/fzf'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'arcticicestudio/nord-vim'
-Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -199,23 +198,6 @@ let g:go_highlight_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_format_strings = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                         dense-analysis/ale "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-let g:ale_fixers = {
-\   'rust': ['rustfmt',
-\   'trim_whitespace',
-\   'remove_trailing_lines'],
-\}
-
-let g:ale_fix_on_save = 1
-set completeopt=menu,menuone,preview,noselect
-let g:ale_completion_enabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                           junegunn/fzf.vim "
