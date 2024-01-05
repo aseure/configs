@@ -14,8 +14,8 @@
 	dc = diff --cached
 	ds = diff --staged
 	df = diff
-	lg =  log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgs = log --color --graph       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg =  log --color --graph --exclude='refs/remotes/origin/renovate/*' --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgs = log --color --graph --exclude='refs/remotes/origin/renovate/*'       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	st = status
 	ssn = shortlog -sn
 	rs = restore --staged
