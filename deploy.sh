@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 echo "> Current configuration files for Git, Vim, ZSH and iTerm2 will be overriden."
 echo "> Press any key to continue or press ^C to abort"
