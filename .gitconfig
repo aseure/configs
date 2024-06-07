@@ -41,3 +41,5 @@
 	defaultBranch = main
 [github]
 	user = aseure
+[include]
+	path = /Users/anthony/.local/share/cloudflare-warp-certs/gitconfig
