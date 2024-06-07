@@ -22,18 +22,17 @@ git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
 # Create relatives links
 mkdir -p ~/.config
-rm -f  ~/.git-completion.zsh           && ln -s $PWD/.git-completion.zsh ~
-rm -f  ~/.gitconfig                    && ln -s $PWD/.gitconfig ~
-rm -f  ~/.gitignore_global             && ln -s $PWD/.gitignore_global ~
-rm -f  ~/.tokeirc                      && ln -s $PWD/.tokeirc ~
-rm -f  ~/.zshrc                        && ln -s $PWD/.zshrc ~
-rm -rf ~/.config/nvim*                 && ln -s $PWD/nvim* ~/.config
-rm -rf ~/.zfunctions                   && ln -s $PWD/.zfunctions ~
+rm -f  ~/.gitconfig        && ln -s $PWD/.gitconfig ~
+rm -f  ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
+rm -f  ~/.tokeirc          && ln -s $PWD/.tokeirc ~
+rm -f  ~/.zshrc            && ln -s $PWD/.zshrc ~
+rm -rf ~/.config/nvim*     && ln -s $PWD/nvim* ~/.config
+rm -rf ~/.zfunctions       && ln -s $PWD/.zfunctions ~
 
 # Download Git completion for ZSH
 mkdir -p ~/.zsh
 curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+curl -o ~/.zsh/_git                https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 
 cd
 
