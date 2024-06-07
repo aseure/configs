@@ -1,0 +1,15 @@
+#!/bin/bash
+
+project=$(find ~/cloudflare ~/anthony -mindepth 1 -maxdepth 1 -type d | sed "s:$HOME/::g" | fzf)
+tmux_pid=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_pid ]]; then
+  tmux new-session -s $project -c ~/$project
+  exit 0
+fi
+
+if ! tmux has-session -t $project 2> /dev/null; then
+  tmux new-session -s $project -c ~/$project -d
+fi
+
+tmux switch-client -t $project
