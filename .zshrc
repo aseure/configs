@@ -37,10 +37,8 @@ bindkey '^[[1;9D' backward-word
 bindkey -e
 
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.configs/bin:$PATH"
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.krew/bin:$PATH"
 export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
+export PATH="$HOME/anthony/configs/scripts:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="/Applications/IntelliJ\ IDEA.app/Contents/jbr/Contents/Home/bin:$PATH"

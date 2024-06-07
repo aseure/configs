@@ -14,22 +14,15 @@
 	dc = diff --cached
 	ds = diff --staged
 	df = diff
-	lg =  log --color --graph --exclude='refs/remotes/origin/renovate/*' --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgs = log --color --graph --exclude='refs/remotes/origin/renovate/*'       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg =  log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	lgs = log       --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 	st = status
-	ssn = shortlog -sn
 	rs = restore --staged
 [push]
 	default = current
 [core]
 	excludesfile = ~/.gitignore_global
 	ignorecase = false
-	pager = less -S
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [color "diff-highlight"]
 	oldNormal = red
 	oldHighlight = red 52
@@ -46,7 +39,5 @@
 	wsErrorHighlight = all
 [init]
 	defaultBranch = main
-[url "git@github.com:keymantics"]
-    insteadOf = https://github.com/keymantics
 [github]
 	user = aseure

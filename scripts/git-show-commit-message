@@ -1,0 +1,9 @@
+#!/bin/bash
+
+REF="$1"
+if [ -z "$REF" ]; then
+  REF="HEAD"
+fi
+
+# Extract the commit message body
+git log -1 --format=%b "$REF"
