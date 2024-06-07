@@ -40,7 +40,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
 export PATH="$HOME/anthony/configs/scripts:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
 export PATH="/Applications/IntelliJ\ IDEA.app/Contents/jbr/Contents/Home/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
@@ -114,5 +113,4 @@ _fzf_complete_git_post() {
 
 eval "$(zoxide init --cmd j zsh)"
 source "$HOME/.cloudflare.zsh"
-source "$HOME/.fzf.zsh"
 source "/opt/homebrew/opt/asdf/libexec/asdf.sh"
