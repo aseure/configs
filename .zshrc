@@ -62,6 +62,7 @@ export GPG_TTY=$(tty)
 export HISTFILE="$HOME/.history"
 export HISTFILESIZE="10000"
 export HISTSIZE="10000"
+export HOMEBREW_NO_ENV_HINTS='1'
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
