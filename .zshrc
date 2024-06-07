@@ -72,7 +72,6 @@ export LC_TIME="en_US.UTF-8"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export MANPAGER="most -S"
 export MANPATH="/opt/hombrew/opt/coreutils/libexec/gnuman:$MANPATH"
-export NVM_DIR="$HOME/.nvm"
 export PAGER="less -S"
 export SAVEHIST="10000"
 export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
@@ -112,9 +111,6 @@ _fzf_complete_git_post() {
 }
 
 eval "$(zoxide init --cmd j zsh)"
-#eval "$(kubectl completion zsh)"
-#source "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-#source "/opt/homebrew/opt/nvm/nvm.sh"
-#source "$HOME/.cargo/env"
 source "$HOME/.cloudflare.zsh"
 source "$HOME/.fzf.zsh"
+source "/opt/homebrew/opt/asdf/libexec/asdf.sh"
