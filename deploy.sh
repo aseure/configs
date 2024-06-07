@@ -16,21 +16,18 @@ if [[ $PLATFORM == "Darwin" ]]; then
   # defaults delete -g ApplePressAndHoldEnabled                                    # If necessary, reset global default
 fi
 
-# Reinstall Vim Plug
-rm -f .vim/autoload/plug.vim
-curl -fLo .vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 # Prepare ZSH (Pure prompt)
 rm -rf .zfunctions/pure
 git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
 # Create relatives links
+mkdir -p ~/.config
 rm -f  ~/.git-completion.zsh           && ln -s $PWD/.git-completion.zsh ~
 rm -f  ~/.gitconfig                    && ln -s $PWD/.gitconfig ~
 rm -f  ~/.gitignore_global             && ln -s $PWD/.gitignore_global ~
 rm -f  ~/.tokeirc                      && ln -s $PWD/.tokeirc ~
 rm -f  ~/.zshrc                        && ln -s $PWD/.zshrc ~
-rm -rf ~/.vim*                         && ln -s $PWD/.vim* ~
+rm -rf ~/.config/nvim*                 && ln -s $PWD/nvim* ~/.config
 rm -rf ~/.zfunctions                   && ln -s $PWD/.zfunctions ~
 
 # Download Git completion for ZSH
@@ -39,7 +36,6 @@ curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/mas
 curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 
 cd
-vim +PlugInstall +qa!
 
 echo
 echo "> Configurations updated. Now just run \`source .zshrc\`"

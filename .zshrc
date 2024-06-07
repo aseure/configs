@@ -54,7 +54,7 @@ export BAT_THEME="Nord"
 export BUILDKIT_PROGRESS="plain"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
-export EDITOR="vim"
+export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#e5e9f0,bg:#2E3440,hl:#81a1c1 --color=fg+:#e5e9f0,bg+:#2E3440,hl+:#81a1c1 --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
 export GOPATH="$HOME/go"
@@ -84,6 +84,7 @@ alias ll='ls -lh'
 alias ls='ls -F --color=auto'
 alias rg='rg --smart-case --no-line-number'
 alias tok='tokei'
+alias vim='nvim'
 
 _fzf_complete_git() {
   ARGS="$@"
