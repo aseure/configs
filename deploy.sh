@@ -28,6 +28,7 @@ rm -f  ~/.tokeirc          && ln -s $PWD/.tokeirc ~
 rm -f  ~/.zshrc            && ln -s $PWD/.zshrc ~
 rm -rf ~/.config/nvim*     && ln -s $PWD/nvim* ~/.config
 rm -rf ~/.zfunctions       && ln -s $PWD/.zfunctions ~
+rm -rf ~/.config/tmux      && ln -s $PWD/tmux ~/.config
 
 # Download Git completion for ZSH
 mkdir -p ~/.zsh
