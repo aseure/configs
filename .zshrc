@@ -55,7 +55,12 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#e5e9f0,bg:#2E3440,hl:#81a1c1 --color=fg+:#e5e9f0,bg+:#2E3440,hl+:#81a1c1 --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--color=selected-bg:#45475a \
+--multi"
 export GOPATH="$HOME/go"
 export GPG_TTY=$(tty)
 export HISTFILE="$HOME/.history"
