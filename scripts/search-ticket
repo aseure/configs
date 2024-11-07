@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+
+history_db="$HOME/Library/Application Support/Google/Chrome/Profile 1/History"
+history_db_copy="/tmp/history.db"
+query='select title from urls where url like "https://jira.cfdata.org/browse/%" order by last_visit_time desc, visit_count desc;'
+jira_regex='[A-Z]+-[1-9][0-9]*'
+
+cp "$history_db" "$history_db_copy"
+sqlite3 "$history_db_copy" "$query" | grep -E "$jira_regex" | fzf | grep -oE "$jira_regex"
+rm -f "$history_db_copy"
