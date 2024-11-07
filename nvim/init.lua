@@ -17,21 +17,20 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  { 'L3MON4D3/LuaSnip' },
-  { 'NLKNguyen/papercolor-theme' },
-  { 'VonHeikemen/lsp-zero.nvim',       branch = 'v3.x' },
-  { 'airblade/vim-gitgutter' },
-  { 'chrisbra/Colorizer' },
-  { 'folke/zen-mode.nvim' },
+  { 'VonHeikemen/lsp-zero.nvim', branch = 'v4.x' },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/nvim-cmp' },
-  { 'kevinhwang91/nvim-ufo' },
-  { 'kylechui/nvim-surround' },
+  { 'kylechui/nvim-surround',    version = '*',  event = 'VeryLazy' },
   { 'neovim/nvim-lspconfig' },
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+    },
+  },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  { 'pappasam/papercolor-theme-slim' },
+  { 'nvim-treesitter/nvim-treesitter',          build = ':TSUpdate' },
   { 'shaunsingh/nord.nvim' },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-vinegar' },
@@ -52,11 +51,7 @@ vim.keymap.set('n', '<leader>j', '<C-w>j')
 vim.keymap.set('n', '<leader>h', '<C-w>h')
 vim.keymap.set('n', '<leader>l', '<C-w>l')
 
--- Window resize
-vim.keymap.set('n', '<C-k>', ':resize -2<CR>')
-vim.keymap.set('n', '<C-j>', ':resize +2<CR>')
-vim.keymap.set('n', '<C-h>', ':vertical resize -2<CR>')
-vim.keymap.set('n', '<C-l>', ':vertical resize +2<CR>')
+vim.keymap.set('n', '<C-h>', ':noh<CR>')
 
 -- Window splits
 vim.keymap.set('n', '<leader>s', ':split<CR>')
@@ -91,11 +86,12 @@ vim.opt.nu = true
 vim.opt.scrolloff = 8
 vim.opt.shell = '/opt/homebrew/bin/zsh'
 vim.opt.shiftwidth = 2
+vim.opt.signcolumn = 'yes'
 vim.opt.smartindent = true
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
-vim.opt.updatetime = 50
+vim.opt.updatetime = 500
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -110,9 +106,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 -- Close the quickfix menu after selecting choice
 vim.api.nvim_create_autocmd(
   'FileType', {
-  pattern={'qf'},
-  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
-})
+    pattern = { 'qf' },
+    command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]]
+  })
 
 -------------------------------------------------------------------------------
 -- Colorscheme
@@ -121,54 +117,150 @@ vim.api.nvim_create_autocmd(
 vim.cmd.colorscheme('nord')
 
 -------------------------------------------------------------------------------
+-- Fuzzy file search
+-------------------------------------------------------------------------------
+
+local telescopeConfig = require('telescope.config')
+
+local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+table.insert(vimgrep_arguments, '--smart-case')
+
+local telescope = require('telescope')
+local actions = require('telescope.actions')
+
+telescope.setup({
+  defaults = {
+    layout_strategy = 'vertical',
+    layout_config = { height = 0.95, prompt_position = "top", mirror = true },
+    sorting_strategy = "ascending",
+    vimgrep_arguments = vimgrep_arguments,
+  },
+  pickers = {
+    find_files = {
+      mappings = {
+        i = {
+          ['<M-BS>'] = function() vim.api.nvim_input "<C-w>" end,
+          ["<Tab>"] = actions.move_selection_worse,
+          ["<S-Tab>"] = actions.move_selection_better,
+        },
+      },
+    },
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    },
+    live_grep_args = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      -- define mappings, e.g.
+      mappings = {         -- extend mappings
+        i = {
+          ['<C-space>'] = actions.to_fuzzy_refine,
+        },
+      },
+    },
+  },
+})
+
+local builtin = require('telescope.builtin')
+
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+
+require('telescope').load_extension('fzf')
+
+-------------------------------------------------------------------------------
 -- LSP
 -------------------------------------------------------------------------------
 
-local lsp_zero = require('lsp-zero')
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- This should be executed before you configure any language server
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
 
-lsp_zero.on_attach(function(client, bufnr)
-  lsp_zero.default_keymaps({ buffer = bufnr })
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = { buffer = event.buf }
 
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
-  vim.keymap.set('n', '<leader>.', vim.lsp.buf.hover)
-end)
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+      vim.lsp.handlers.hover, { focusable = false }
+    )
 
-lsp_zero.set_sign_icons({})
+    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', builtin.lsp_definitions, opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+
+    local id = vim.tbl_get(event, 'data', 'client_id')
+    local client = id and vim.lsp.get_client_by_id(id)
+    if client ~= nil and client.supports_method('textDocument/formatting') then
+      require('lsp-zero').buffer_autoformat()
+    end
+  end,
+})
 
 require('lspconfig').gopls.setup({})
-require('lspconfig').tsserver.setup({})
+require('lspconfig').ts_ls.setup({})
 require('lspconfig').rust_analyzer.setup({})
 require('lspconfig').terraformls.setup({})
 require('lspconfig').salt_ls.setup({})
 require('lspconfig').lua_ls.setup({
   on_init = function(client)
-    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-      Lua = {
-        workspace = {
-          preloadFileSize = 10000
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
         },
+        preloadFileSize = 10000,
       },
     })
-    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-  end
-})
-
-local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
-
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp_action.tab_complete(),
-    ['<S-Tab>'] = cmp_action.select_prev_or_fallback(),
-  }),
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+  end,
+  settings = {
+    Lua = {}
   }
 })
 
-vim.lsp.inlay_hint.enable()
+local cmp = require('cmp')
+
+cmp.setup({
+  sources = {
+    { name = 'nvim_lsp' },
+  },
+  snippet = {
+    expand = function(args)
+      -- You need Neovim v0.10 to use vim.snippet
+      vim.snippet.expand(args.body)
+    end,
+  },
+  mapping = {
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<Tab>"] = cmp.mapping.confirm({ select = false }),
+  },
+})
 
 -------------------------------------------------------------------------------
 -- Treesitter
@@ -202,56 +294,3 @@ require 'nvim-treesitter.configs'.setup {
 -------------------------------------------------------------------------------
 
 require('nvim-surround').setup({})
-
--------------------------------------------------------------------------------
--- Fuzzy file search
--------------------------------------------------------------------------------
-
-local telescopeConfig = require("telescope.config")
-
-local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-table.insert(vimgrep_arguments, "--smart-case")
-
-local telescope = require('telescope')
-local actions = require('telescope.actions')
-
-telescope.setup({
-  defaults = {
-    layout_strategy = 'vertical',
-    layout_config = { height = 0.95 },
-    vimgrep_arguments = vimgrep_arguments,
-  },
-  pickers = {
-    find_files = {
-      mappings = {
-        i = {
-          ['<C-j>'] = actions.move_selection_next,
-          ['<C-k>'] = actions.move_selection_previous,
-        },
-      },
-    },
-  },
-})
-
-local builtin = require('telescope.builtin')
-
-vim.keymap.set('n', '<C-s>', builtin.buffers, {})
-vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
-
-require('telescope').load_extension('fzf')
-
--------------------------------------------------------------------------------
--- Zen mode
--------------------------------------------------------------------------------
-
-local zen = require('zen-mode')
-
-zen.setup({
-  window = {
-    backdrop = 1,
-    width = 150,
-  },
-})
-
-vim.keymap.set('n', '<leader>z', zen.toggle, {})
