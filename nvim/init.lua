@@ -93,6 +93,8 @@ vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.updatetime = 500
 
+vim.wo.wrap = false
+
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
   command = 'setlocal nonumber',
