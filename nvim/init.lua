@@ -34,6 +34,7 @@ require('lazy').setup({
   { 'shaunsingh/nord.nvim' },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-vinegar' },
+  { 'numToStr/Comment.nvim' },
 })
 
 -------------------------------------------------------------------------------
@@ -296,3 +297,16 @@ require 'nvim-treesitter.configs'.setup {
 -------------------------------------------------------------------------------
 
 require('nvim-surround').setup({})
+
+-------------------------------------------------------------------------------
+-- Comment
+-------------------------------------------------------------------------------
+
+require('Comment').setup({
+  toggler = {
+    line = '<leader>cc',
+  },
+  opleader = {
+    line = '<leader>cc',
+  },
+})
