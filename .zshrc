@@ -36,6 +36,8 @@ bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 bindkey -e
 
+export ASDF_DATA_DIR="$HOME/.asdf"
+
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
 export PATH="$HOME/anthony/configs/scripts:$PATH"
@@ -48,6 +50,7 @@ export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 export BAT_THEME="Nord"
 export BUILDKIT_PROGRESS="plain"
