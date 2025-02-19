@@ -98,8 +98,6 @@ _fzf_complete_git() {
   ARGS="$@"
   if [[ $ARGS == 'git cp'*          || \
         $ARGS == 'git cherry-pick'* || \
-        $ARGS == 'git co'*          || \
-        $ARGS == 'git checkout'*    || \
         $ARGS == 'git show'*        || \
         $ARGS == 'git diff'*        || \
         $ARGS == 'git ds'*          || \
@@ -110,6 +108,14 @@ _fzf_complete_git() {
         --all \
         --abbrev-commit \
         --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  )
+  elif [[ $ARGS == 'git co'* || \
+          $ARGS == 'git checkout'* || \
+          $ARGS == 'git br'* || \
+          $ARGS == 'git branch'* ]]; then
+
+    _fzf_complete "--reverse --multi" "$@" < <(
+    git branch
   )
   else
     eval "zle ${fzf_default_completion:-expand-or-complete}"
