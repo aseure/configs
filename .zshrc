@@ -129,3 +129,5 @@ _fzf_complete_git_post() {
 eval "$(zoxide init --cmd j zsh)"
 
 source <(fzf --zsh)
+
+ulimit -Sn 4096
