@@ -17,25 +17,33 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- Git GitHub
+  { 'github/copilot.vim' },
+  { 'tpope/vim-fugitive' },
+  { 'trevorhauter/gitportal.nvim' },
+  -- UI
+  { 'lewis6991/gitsigns.nvim' },
+  { 'lukas-reineke/indent-blankline.nvim',      main = 'ibl',          opts = {}, },
+  { 'lukas-reineke/virt-column.nvim' },
+  { 'shaunsingh/nord.nvim' },
+  -- Navigation
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  { 'nvim-telescope/telescope.nvim',            branch = '0.1.x',      dependencies = { { 'nvim-lua/plenary.nvim' } } },
+  { 'stevearc/oil.nvim' },
+  -- Editing
+  { 'kylechui/nvim-surround',                   version = '*',         event = 'VeryLazy' },
+  { 'numToStr/Comment.nvim' },
+  { 'windwp/nvim-autopairs',                    event = "InsertEnter", config = true },
+  -- Tree-sitter
+  { 'nvim-treesitter/nvim-treesitter',          build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter-refactor' },
+  -- LSP
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/nvim-cmp' },
-  { 'kylechui/nvim-surround',                   version = '*',         event = 'VeryLazy' },
-  { 'lukas-reineke/indent-blankline.nvim',      main = 'ibl',          opts = {}, },
   { 'lukas-reineke/lsp-format.nvim' },
-  { 'lukas-reineke/virt-column.nvim' },
   { 'neovim/nvim-lspconfig' },
-  { 'numToStr/Comment.nvim' },
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  { 'nvim-telescope/telescope.nvim',            branch = '0.1.x',      dependencies = { { 'nvim-lua/plenary.nvim' } } },
-  { 'nvim-treesitter/nvim-treesitter',          build = ':TSUpdate' },
-  { 'nvim-treesitter/nvim-treesitter-refactor' },
-  { 'shaunsingh/nord.nvim' },
-  { 'stevearc/oil.nvim' },
-  { 'tpope/vim-fugitive' },
-  { 'williamboman/mason-lspconfig.nvim' },
-  { 'williamboman/mason.nvim' },
-  { 'windwp/nvim-autopairs',                    event = "InsertEnter", config = true },
+  { 'folke/trouble.nvim' },
 })
 
 -------------------------------------------------------------------------------
@@ -91,7 +99,7 @@ vim.keymap.set('n', '<leader>wa', ':wa<CR>')
 -- Enter insert mode with proper indentation
 vim.keymap.set('n', 'i', function()
   return string.match(vim.api.nvim_get_current_line(), '%g') == nil
-    and 'cc' or 'i'
+      and 'cc' or 'i'
 end, { expr = true, noremap = true })
 
 vim.opt.clipboard = vim.opt.clipboard + 'unnamedplus'
@@ -165,12 +173,23 @@ telescope.setup({
     vimgrep_arguments = vimgrep_arguments,
   },
   pickers = {
+    oldfiles = {
+      mappings = {
+        i = {
+          ['<M-BS>'] = function() vim.api.nvim_input "<C-w>" end,
+          ["<Tab>"] = actions.move_selection_worse,
+          ["<S-Tab>"] = actions.move_selection_better,
+          ["<Esc>"] = actions.close,
+        },
+      },
+    },
     find_files = {
       mappings = {
         i = {
           ['<M-BS>'] = function() vim.api.nvim_input "<C-w>" end,
           ["<Tab>"] = actions.move_selection_worse,
           ["<S-Tab>"] = actions.move_selection_better,
+          ["<Esc>"] = actions.close,
         },
       },
     },
@@ -196,11 +215,12 @@ telescope.setup({
 
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>c', builtin.commands, {})
+vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>r', function()
+  builtin.oldfiles({ only_cwd = true })
+end, {})
 
 require('telescope').load_extension('fzf')
 
@@ -214,6 +234,7 @@ vim.api.nvim_set_hl(0, "TSDefinition", { bg = "#414c60" })
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = {
     'c',
+    'elixir',
     'go',
     'javascript',
     'json',
@@ -222,6 +243,7 @@ require 'nvim-treesitter.configs'.setup {
     'markdown_inline',
     'query',
     'rust',
+    'sql',
     'typescript',
     'vim',
     'vimdoc',
@@ -256,15 +278,30 @@ require 'nvim-treesitter.configs'.setup {
 require('nvim-surround').setup({})
 
 -------------------------------------------------------------------------------
+-- Git
+-------------------------------------------------------------------------------
+
+local gitportal = require('gitportal')
+
+gitportal.setup({
+  always_include_current_line = true,
+})
+
+vim.keymap.set("v", "<leader>gp", gitportal.open_file_in_browser)
+
+require('gitsigns').setup()
+
+
+-------------------------------------------------------------------------------
 -- Comment
 -------------------------------------------------------------------------------
 
 require('Comment').setup({
   toggler = {
-    line = '<leader>cc',
+    line = '<leader>/',
   },
   opleader = {
-    line = '<leader>cc',
+    line = '<leader>/',
   },
 })
 
@@ -352,23 +389,9 @@ cmp.setup.cmdline('/', {
   }
 })
 
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(custom_mappings),
-  sources = cmp.config.sources({
-    { name = 'cmd_line' }
-  }, {
-      {
-        name = 'cmdline',
-        option = {
-          ignore_cmds = { 'Man', '!' }
-        }
-      }
-    })
-})
-
-
 local cmp_lsp = require('cmp_nvim_lsp')
-local lspconfig_defaults = require('lspconfig').util.default_config
+local lspconfig = require('lspconfig')
+local lspconfig_defaults = lspconfig.util.default_config
 
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
   'force',
@@ -376,16 +399,10 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
   cmp_lsp.default_capabilities()
 )
 
--- This is where you enable features that only work
--- if there is a language server active in the file
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
     local opts = { buffer = event.buf }
-
-    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    --   vim.lsp.handlers.hover, { focusable = false }
-    -- )
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     vim.keymap.set('n', 'gd', builtin.lsp_definitions, opts)
@@ -404,53 +421,41 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local border = "single"
 
-local default_setup = function(server)
-  require('lspconfig')[server].setup({
-    on_attach = require('lsp-format').on_attach,
-    capabilities = cmp_lsp.default_capabilities(),
-    handlers = {
-      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-    },
-  })
-end
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    'gopls',
-    'lua_ls',
-    'rust_analyzer',
-    'terraformls',
-    'ts_ls',
-  },
+lspconfig.lua_ls.setup({
+  cmd = { '/opt/homebrew/bin/lua-language-server' },
+  on_attach = require('lsp-format').on_attach,
+  capabilities = cmp_lsp.default_capabilities(),
   handlers = {
-    default_setup,
-    lua_ls = function()
-      require('lspconfig').lua_ls.setup({
-        on_init = function(client)
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-              version = 'LuaJIT',
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-              },
-              preloadFileSize = 10000,
-            },
-          })
-          client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
-        end,
-        settings = {
-          Lua = {}
-        }
-      })
-    end,
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
   },
 })
 
+lspconfig.ts_ls.setup({
+  cmd = { '/opt/homebrew/bin/typescript-language-server', '--stdio' },
+  on_attach = require('lsp-format').on_attach,
+  capabilities = cmp_lsp.default_capabilities(),
+  handlers = {
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+  },
+})
+
+lspconfig.elixirls.setup({
+  cmd = { '/opt/homebrew/bin/elixir-ls' },
+  on_attach = require('lsp-format').on_attach,
+  capabilities = cmp_lsp.default_capabilities(),
+  handlers = {
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+  },
+  settings = {
+    elixirLS = {
+      dialyzerEnabled = false,
+      fetchDeps = false,
+    },
+  },
+})
 
 vim.keymap.set('n', '<M-.>', function() vim.diagnostic.open_float({ focus = false }) end)
 vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
