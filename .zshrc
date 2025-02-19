@@ -51,6 +51,7 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
+export PATH="$HOME/work/sonio-utils/scripts:$PATH"
 
 export BAT_THEME="Nord"
 export BUILDKIT_PROGRESS="plain"
