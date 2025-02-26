@@ -1,19 +1,29 @@
 [user]
 	name = Anthony Seure
 	email = anthony.seure@gmail.com
+[tag]
+  sort = version:refname
+[branch]
+  sort = -committerdate
+[diff]
+  algorithm = histogram
+[fetch]
+  prune = true
+  all = true
 [color]
 	ui = true
 	branch = true
 	diff = true
 	interactive = true
 	status = true
+[color "diff"]
+  whitespace = red reverse
 [alias]
 	br = branch
 	ci = commit
 	co = checkout
 	dc = diff --cached
 	ds = diff --staged
-	df = diff
 	lg =  log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 	lgs = log       --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 	st = status
@@ -23,23 +33,14 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	ignorecase = false
-[color "diff-highlight"]
-	oldNormal = red
-	oldHighlight = red 52
-	newNormal = green
-	newHighlight = green 22
-[color "diff"]
-	meta = 11
-	frag = magenta
-	commit = yellow
-	old = red
-	new = green
-	whitespace = red reverse
-[diff]
-	wsErrorHighlight = all
 [init]
 	defaultBranch = main
 [github]
 	user = aseure
-[include]
-	path = /Users/anthony/.local/share/cloudflare-warp-certs/gitconfig
+[rerere]
+  enabled = true
+  autoUpdate = true
+[rebase]
+  updateRefs = true
+[merge]
+  conflictStyle = zdiff3

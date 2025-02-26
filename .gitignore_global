@@ -11,6 +11,7 @@
 .bloop/
 .build/
 .classpath
+.git
 .idea
 .metals/
 .project
