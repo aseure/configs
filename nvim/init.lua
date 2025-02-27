@@ -519,6 +519,15 @@ lspconfig.elixirls.setup({
 	},
 })
 
+lspconfig.pyright.setup({
+	cmd = { "/opt/homebrew/bin/pyright-langserver", "--stdio" },
+	capabilities = capabilities,
+	handlers = {
+		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+	},
+})
+
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev)
 
