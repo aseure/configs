@@ -84,9 +84,6 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "n", "nzzzv")
 
--- Close the current buffer
-vim.keymap.set("n", "<leader>bb", ":close<CR>")
-
 -- Enter insert mode with proper indentation
 vim.keymap.set("n", "i", function()
 	return string.match(vim.api.nvim_get_current_line(), "%g") == nil and "cc" or "i"
