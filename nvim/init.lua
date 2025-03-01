@@ -63,16 +63,6 @@ require("lazy").setup({
 -- Define leader key
 vim.g.mapleader = " "
 
--- Window moves
-vim.keymap.set("n", "<leader>wk", "<C-w>k")
-vim.keymap.set("n", "<leader>wj", "<C-w>j")
-vim.keymap.set("n", "<leader>wh", "<C-w>h")
-vim.keymap.set("n", "<leader>wl", "<C-w>l")
-vim.keymap.set("n", "<leader>ww", "<C-w>c")
-vim.keymap.set("n", "<leader>ws", ":split<CR>")
-vim.keymap.set("n", "<leader>wv", ":vsplit<CR>")
-vim.keymap.set("n", "<leader>wo", ":only<CR>")
-
 -- Hide highlighting for search results
 vim.keymap.set("n", "<C-h>", ":noh<CR>")
 
