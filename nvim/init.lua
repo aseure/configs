@@ -38,7 +38,6 @@ require("lazy").setup({
 	},
 	{ "stevearc/oil.nvim" },
 	-- Editing
-	{ "kevinhwang91/nvim-ufo", dependencies = { "kevinhwang91/promise-async" } },
 	{ "kylechui/nvim-surround", version = "*", event = "VeryLazy" },
 	{ "numToStr/Comment.nvim" },
 	{ "stevearc/conform.nvim" },
@@ -254,21 +253,6 @@ telescope.load_extension("live_grep_args")
 -------------------------------------------------------------------------------
 
 require("nvim-surround").setup({})
-
--------------------------------------------------------------------------------
--- Folding
--------------------------------------------------------------------------------
-
-vim.o.foldcolumn = "1"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
-require("ufo").setup({
-	provider_selector = function(bufnr, filetype, buftype)
-		return { "treesitter" }
-	end,
-})
 
 -------------------------------------------------------------------------------
 -- Comment
