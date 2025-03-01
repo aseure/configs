@@ -89,6 +89,12 @@ vim.keymap.set("n", "i", function()
 	return string.match(vim.api.nvim_get_current_line(), "%g") == nil and "cc" or "i"
 end, { expr = true, noremap = true })
 
+-- Quickfix navigation
+vim.keymap.set("n", "<S-A-Up>", ":cfirst<CR>")
+vim.keymap.set("n", "<A-Up>", ":cprev<CR>")
+vim.keymap.set("n", "<A-Down>", ":cnext<CR>")
+vim.keymap.set("n", "<S-A-Down>", ":clast<CR>")
+
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
