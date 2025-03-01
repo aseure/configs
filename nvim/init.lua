@@ -89,12 +89,6 @@ vim.keymap.set("n", "i", function()
 	return string.match(vim.api.nvim_get_current_line(), "%g") == nil and "cc" or "i"
 end, { expr = true, noremap = true })
 
--- Quickfix navigation
-vim.keymap.set("n", "<S-A-Up>", ":cfirst<CR>")
-vim.keymap.set("n", "<A-Up>", ":cprev<CR>")
-vim.keymap.set("n", "<A-Down>", ":cnext<CR>")
-vim.keymap.set("n", "<S-A-Down>", ":clast<CR>")
-
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
@@ -359,7 +353,29 @@ require("nvim-treesitter.configs").setup({
 -- LSP
 -------------------------------------------------------------------------------
 
-require("trouble").setup()
+require("trouble").setup({
+	modes = {
+		diagnostics = {
+			sort = { "filename", "pos", "severity", "message" },
+		},
+	},
+})
+
+vim.keymap.set("n", "<S-A-Up>", function()
+	require("trouble").first({ jump = true })
+end, {})
+
+vim.keymap.set("n", "<A-Up>", function()
+	require("trouble").prev({ skip_groups = true, jump = true })
+end, {})
+
+vim.keymap.set("n", "<A-Down>", function()
+	require("trouble").next({ skip_groups = true, jump = true })
+end, {})
+
+vim.keymap.set("n", "<S-A-Down>", function()
+	require("trouble").last({ jump = true })
+end, {})
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
@@ -522,8 +538,19 @@ lspconfig.bashls.setup({
 	handlers = handlers,
 })
 
+vim.diagnostic.config({
+	virtual_lines = false,
+	virtual_text = false,
+	float = {
+		border = "rounded",
+	},
+})
+
 vim.keymap.set("n", "<A-d>", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<S-A-d>", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>")
+vim.keymap.set("n", "<leader>D", "<cmd>Trouble diagnostics toggle focus=false<CR>")
 
 vim.api.nvim_set_hl(0, "LspDiagnosticsUnderlineError", { undercurl = true, fg = "#bf616a", sp = "#bf616a" })
 vim.api.nvim_set_hl(0, "LspDiagnosticsUnderlineWarning", { undercurl = true, fg = "#bf616a", sp = "#bf616a" })
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { undercurl = true, fg = "#bf616a", sp = "#bf616a" })
