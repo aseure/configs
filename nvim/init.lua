@@ -175,6 +175,10 @@ table.insert(vimgrep_arguments, "--smart-case")
 telescope.setup({
 	defaults = {
 		vimgrep_arguments = vimgrep_arguments,
+		layout_strategy = "vertical",
+		layout_config = {
+			height = 0.95,
+		},
 	},
 	pickers = {
 		oldfiles = {
@@ -223,19 +227,30 @@ telescope.setup({
 })
 
 local builtin = require("telescope.builtin")
-local ivy = require("telescope.themes").get_ivy()
 
-vim.keymap.set("n", "<leader>f", function()
-	builtin.find_files(ivy)
+function get_visual_selection()
+	vim.cmd('noau normal! "zy"')
+	local text = vim.fn.getreg("z")
+	vim.fn.setreg("z", {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ""
+	end
+end
+
+vim.keymap.set("n", "<leader>b", builtin.buffers, {})
+vim.keymap.set("n", "<leader>f", builtin.find_files, {})
+vim.keymap.set("n", "<leader>g", telescope.extensions.live_grep_args.live_grep_args, {})
+vim.keymap.set("v", "<leader>g", function()
+	local text = get_visual_selection()
+	builtin.live_grep({ default_text = text, additional_args = { "-F" } })
 end, {})
-vim.keymap.set("n", "<leader>g", function()
-	require("telescope").extensions.live_grep_args.live_grep_args(ivy)
-end, {})
+
 vim.keymap.set("n", "<leader>r", function()
-	local opts = require("telescope.themes").get_ivy({
-		only_cwd = true,
-	})
-	builtin.oldfiles(opts)
+	builtin.oldfiles({ only_cwd = true })
 end, {})
 
 telescope.load_extension("fzf")
@@ -431,8 +446,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
 		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 		vim.keymap.set("n", "gi", builtin.lsp_implementations, opts)
+		vim.keymap.set("n", "gI", builtin.lsp_incoming_calls, opts)
 		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+		vim.keymap.set("n", "gr", builtin.lsp_references, opts)
 		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
 		vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 		vim.keymap.set("n", "gf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
