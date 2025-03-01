@@ -292,11 +292,13 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 require("conform").setup({
 	mode = "normal",
 	formatters_by_ft = {
-		elixir = { "mix format" },
-		lua = { "stylua" },
-		typescript = { "prettier" },
+		bash = { "shfmt" },
+		elixir = { "mix" },
 		javascript = { "prettier" },
 		json = { "prettier" },
+		lua = { "stylua" },
+		python = { "isort", "black" },
+		typescript = { "prettier" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -313,14 +315,17 @@ vim.api.nvim_set_hl(0, "TSDefinition", { bg = "#414c60" })
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
+		"bash",
 		"c",
 		"elixir",
 		"go",
 		"javascript",
 		"json",
 		"lua",
+		"lua",
 		"markdown",
 		"markdown_inline",
+		"python",
 		"query",
 		"rust",
 		"sql",
@@ -458,15 +463,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local border = "single"
+local handlers = {
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+}
 
 lspconfig.lua_ls.setup({
 	cmd = { "/opt/homebrew/bin/lua-language-server" },
 	capabilities = capabilities,
-	handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-	},
+	handlers = handlers,
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -479,10 +484,7 @@ lspconfig.lua_ls.setup({
 lspconfig.ts_ls.setup({
 	cmd = { "/opt/homebrew/bin/typescript-language-server", "--stdio" },
 	capabilities = capabilities,
-	handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-	},
+	handlers = handlers,
 	settings = {
 		diagnostics = {
 			enable = true,
@@ -500,10 +502,7 @@ lspconfig.eslint.setup({
 lspconfig.elixirls.setup({
 	cmd = { "/opt/homebrew/bin/elixir-ls" },
 	capabilities = capabilities,
-	handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-	},
+	handlers = handlers,
 	settings = {
 		elixirLS = {
 			dialyzerEnabled = false,
@@ -515,10 +514,13 @@ lspconfig.elixirls.setup({
 lspconfig.pyright.setup({
 	cmd = { "/opt/homebrew/bin/pyright-langserver", "--stdio" },
 	capabilities = capabilities,
-	handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-	},
+	handlers = handlers,
+})
+
+lspconfig.bashls.setup({
+	cmd = { "/opt/homebrew/bin/bash-language-server", "start" },
+	capabilities = capabilities,
+	handlers = handlers,
 })
 
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
