@@ -353,7 +353,9 @@ require("nvim-treesitter.configs").setup({
 -- LSP
 -------------------------------------------------------------------------------
 
-require("trouble").setup({
+local trouble = require("trouble")
+
+trouble.setup({
 	modes = {
 		diagnostics = {
 			sort = { "filename", "pos", "severity", "message" },
@@ -362,20 +364,30 @@ require("trouble").setup({
 })
 
 vim.keymap.set("n", "<S-A-Up>", function()
-	require("trouble").first({ jump = true })
-end, {})
+	trouble.first({ jump = true })
+end)
 
 vim.keymap.set("n", "<A-Up>", function()
-	require("trouble").prev({ skip_groups = true, jump = true })
-end, {})
+	trouble.prev({ jump = true })
+end)
 
 vim.keymap.set("n", "<A-Down>", function()
-	require("trouble").next({ skip_groups = true, jump = true })
-end, {})
+	trouble.next({ jump = true })
+end)
 
 vim.keymap.set("n", "<S-A-Down>", function()
-	require("trouble").last({ jump = true })
-end, {})
+	trouble.last({ jump = true })
+end)
+
+vim.keymap.set("n", "<A-d>", function()
+	vim.cmd("Trouble diagnostics open filter = {buf = 0}")
+	trouble.next({ jump = true })
+end)
+
+vim.keymap.set("n", "<S-A-d>", function()
+	vim.cmd("Trouble diagnostics open filter = {buf = 0}")
+	trouble.prev({ jump = true })
+end)
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
