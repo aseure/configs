@@ -558,11 +558,7 @@ vim.diagnostic.config({
 	},
 })
 
-vim.keymap.set("n", "<A-d>", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<S-A-d>", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<CR>")
-vim.keymap.set("n", "<leader>D", "<cmd>Trouble diagnostics toggle focus=false<CR>")
-
-vim.api.nvim_set_hl(0, "LspDiagnosticsUnderlineError", { undercurl = true, fg = "#bf616a", sp = "#bf616a" })
-vim.api.nvim_set_hl(0, "LspDiagnosticsUnderlineWarning", { undercurl = true, fg = "#bf616a", sp = "#bf616a" })
-vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { undercurl = true, fg = "#bf616a", sp = "#bf616a" })
+local red_undercurl = { undercurl = true, fg = "#bf616a", sp = "#bf616a" }
+vim.api.nvim_set_hl(0, "LspDiagnosticsUnderlineError", red_undercurl)
+vim.api.nvim_set_hl(0, "LspDiagnosticsUnderlineWarning", red_undercurl)
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", red_undercurl)
