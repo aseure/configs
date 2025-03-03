@@ -135,11 +135,11 @@ gitportal.setup({
 	always_include_current_line = true,
 })
 
-vim.keymap.set("v", "<leader>GP", gitportal.open_file_in_browser)
-
 require("gitsigns").setup()
 
-vim.keymap.set("n", "<C-b>", "<CMD>Git blame<CR>")
+vim.keymap.set({ "n", "v" }, "<C-g>o", gitportal.open_file_in_browser)
+vim.keymap.set("n", "<C-g>b", "<cmd>Gitsigns blame<CR>")
+vim.keymap.set("n", "<C-g>d", "<cmd>Gitsigns toggle_deleted<CR>")
 
 -------------------------------------------------------------------------------
 -- Colorscheme
