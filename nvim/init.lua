@@ -118,6 +118,7 @@ vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.updatetime = 100
+vim.opt.cursorline = true
 
 vim.wo.wrap = false
 
