@@ -211,6 +211,7 @@ require("virt-column").setup({
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+local lga_actions = require("telescope-live-grep-args.actions")
 local telescopeConfig = require("telescope.config")
 
 local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
@@ -220,8 +221,11 @@ telescope.setup({
 	defaults = {
 		vimgrep_arguments = vimgrep_arguments,
 		layout_strategy = "vertical",
+		sorting_strategy = "ascending",
 		layout_config = {
 			height = 0.95,
+			mirror = true,
+			prompt_position = "top",
 		},
 	},
 	pickers = {
@@ -259,13 +263,21 @@ telescope.setup({
 			case_mode = "smart_case",
 		},
 		live_grep_args = {
-			auto_quoting = true, -- enable/disable auto-quoting
-			-- define mappings, e.g.
-			mappings = { -- extend mappings
+			auto_quoting = true,
+			mappings = {
 				i = {
-					["<C-space>"] = actions.to_fuzzy_refine,
+					["<C-a>"] = function()
+						vim.cmd("normal! I")
+					end,
+					["<C-e>"] = function()
+						vim.cmd("normal! A")
+					end,
+					["<C-t>"] = lga_actions.quote_prompt({ postfix = " -t " }),
+					["<C-d>"] = lga_actions.quote_prompt({ postfix = " --iglob **" }),
+					["<C-space>"] = lga_actions.to_fuzzy_refine,
 				},
 			},
+			additional_args = { "--hidden" },
 		},
 	},
 })
