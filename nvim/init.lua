@@ -45,6 +45,18 @@ require("lazy").setup({
 	-- Tree-sitter
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "nvim-treesitter/nvim-treesitter-refactor" },
+	-- Testing
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
+	{ "jfpedroza/neotest-elixir" },
+	{ "nvim-neotest/neotest-jest" },
 	-- LSP
 	{ "folke/trouble.nvim" },
 	{ "hrsh7th/cmp-buffer" },
@@ -348,6 +360,31 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
+
+-------------------------------------------------------------------------------
+-- Testing
+-------------------------------------------------------------------------------
+
+require("neotest").setup({
+	adapters = {
+		require("neotest-elixir"),
+		require("neotest-jest")({
+			jestCommand = "npx jest ",
+		}),
+	},
+})
+
+vim.keymap.set("n", "<leader>tt", function()
+	require("neotest").run.run()
+end)
+
+vim.keymap.set("n", "<leader>ta", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end)
+
+vim.keymap.set("n", "<leader>to", function()
+	require("neotest").output.open({ enter = true, auto_close = true })
+end)
 
 -------------------------------------------------------------------------------
 -- LSP
