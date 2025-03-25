@@ -186,8 +186,10 @@ gitportal.setup({
 require("gitsigns").setup()
 
 vim.keymap.set({ "n", "v" }, "<C-g>o", gitportal.open_file_in_browser)
-vim.keymap.set("n", "<C-g>b", "<cmd>Gitsigns blame<CR>")
-vim.keymap.set("n", "<C-g>d", "<cmd>Gitsigns toggle_deleted<CR>")
+vim.keymap.set("n", "<leader>hb", "<cmd>Gitsigns blame<CR>")
+vim.keymap.set("n", "<leader>hd", "<cmd>Gitsigns toggle_deleted<CR>")
+vim.keymap.set("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
+vim.keymap.set("n", "<leader>hq", "<cmd>Gitsigns setqflist<CR>")
 
 -------------------------------------------------------------------------------
 -- Colorscheme
