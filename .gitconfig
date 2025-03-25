@@ -44,3 +44,5 @@
   updateRefs = true
 [merge]
   conflictStyle = zdiff3
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig-work
