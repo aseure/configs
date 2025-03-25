@@ -138,6 +138,41 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
 
+function is_first_quickfix_entry()
+	local cur_idx = vim.fn.getqflist({ idx = 0 }).idx
+	return cur_idx == 1
+end
+
+function is_last_quickfix_entry()
+	local qflist = vim.fn.getqflist()
+	local cur_idx = vim.fn.getqflist({ idx = 0 }).idx
+	return cur_idx == #qflist
+end
+
+vim.keymap.set("n", "<S-A-Up>", function()
+	vim.cmd("copen")
+	vim.cmd("cfirst")
+end)
+
+vim.keymap.set("n", "<A-Up>", function()
+	vim.cmd("copen")
+	if not is_first_quickfix_entry() then
+		vim.cmd("cprev")
+	end
+end)
+
+vim.keymap.set("n", "<A-Down>", function()
+	vim.cmd("copen")
+	if not is_last_quickfix_entry() then
+		vim.cmd("cnext")
+	end
+end)
+
+vim.keymap.set("n", "<S-A-Down>", function()
+	vim.cmd("copen")
+	vim.cmd("clast")
+end)
+
 -------------------------------------------------------------------------------
 -- Git
 -------------------------------------------------------------------------------
@@ -401,20 +436,12 @@ trouble.setup({
 	},
 })
 
-vim.keymap.set("n", "<S-A-Up>", function()
-	trouble.first({ jump = true })
-end)
-
-vim.keymap.set("n", "<A-Up>", function()
+vim.keymap.set("n", "<S-A-t>", function()
 	trouble.prev({ jump = true })
 end)
 
-vim.keymap.set("n", "<A-Down>", function()
+vim.keymap.set("n", "<A-t>", function()
 	trouble.next({ jump = true })
-end)
-
-vim.keymap.set("n", "<S-A-Down>", function()
-	trouble.last({ jump = true })
 end)
 
 vim.keymap.set("n", "<A-d>", function()
