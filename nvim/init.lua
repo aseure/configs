@@ -23,20 +23,11 @@ require("lazy").setup({
 	{ "trevorhauter/gitportal.nvim" },
 	-- UI
 	{ "onsails/lspkind.nvim" },
-	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	{ "lukas-reineke/virt-column.nvim" },
 	{ "shaunsingh/nord.nvim" },
 	-- Navigation
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-	{
-		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
-		},
-	},
 	{ "stevearc/oil.nvim" },
+	{ "folke/snacks.nvim" },
 	-- Editing
 	{ "kylechui/nvim-surround", version = "*", event = "VeryLazy" },
 	{ "numToStr/Comment.nvim" },
@@ -206,111 +197,69 @@ require("virt-column").setup({
 })
 
 -------------------------------------------------------------------------------
--- Telescope
+-- Navigation
 -------------------------------------------------------------------------------
 
-local telescope = require("telescope")
-local actions = require("telescope.actions")
-local lga_actions = require("telescope-live-grep-args.actions")
-local telescopeConfig = require("telescope.config")
+-- Search for visual selection
+-- <leader>r to search recent files
+-- <leader>f to search files
+-- <leader>b to search buffers
+-- <leader>g to grep
+-- grep in hidden files (i.e. .github/ directory)
+-- grep by filetype
+-- grep by directory
+-- grep by word boundary (\b)
+--
+local snacks = require("snacks")
 
-local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-table.insert(vimgrep_arguments, "--smart-case")
-
-telescope.setup({
-	defaults = {
-		vimgrep_arguments = vimgrep_arguments,
-		layout_strategy = "vertical",
-		sorting_strategy = "ascending",
-		layout_config = {
-			height = 0.95,
-			mirror = true,
-			prompt_position = "top",
-		},
+snacks.setup({
+	explorer = {
+		enabled = true,
 	},
-	pickers = {
-		oldfiles = {
-			mappings = {
-				i = {
-					["<M-BS>"] = function()
-						vim.api.nvim_input("<C-w>")
-					end,
-					["<Tab>"] = actions.move_selection_worse,
-					["<S-Tab>"] = actions.move_selection_better,
-					["<Esc>"] = actions.close,
-				},
-			},
-		},
-		find_files = {
-			hidden = true,
-			mappings = {
-				i = {
-					["<M-BS>"] = function()
-						vim.api.nvim_input("<C-w>")
-					end,
-					["<Tab>"] = actions.move_selection_worse,
-					["<S-Tab>"] = actions.move_selection_better,
-					["<Esc>"] = actions.close,
-				},
+	indent = {
+		enabled = true,
+		animate = {
+			duration = {
+				step = 50, -- ms per step
+				total = 250, -- maximum duration
 			},
 		},
 	},
-	extensions = {
-		fzf = {
-			fuzzy = true,
-			override_generic_sorter = true,
-			override_file_sorter = true,
-			case_mode = "smart_case",
-		},
-		live_grep_args = {
-			auto_quoting = true,
-			mappings = {
-				i = {
-					["<C-a>"] = function()
-						vim.cmd("normal! I")
-					end,
-					["<C-e>"] = function()
-						vim.cmd("normal! A")
-					end,
-					["<C-t>"] = lga_actions.quote_prompt({ postfix = " -t " }),
-					["<C-d>"] = lga_actions.quote_prompt({ postfix = " --iglob **" }),
-					["<C-space>"] = lga_actions.to_fuzzy_refine,
-				},
-			},
-			additional_args = { "--hidden" },
-		},
+	picker = {
+		enabled = true,
 	},
 })
 
-local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>f", function()
+	snacks.picker.explorer({
+		auto_close = true,
+		focus = "input",
+		layout = { preset = "vertical" },
+		jump = { close = true },
+	})
+end)
 
-function get_visual_selection()
-	vim.cmd('noau normal! "zy"')
-	local text = vim.fn.getreg("z")
-	vim.fn.setreg("z", {})
-
-	text = string.gsub(text, "\n", "")
-	if #text > 0 then
-		return text
-	else
-		return ""
-	end
-end
-
-vim.keymap.set("n", "<leader>b", builtin.buffers, {})
-vim.keymap.set("n", "<leader>f", builtin.find_files, {})
-vim.keymap.set("n", "<leader>g", telescope.extensions.live_grep_args.live_grep_args, {})
-vim.keymap.set("v", "<leader>g", function()
-	local text = get_visual_selection()
-	builtin.live_grep({ default_text = text, additional_args = { "-F" } })
-end, {})
+vim.keymap.set("n", "<leader>b", function()
+	snacks.picker.buffers({
+		layout = { preset = "vertical" },
+	})
+end)
 
 vim.keymap.set("n", "<leader>r", function()
-	builtin.oldfiles({ only_cwd = true })
-end, {})
+	snacks.picker.recent({
+		layout = { preset = "vertical" },
+	})
+end)
 
-telescope.load_extension("fzf")
-telescope.load_extension("live_grep_args")
+vim.keymap.set("n", "<leader>g", function()
+	snacks.picker.grep({
+		layout = { preset = "vertical" },
+		toggles = {
+			hidden = "h",
+			fixed_string = "f",
+		},
+	})
+end)
 
 -------------------------------------------------------------------------------
 -- Surround
@@ -554,12 +503,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local opts = { buffer = event.buf }
 
 		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-		vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
+		vim.keymap.set("n", "gd", snacks.picker.lsp_definitions, opts)
 		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-		vim.keymap.set("n", "gi", builtin.lsp_implementations, opts)
-		vim.keymap.set("n", "gI", builtin.lsp_incoming_calls, opts)
+		vim.keymap.set("n", "gi", snacks.picker.lsp_implementations, opts)
 		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-		vim.keymap.set("n", "gr", builtin.lsp_references, opts)
+		vim.keymap.set("n", "gr", snacks.picker.lsp_references, opts)
 		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
 		vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 		vim.keymap.set("n", "gf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
