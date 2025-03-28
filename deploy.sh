@@ -7,7 +7,7 @@ read
 git reset --hard HEAD
 
 # Mac specific
-PLATFORM=`uname`
+PLATFORM=$(uname)
 if [[ $PLATFORM == "Darwin" ]]; then
   defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false       # For IntelliJ
   defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false         # For VS Code
@@ -22,18 +22,19 @@ git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
 # Create relatives links
 mkdir -p ~/.config
-rm -f  ~/.gitconfig        && ln -s $PWD/.gitconfig ~
-rm -f  ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
-rm -f  ~/.tokeirc          && ln -s $PWD/.tokeirc ~
-rm -f  ~/.zshrc            && ln -s $PWD/.zshrc ~
-rm -rf ~/.config/nvim*     && ln -s $PWD/nvim* ~/.config
-rm -rf ~/.zfunctions       && ln -s $PWD/.zfunctions ~
-rm -rf ~/.config/tmux      && ln -s $PWD/tmux ~/.config
+rm -f ~/.gitconfig && ln -s $PWD/.gitconfig ~
+rm -f ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
+rm -f ~/.tokeirc && ln -s $PWD/.tokeirc ~
+rm -f ~/.zshrc && ln -s $PWD/.zshrc ~
+rm -rf ~/.config/nvim* && ln -s $PWD/nvim* ~/.config
+rm -rf ~/.zfunctions && ln -s $PWD/.zfunctions ~
+rm -rf ~/.config/tmux && ln -s $PWD/tmux ~/.config
+rm -rf ~/.config/ghostty && ln -s $PWD/ghostty ~/.config
 
 # Download Git completion for ZSH
 mkdir -p ~/.zsh
 curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-curl -o ~/.zsh/_git                https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 
 cd
 
