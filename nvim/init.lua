@@ -28,6 +28,7 @@ require("lazy").setup({
 	-- Navigation
 	{ "stevearc/oil.nvim" },
 	{ "folke/snacks.nvim" },
+	{ "ggandor/leap.nvim" },
 	-- Editing
 	{ "kylechui/nvim-surround", version = "*", event = "VeryLazy" },
 	{ "numToStr/Comment.nvim" },
@@ -199,6 +200,8 @@ require("virt-column").setup({
 -------------------------------------------------------------------------------
 -- Navigation
 -------------------------------------------------------------------------------
+
+require("leap").create_default_mappings()
 
 -- Search for visual selection
 -- <leader>r to search recent files
