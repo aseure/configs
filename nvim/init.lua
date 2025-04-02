@@ -25,6 +25,7 @@ require("lazy").setup({
 	{ "onsails/lspkind.nvim" },
 	{ "lukas-reineke/virt-column.nvim" },
 	{ "shaunsingh/nord.nvim" },
+	{ "brenoprata10/nvim-highlight-colors" },
 	-- Navigation
 	{ "stevearc/oil.nvim" },
 	{ "folke/snacks.nvim" },
@@ -184,14 +185,12 @@ vim.keymap.set("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
 vim.keymap.set("n", "<leader>hq", "<cmd>Gitsigns setqflist<CR>")
 
 -------------------------------------------------------------------------------
--- Colorscheme
+-- UI
 -------------------------------------------------------------------------------
+
+require("nvim-highlight-colors").setup({})
 
 vim.cmd.colorscheme("nord")
-
--------------------------------------------------------------------------------
--- Virtual columns
--------------------------------------------------------------------------------
 
 require("virt-column").setup({
 	virtcolumn = "80,120",
