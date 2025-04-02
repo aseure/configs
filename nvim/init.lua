@@ -508,9 +508,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 		vim.keymap.set("n", "gi", snacks.picker.lsp_implementations, opts)
 		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-		vim.keymap.set("n", "gr", snacks.picker.lsp_references, opts)
-		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-		vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+		vim.keymap.set("n", "grr", snacks.picker.lsp_references, opts)
+		vim.keymap.set("n", "grn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 		vim.keymap.set("n", "gf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
 		vim.keymap.set("n", "<M-Enter>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 	end,
