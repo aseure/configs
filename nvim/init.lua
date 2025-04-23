@@ -504,7 +504,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local opts = { buffer = event.buf }
 
-		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+		vim.keymap.set("n", "K", function()
+			vim.lsp.buf.hover({ border = "single" })
+		end)
 		vim.keymap.set("n", "gd", snacks.picker.lsp_definitions, opts)
 		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 		vim.keymap.set("n", "gi", snacks.picker.lsp_implementations, opts)
