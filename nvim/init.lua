@@ -178,11 +178,12 @@ gitportal.setup({
 
 require("gitsigns").setup()
 
-vim.keymap.set({ "n", "v" }, "<C-g>o", gitportal.open_file_in_browser)
-vim.keymap.set("n", "<leader>hb", "<cmd>Gitsigns blame<CR>")
-vim.keymap.set("n", "<leader>hd", "<cmd>Gitsigns toggle_deleted<CR>")
-vim.keymap.set("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
-vim.keymap.set("n", "<leader>hq", "<cmd>Gitsigns setqflist<CR>")
+vim.keymap.set({ "n", "v" }, "<A-g>o", gitportal.open_file_in_browser)
+vim.keymap.set("n", "<A-g>b", "<cmd>Gitsigns blame<CR>")
+vim.keymap.set("n", "<A-g>d", "<cmd>Gitsigns preview_hunk_inline<CR>")
+vim.keymap.set("n", "<A-g>r", "<cmd>Gitsigns reset_hunk<CR>")
+vim.keymap.set("n", "<A-g>p", "<cmd>Gitsigns nav_hunk prev<CR>")
+vim.keymap.set("n", "<A-g>n", "<cmd>Gitsigns nav_hunk next<CR>")
 
 -------------------------------------------------------------------------------
 -- UI
