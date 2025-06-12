@@ -29,6 +29,10 @@ vim.keymap.set("n", "i", function()
 	return string.match(vim.api.nvim_get_current_line(), "%g") == nil and "cc" or "i"
 end, { expr = true, noremap = true })
 
+-- Better window navigation
+vim.keymap.set("n", "<C-w>v", "<C-w>v<C-w>l", { desc = "Split window vertically and focus new split" })
+vim.keymap.set("n", "<C-w>s", "<C-w>s<C-w>j", { desc = "Split window horizontally and focus new split" })
+
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.foldenable = true

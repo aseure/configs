@@ -17,6 +17,9 @@ return {
 		},
 		picker = {
 			enabled = true,
+			layout = {
+				preset = "vertical",
+			},
 		},
 		git = {
 			enabled = true,
@@ -24,41 +27,52 @@ return {
 	},
 	keys = function()
 		config = {
-			layout = { preset = "bottom" },
+			matcher = { frecency = true },
 		}
 
 		return {
 			{
-				"<leader>f",
+				"<leader>ff",
 				function()
 					Snacks.picker.files(config)
 				end,
 			},
 			{
-				"<leader>b",
+				"<leader>fp",
 				function()
-					Snacks.picker.buffers(config)
+					Snacks.picker.projects(config)
 				end,
 			},
 			{
-				"<leader>r",
+				"<leader>fr",
 				function()
 					Snacks.picker.recent(config)
 				end,
 			},
 			{
-				"<leader>g",
+				"<leader>fg",
 				function()
 					Snacks.picker.grep(config)
 				end,
 			},
 			{
-				"<leader>w",
+				"<leader>fw",
 				function()
 					Snacks.picker.grep_word(config)
+				end,
+			},
+			{
+				"<leader>fs",
+				function()
+					Snacks.picker.lsp_symbols(config)
+				end,
+			},
+			{
+				"grr",
+				function()
+					Snacks.picker.lsp_references(config)
 				end,
 			},
 		}
 	end,
 }
-

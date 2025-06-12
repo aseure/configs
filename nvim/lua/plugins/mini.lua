@@ -10,6 +10,5 @@ return {
 				down = "<A-Down>",
 			},
 		})
-		require("mini.surround").setup()
 	end,
 }

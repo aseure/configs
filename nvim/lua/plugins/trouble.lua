@@ -14,9 +14,14 @@ return {
 	end,
 	keys = {
 		{
-			"<leader>tt",
-			"<cmd>Trouble diagnostics toggle<cr>",
-			desc = "Diagnostics (Trouble)",
+			"<leader>xx",
+			"<cmd>Trouble diagnostics toggle win.position=bottom<cr>",
+			desc = "Diagnostics",
+		},
+		{
+			"<leader>xs",
+			"<cmd>Trouble symbols toggle win.position=bottom<cr>",
+			desc = "Symbols",
 		},
 	},
 }
