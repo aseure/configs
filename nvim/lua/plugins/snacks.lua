@@ -19,6 +19,9 @@ return {
 			enabled = true,
 			layout = {
 				preset = "vertical",
+				layout = {
+					width = 0.9,
+				},
 			},
 		},
 		git = {
@@ -26,51 +29,55 @@ return {
 		},
 	},
 	keys = function()
-		config = {
-			matcher = { frecency = true },
-		}
-
 		return {
 			{
 				"<leader>ff",
 				function()
-					Snacks.picker.files(config)
-				end,
-			},
-			{
-				"<leader>fp",
-				function()
-					Snacks.picker.projects(config)
-				end,
-			},
-			{
-				"<leader>fr",
-				function()
-					Snacks.picker.recent(config)
+					Snacks.picker.smart({
+						matcher = { frecency = true },
+						formatters = {
+							file = {
+								truncate = 120,
+							},
+						},
+					})
 				end,
 			},
 			{
 				"<leader>fg",
 				function()
-					Snacks.picker.grep(config)
+					Snacks.picker.grep({
+						matcher = { frecency = true },
+						formatters = {
+							file = {
+								truncate = 120,
+							},
+						},
+					})
 				end,
 			},
 			{
 				"<leader>fw",
 				function()
-					Snacks.picker.grep_word(config)
+					Snacks.picker.grep_word({
+						matcher = { frecency = true },
+					})
 				end,
 			},
 			{
 				"<leader>fs",
 				function()
-					Snacks.picker.lsp_symbols(config)
+					Snacks.picker.lsp_symbols({
+						matcher = { frecency = true },
+					})
 				end,
 			},
 			{
 				"grr",
 				function()
-					Snacks.picker.lsp_references(config)
+					Snacks.picker.lsp_references({
+						matcher = { frecency = true },
+					})
 				end,
 			},
 		}
