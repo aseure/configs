@@ -136,7 +136,9 @@ _fzf_complete_git_post() {
 
 eval "$(zoxide init --cmd j zsh)"
 
+source ~/.zprivate
 source /opt/homebrew/etc/profile.d/bash_completion.sh
+source <(dircolors)
 source <(fzf --zsh)
 
 ulimit -Sn 4096
