@@ -1,8 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 		local hover = vim.lsp.buf.hover
 		vim.lsp.buf.hover = function()
 			hover({ border = "rounded" })

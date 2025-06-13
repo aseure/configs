@@ -1,55 +1,42 @@
 return {
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-path" },
-	{ "zbirenbaum/copilot-cmp", opts = {} },
-	{ "zbirenbaum/copilot.lua", opts = {
-		suggestion = { enabled = false },
-		panel = { enabled = false },
-	} },
-	{ "onsails/lspkind.nvim" },
 	{
-		"hrsh7th/nvim-cmp",
-		config = function()
-			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-
-			cmp.setup({
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "copilot" },
-					{ name = "path" },
-					{ name = "buffer", keyword_length = 5 },
-				},
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = "symbol_text", -- show only symbol annotations
-						symbol_map = { Copilot = "" },
-						menu = {
-							buffer = "[buffer]",
-							nvim_lsp = "[lsp]",
-							path = "[path]",
-							copilot = "[copilot]",
-						},
-					}),
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-				}),
-				snippet = {
-					expand = function(args)
-						vim.snippet.expand(args.body)
-					end,
-				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
-				},
-				experimental = {
-					ghost_text = true,
-				},
-			})
+		"github/copilot.vim",
+		cmd = "Copilot",
+		event = "BufWinEnter",
+		init = function()
+			vim.g.copilot_no_maps = true
 		end,
+		config = function()
+			-- Block the normal Copilot suggestions
+			vim.api.nvim_create_augroup("github_copilot", { clear = true })
+			vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+				group = "github_copilot",
+				callback = function(args)
+					vim.fn["copilot#On" .. args.event]()
+				end,
+			})
+			vim.fn["copilot#OnFileType"]()
+		end,
+	},
+	{
+		"saghen/blink.cmp",
+		dependencies = { "fang2hou/blink-copilot" },
+		version = "1.*",
+		opts = {
+			keymap = {
+				preset = "enter",
+			},
+			sources = {
+				default = { "lsp", "copilot", "path", "buffer" },
+				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						score_offset = 100,
+						async = true,
+					},
+				},
+			},
+		},
 	},
 }
