@@ -8,7 +8,7 @@ return {
 	},
 	{
 		"tpope/vim-fugitive",
-		cmd = { "Git", "G", "GBRowse" },
+		cmd = { "Git", "G", "GBrowse" },
 		keys = {
 			{ "<leader>gb", "<cmd>Git blame<CR>" },
 		},
@@ -18,7 +18,8 @@ return {
 		dependencies = { "tpope/vim-fugitive" },
 		lazy = true,
 		keys = {
-			{ "<leader>go", "<cmd>GBrowse<CR>", mode = { "n", "v" } },
+			{ "<leader>go", "<cmd>GBrowse<CR>", mode = { "n" } },
+			{ "<leader>go", ":GBrowse<CR>", mode = { "v" } },
 		},
 	},
 }
