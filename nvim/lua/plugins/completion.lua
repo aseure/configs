@@ -20,14 +20,18 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
-		dependencies = { "fang2hou/blink-copilot" },
+		dependencies = {
+			"fang2hou/blink-copilot",
+			"rafamadriz/friendly-snippets",
+		},
 		version = "1.*",
 		opts = {
 			keymap = {
 				preset = "enter",
 			},
+			signature = { enabled = true },
 			sources = {
-				default = { "lsp", "copilot", "path", "buffer" },
+				default = { "lsp", "copilot", "snippets", "path", "buffer" },
 				providers = {
 					copilot = {
 						name = "copilot",
