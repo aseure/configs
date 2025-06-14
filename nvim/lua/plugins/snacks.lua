@@ -6,9 +6,6 @@ return {
 		statuscolumn = {
 			enabled = true,
 		},
-		explorer = {
-			enabled = true,
-		},
 		indent = {
 			enabled = true,
 			animate = {
@@ -60,6 +57,14 @@ return {
 				"<leader>fw",
 				function()
 					Snacks.picker.grep_word({
+						matcher = { frecency = true },
+					})
+				end,
+			},
+			{
+				"<leader>fb",
+				function()
+					Snacks.picker.buffers({
 						matcher = { frecency = true },
 					})
 				end,
