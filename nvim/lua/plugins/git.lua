@@ -1,16 +1,19 @@
 return {
-	"lewis6991/gitsigns.nvim",
-	lazy = false,
-	opts = {},
-	keys = {
-		{ "<leader>gd", "<cmd>Gitsigns preview_hunk_inline<CR>" },
-		{ "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>" },
+	{
+		"lewis6991/gitsigns.nvim",
+		lazy = false,
+		opts = {},
 	},
 	{
 		"tpope/vim-fugitive",
+		lazy = false,
 		cmd = { "Git", "G", "GBrowse" },
 		keys = {
-			{ "<leader>gb", "<cmd>Git blame<CR>" },
+			{ "<leader>gs", "<cmd>Git | only<CR>" },
+			{ "<leader>gb", "<cmd>Git blame | only<CR>" },
+			{ "<leader>gd", "<cmd>Git diff | only<CR>" },
+			{ "<leader>gc", "<cmd>Git diff HEAD | only<CR>" },
+			{ "<leader>gl", "<cmd>Git log --graph --oneline --decorate | only<CR>" },
 		},
 	},
 	{
