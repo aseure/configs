@@ -6,8 +6,8 @@ return {
 		require("mini.comment").setup()
 		require("mini.move").setup({
 			mappings = {
-				up = "<A-Up>",
-				down = "<A-Down>",
+				up = "<A-S-Up>",
+				down = "<A-S-Down>",
 			},
 		})
 	end,
