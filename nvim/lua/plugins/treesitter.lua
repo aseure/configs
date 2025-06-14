@@ -1,6 +1,8 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "master",
+		lazy = false,
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -36,16 +38,7 @@ return {
 					},
 				},
 				indent = { enable = true },
-				refactor = {
-					highlight_definitions = {
-						enable = true,
-						clear_on_cursor_move = false,
-					},
-				},
 			})
 		end,
-	},
-	{
-		{ "nvim-treesitter/nvim-treesitter-refactor" },
 	},
 }
