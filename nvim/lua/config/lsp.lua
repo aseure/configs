@@ -1,10 +1,20 @@
+vim.lsp.config("elixirls", {
+	cmd = { "/opt/homebrew/bin/elixir-ls" },
+	settings = {
+		elixirLS = {
+			dialyzerEnabled = false,
+			fetchDeps = false,
+		},
+	},
+})
+
 vim.lsp.enable({
 	"bashls",
-	"elixirls",
 	"eslint",
 	"lua_ls",
-	"ts_ls",
 	"pyright",
+	"ts_ls",
+	"elixirls",
 })
 
 vim.diagnostic.config({
