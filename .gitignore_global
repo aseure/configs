@@ -17,6 +17,7 @@
 .metals/
 .project
 .settings/
+.tool-versions
 .vs
 .vscode
 TAGS
