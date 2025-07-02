@@ -1,7 +1,6 @@
-vim.g.mapleader = " "
-
 -- Define leader key
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Hide highlighting for search results
 vim.keymap.set("n", "<C-h>", ":noh<CR>")
