@@ -1,16 +1,9 @@
 return {
 	{
-		"projekt0n/github-nvim-theme",
+		"rebelot/kanagawa.nvim",
+		lazy = false,
 		config = function()
-			require("github-theme").setup({
-				options = {
-					styles = {
-						strings = "italic",
-						functions = "bold",
-					},
-				},
-			})
-			vim.cmd("colorscheme github_dark_default")
+			vim.cmd("colorscheme kanagawa")
 		end,
 	},
 }

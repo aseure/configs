@@ -75,6 +75,13 @@ export FZF_DEFAULT_OPTS="
   --color=info:#8b949e,hl:#58a6ff,hl+:#58a6ff
   --color=border:#30363d
 "
+# "Kanagawa Wave" theme
+export FZF_DEFAULT_OPTS="
+  --color=fg:#dcd7ba,bg:#1f1f28,hl:#c34043
+  --color=fg+:#dcd7ba,bg+:#363647,hl+:#c34043
+  --color=info:#98bb6c,prompt:#c34043,pointer:#7e9cd8
+  --color=marker:#7fb4ca,spinner:#957fb8,header:#e6c384
+"
 export GOPATH="$HOME/go"
 export GPG_TTY=$(tty)
 export HISTFILE="$HOME/.history"
