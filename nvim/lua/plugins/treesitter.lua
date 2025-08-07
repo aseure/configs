@@ -41,4 +41,18 @@ return {
 			})
 		end,
 	},
+	{
+		"CKolkey/ts-node-action",
+		dependencies = { "nvim-treesitter" },
+		config = true,
+		keys = {
+			{
+				"ga",
+				function()
+					require("ts-node-action").node_action()
+				end,
+				desc = "Node Action",
+			},
+		},
+	},
 }

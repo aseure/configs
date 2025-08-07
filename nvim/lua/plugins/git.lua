@@ -5,24 +5,28 @@ return {
 		opts = {},
 	},
 	{
-		"tpope/vim-fugitive",
-		lazy = false,
-		cmd = { "Git", "G", "GBrowse" },
-		keys = {
-			{ "<leader>gs", "<cmd>Git | only<CR>" },
-			{ "<leader>gb", "<cmd>Git blame | only<CR>" },
-			{ "<leader>gd", "<cmd>Git diff | only<CR>" },
-			{ "<leader>gc", "<cmd>Git diff HEAD | only<CR>" },
-			{ "<leader>gl", "<cmd>Git log --graph --oneline --decorate | only<CR>" },
-		},
+		"sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
 	},
 	{
-		"tpope/vim-rhubarb",
-		dependencies = { "tpope/vim-fugitive" },
-		lazy = true,
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"folke/snacks.nvim",
+		},
+		opts = {
+			integrations = { diffview = true },
+		},
 		keys = {
-			{ "<leader>go", "<cmd>GBrowse<CR>", mode = { "n" } },
-			{ "<leader>go", ":GBrowse<CR>", mode = { "v" } },
+			{
+				"<leader>gs",
+				mode = { "n" },
+				function()
+					require("neogit").open({ kind = "split" })
+				end,
+				desc = "Open Neogit in split",
+			},
 		},
 	},
 }
