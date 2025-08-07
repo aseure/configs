@@ -39,11 +39,9 @@
 	user = aseure
 [rerere]
   enabled = true
-  autoUpdate = true
+  autoUpdate = false
 [rebase]
   updateRefs = true
-[merge]
-  conflictStyle = zdiff3
 [includeIf "gitdir:~/work/"]
   path = ~/.gitconfig-work
 [advice]
