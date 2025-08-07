@@ -32,6 +32,10 @@ end, { expr = true, noremap = true })
 vim.keymap.set("n", "<C-w>v", "<C-w>v<C-w>l", { desc = "Split window vertically and focus new split" })
 vim.keymap.set("n", "<C-w>s", "<C-w>s<C-w>j", { desc = "Split window horizontally and focus new split" })
 
+-- Better tab navigation
+vim.keymap.set("n", "<C-t>c", ":tabclose<CR>")
+vim.keymap.set("n", "<C-t>n", ":tabnew<CR>")
+
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
