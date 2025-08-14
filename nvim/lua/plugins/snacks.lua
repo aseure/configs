@@ -69,6 +69,14 @@ return {
 					})
 				end,
 			},
+			{
+				"<leader>fs",
+				function()
+					Snacks.picker.lsp_symbols({
+						matcher = { frecency = true },
+					})
+				end,
+			},
 		}
 	end,
 }
