@@ -36,8 +36,6 @@ bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 bindkey -e
 
-export ASDF_DATA_DIR="$HOME/.asdf"
-
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
 export PATH="$HOME/anthony/configs/scripts:$PATH"
@@ -51,7 +49,6 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export PATH="$HOME/work/sonio-utils/scripts:$PATH"
 export PATH="$HOME/anthony/scripts:$PATH"
 
@@ -144,6 +141,7 @@ _fzf_complete_git_post() {
 }
 
 eval "$(zoxide init --cmd j zsh)"
+eval "$(mise activate zsh)"
 
 source ~/.zprivate
 source /opt/homebrew/etc/profile.d/bash_completion.sh
