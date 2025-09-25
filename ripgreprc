@@ -1,0 +1,7 @@
+--smart-case
+--no-line-number
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!*.hl7
+--glob=!dicom*.json
+--glob=!*.svg

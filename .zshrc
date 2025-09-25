@@ -99,6 +99,7 @@ export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export MANPAGER="most -S"
 export MANPATH="/opt/hombrew/opt/coreutils/libexec/gnuman:$MANPATH"
 export PAGER="less -S"
+export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
 export SAVEHIST="10000"
 export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
 
@@ -107,7 +108,6 @@ alias k='kubectl'
 alias la='ls -al'
 alias ll='ls -lh'
 alias ls='ls -F --color=auto'
-alias rg='rg --smart-case --no-line-number'
 alias tok='tokei'
 alias vim='nvim'
 

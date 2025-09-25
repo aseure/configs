@@ -30,6 +30,7 @@ rm -rf ~/.config/nvim* && ln -s $PWD/nvim* ~/.config
 rm -rf ~/.zfunctions && ln -s $PWD/.zfunctions ~
 rm -rf ~/.config/tmux && ln -s $PWD/tmux ~/.config
 rm -rf ~/.config/ghostty && ln -s $PWD/ghostty ~/.config
+rm -rf ~/.config/ripgreprc && ln -s $PWD/ripgreprc ~/.config/.ripgreprc
 
 # Download Git completion for ZSH
 mkdir -p ~/.zsh
