@@ -22,7 +22,7 @@ return {
 		{
 			"<leader>fg",
 			function()
-				require("fzf-lua").live_grep()
+				require("fzf-lua").live_grep_native()
 			end,
 		},
 		{
