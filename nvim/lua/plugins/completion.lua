@@ -5,6 +5,8 @@ return {
 		event = "BufWinEnter",
 		init = function()
 			vim.g.copilot_no_maps = true
+			-- Use Node 22 from mise instead of project's Node version
+			vim.g.copilot_node_command = vim.fn.trim(vim.fn.system("mise where node@22")) .. "/bin/node"
 		end,
 		config = function()
 			-- Block the normal Copilot suggestions
@@ -74,6 +76,9 @@ return {
 						module = "blink-copilot",
 						score_offset = 100,
 						async = true,
+						opts = {
+							max_completions = 1,
+						},
 					},
 				},
 			},
