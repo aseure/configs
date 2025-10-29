@@ -10,6 +10,18 @@ return {
 					require("gitsigns").blame()
 				end,
 			},
+			{
+				"<leader>gH",
+				function()
+					vim.cmd("Gitsigns nav_hunk prev")
+				end,
+			},
+			{
+				"<leader>gh",
+				function()
+					vim.cmd("Gitsigns nav_hunk next")
+				end,
+			},
 		},
 	},
 	{
