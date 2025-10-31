@@ -17,13 +17,6 @@ vim.lsp.enable({
 	"elixirls",
 })
 
-vim.cmd([[
-  highlight DiagnosticLineError guibg=#51202A guifg=NONE
-  highlight DiagnosticLineWarn guibg=#51412A guifg=NONE
-  highlight DiagnosticLineInfo guibg=#1E535D guifg=NONE
-  highlight DiagnosticLineHint guibg=#1E205D guifg=NONE
-]])
-
 vim.diagnostic.config({
 	underline = true,
 	signs = true,
