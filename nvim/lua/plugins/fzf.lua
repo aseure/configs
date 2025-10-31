@@ -9,6 +9,11 @@ return {
 				},
 			},
 			fzf_colors = { false },
+			keymap = {
+				fzf = {
+					["ctrl-q"] = "select-all+accept",
+				},
+			},
 		})
 		require("fzf-lua").register_ui_select()
 	end,
