@@ -32,8 +32,7 @@ return {
 				preset = "none",
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 				["<CR>"] = { "accept", "fallback" },
-				["<Tab>"] = { "select_next", "fallback_to_mappings" },
-				["<S-Tab>"] = { "select_prev", "fallback_to_mappings" },
+				["<Tab>"] = { "accept", "fallback" },
 				["<C-n>"] = { "select_next", "fallback_to_mappings" },
 				["<C-p>"] = { "select_prev", "fallback_to_mappings" },
 			},
@@ -62,7 +61,7 @@ return {
 				},
 				ghost_text = {
 					enabled = true,
-					show_with_menu = false,
+					show_with_menu = true,
 				},
 				trigger = {
 					show_in_snippet = false,
