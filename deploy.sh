@@ -20,12 +20,18 @@ fi
 rm -rf .zfunctions/pure
 git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
+# Prepare Tmux plugin manager
+rm -rf tmux/plugins/tmp
+mkdir -p tmux/plugins
+git clone https://github.com/tmux-plugins/tpm tmux/plugins/tpm
+
 # Create relatives links
 mkdir -p ~/.config
 rm -f ~/.gitconfig && ln -s $PWD/.gitconfig ~
 rm -f ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
 rm -f ~/.tokeirc && ln -s $PWD/.tokeirc ~
 rm -f ~/.zshrc && ln -s $PWD/.zshrc ~
+rm -f ~/.wezterm.lua && ln -s $PWD/.wezterm.lua ~
 rm -rf ~/.config/nvim* && ln -s $PWD/nvim* ~/.config
 rm -rf ~/.zfunctions && ln -s $PWD/.zfunctions ~
 rm -rf ~/.config/tmux && ln -s $PWD/tmux ~/.config
