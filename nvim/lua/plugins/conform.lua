@@ -8,6 +8,7 @@ return {
 			javascript = { "prettier" },
 			json = { "prettier" },
 			lua = { "stylua" },
+			css = { "prettier" },
 			python = { "isort", "black" },
 			typescript = { "prettier" },
 		},
