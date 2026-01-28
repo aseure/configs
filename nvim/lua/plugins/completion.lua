@@ -1,29 +1,7 @@
 return {
 	{
-		"github/copilot.vim",
-		cmd = "Copilot",
-		event = "BufWinEnter",
-		init = function()
-			vim.g.copilot_no_maps = true
-			-- Use Node 22 from mise instead of project's Node version
-			vim.g.copilot_node_command = vim.fn.trim(vim.fn.system("mise where node@22")) .. "/bin/node"
-		end,
-		config = function()
-			-- Block the normal Copilot suggestions
-			vim.api.nvim_create_augroup("github_copilot", { clear = true })
-			vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
-				group = "github_copilot",
-				callback = function(args)
-					vim.fn["copilot#On" .. args.event]()
-				end,
-			})
-			vim.fn["copilot#OnFileType"]()
-		end,
-	},
-	{
 		"saghen/blink.cmp",
 		dependencies = {
-			"fang2hou/blink-copilot",
 			"rafamadriz/friendly-snippets",
 		},
 		version = "1.*",
@@ -68,18 +46,7 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "copilot", "snippets", "path", "buffer" },
-				providers = {
-					copilot = {
-						name = "copilot",
-						module = "blink-copilot",
-						score_offset = 100,
-						async = true,
-						opts = {
-							max_completions = 1,
-						},
-					},
-				},
+				default = { "lsp", "snippets", "path", "buffer" },
 			},
 		},
 	},
