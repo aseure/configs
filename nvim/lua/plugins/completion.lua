@@ -10,9 +10,10 @@ return {
 				preset = "none",
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 				["<CR>"] = { "accept", "fallback" },
-				["<Tab>"] = { "accept", "fallback" },
 				["<C-n>"] = { "select_next", "fallback_to_mappings" },
 				["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+				["<Tab>"] = { "select_next", "fallback_to_mappings" },
+				["<S-Tab>"] = { "select_prev", "fallback_to_mappings" },
 			},
 			signature = {
 				enabled = true,
