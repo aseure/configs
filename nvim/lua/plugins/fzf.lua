@@ -14,6 +14,9 @@ return {
 					["ctrl-q"] = "select-all+accept",
 				},
 			},
+			grep = {
+				rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+			},
 		})
 		require("fzf-lua").register_ui_select()
 	end,
@@ -27,7 +30,7 @@ return {
 		{
 			"<leader>fg",
 			function()
-				require("fzf-lua").live_grep()
+				require("fzf-lua").live_grep_native()
 			end,
 		},
 		{
