@@ -10,18 +10,6 @@ return {
 					require("gitsigns").blame()
 				end,
 			},
-			{
-				"<leader>gH",
-				function()
-					vim.cmd("Gitsigns nav_hunk prev")
-				end,
-			},
-			{
-				"<leader>gh",
-				function()
-					vim.cmd("Gitsigns nav_hunk next")
-				end,
-			},
 		},
 	},
 	{
@@ -41,31 +29,16 @@ return {
 		},
 	},
 	{
-		"tpope/vim-fugitive",
-		lazy = false,
-		config = function()
-			-- Function to get list of git branches for completion
-			local function get_branches()
-				local branches = vim.fn.systemlist('git branch --all --format="%(refname:short)"')
-				return branches
-			end
-
-			-- Create command with branch completion
-			vim.api.nvim_create_user_command("GitLog", function(opts)
-				vim.cmd("Git log --oneline --graph --decorate " .. opts.args)
-			end, {
-				nargs = 1,
-				complete = function()
-					return get_branches()
-				end,
-				desc = "Git log for specified branch",
-			})
-		end,
+		"NeogitOrg/neogit",
+		lazy = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"ibhagwan/fzf-lua",
+		},
+		cmd = "Neogit",
 		keys = {
-			{ "<leader>gd", ":Gvdiffsplit<CR>", desc = "Git diff split" },
-			{ "<leader>gg", ":Git<CR>", desc = "Git status" },
-			{ "<leader>gl", ":GitLog HEAD<CR>", desc = "Git log" },
-			{ "<leader>gL", ":GitLog ", desc = "Git log (select branch)" },
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
 		},
 	},
 }
