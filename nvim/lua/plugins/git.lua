@@ -37,8 +37,14 @@ return {
 			"ibhagwan/fzf-lua",
 		},
 		cmd = "Neogit",
+		opts = {
+			integrations = {
+				fzf_lua = true,
+			},
+		},
 		keys = {
 			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+			{ "<leader>dc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
 		},
 	},
 }
