@@ -52,6 +52,7 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/work/sonio-utils/scripts:$PATH"
 export PATH="$HOME/anthony/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export BAT_THEME="Nord"
 export BUILDKIT_PROGRESS="plain"
