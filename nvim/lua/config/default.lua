@@ -36,6 +36,22 @@ vim.keymap.set("n", "<C-w>s", "<C-w>s<C-w>j", { desc = "Split window horizontall
 vim.keymap.set("n", "<C-t>c", ":tabclose<CR>")
 vim.keymap.set("n", "<C-t>n", ":tabnew<CR>")
 
+-- Toggle quickfix list
+local function toggle_quickfix()
+	local qf_exists = false
+	for _, win in pairs(vim.fn.getwininfo()) do
+		if win["quickfix"] == 1 then
+			qf_exists = true
+		end
+	end
+	if qf_exists == true then
+		vim.cmd("cclose")
+	else
+		vim.cmd("copen")
+	end
+end
+vim.keymap.set("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
+
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
