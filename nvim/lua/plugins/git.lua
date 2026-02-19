@@ -14,6 +14,7 @@ return {
 	},
 	{
 		"trevorhauter/gitportal.nvim",
+		url = "https://codeberg.org/trevorhauter/gitportal.nvim",
 		lazy = false,
 		opts = {
 			always_include_current_line = true,
