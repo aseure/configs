@@ -81,6 +81,9 @@ vim.keymap.set("n", "<A-Up>", function()
 	qf_navigate("cprev")
 end, { desc = "Previous quickfix item" })
 
+-- Paste in visual mode without overwriting the register with the replaced text
+vim.keymap.set("x", "p", '"_dP')
+
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.foldenable = true
