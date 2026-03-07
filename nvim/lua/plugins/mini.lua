@@ -6,6 +6,7 @@ return {
 		require("mini.ai").setup()
 		require("mini.comment").setup()
 		require("mini.cursorword").setup()
+		require("mini.diff").setup()
 		require("mini.extra").setup()
 		require("mini.hipatterns").setup()
 		require("mini.icons").setup()
@@ -24,4 +25,12 @@ return {
 		require("mini.operators").setup()
 		require("mini.surround").setup()
 	end,
+	keys = {
+		{
+			"<leader>gd",
+			function()
+				require("mini.diff").toggle_overlay()
+			end,
+		},
+	},
 }
