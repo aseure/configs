@@ -11,10 +11,10 @@ vim.lsp.config("elixirls", {
 vim.lsp.enable({
 	"bashls",
 	"eslint",
+	"expert",
 	"lua_ls",
 	"pyright",
 	"ts_ls",
-	"elixirls",
 })
 
 vim.diagnostic.config({
