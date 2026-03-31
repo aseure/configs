@@ -31,6 +31,10 @@ end, { expr = true, noremap = true })
 -- Better window navigation
 vim.keymap.set("n", "<C-w>v", "<C-w>v<C-w>l", { desc = "Split window vertically and focus new split" })
 vim.keymap.set("n", "<C-w>s", "<C-w>s<C-w>j", { desc = "Split window horizontally and focus new split" })
+vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Focus left window" })
+vim.keymap.set("n", "<A-t>", "<C-w>j", { desc = "Focus left window" })
+vim.keymap.set("n", "<A-n>", "<C-w>k", { desc = "Focus left window" })
+vim.keymap.set("n", "<A-s>", "<C-w>l", { desc = "Focus left window" })
 
 -- Better tab navigation
 vim.keymap.set("n", "<C-t>c", ":tabclose<CR>")
