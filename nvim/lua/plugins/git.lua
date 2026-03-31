@@ -33,11 +33,8 @@ return {
 	},
 	{
 		"sindrets/diffview.nvim",
-		opts = {
-			file_history_panel = {
-				position = "bottom",
-			},
-		},
+		lazy = false,
+		opts = {},
 		keys = {
 			{
 				"<leader>gg",
