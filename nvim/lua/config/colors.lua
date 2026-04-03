@@ -1,3 +1,5 @@
+vim.cmd.colorscheme("kanagawa")
+
 local red_color = "#f56565"
 
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, fg = red_color, sp = red_color })
