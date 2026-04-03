@@ -1,6 +1,5 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {
 		sections = {
 			lualine_a = { "mode" },
@@ -19,7 +18,7 @@ return {
 			lualine_z = {},
 		},
 		options = {
-			icons_enabled = true,
+			icons_enabled = false,
 		},
 	},
 }

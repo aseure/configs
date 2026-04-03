@@ -9,7 +9,6 @@ return {
 		require("mini.diff").setup()
 		require("mini.extra").setup()
 		require("mini.hipatterns").setup()
-		require("mini.icons").setup()
 		require("mini.indentscope").setup({
 			draw = {
 				delay = 0,
