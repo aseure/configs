@@ -37,7 +37,11 @@ return {
 						node_decremental = "V",
 					},
 				},
-				indent = { enable = true },
+				indent = {
+					enable = true,
+					-- Treesitter indent is buggy for JS/TS (puts cursor at col 0); fall back to Neovim's built-in indent
+					disable = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				},
 			})
 		end,
 	},
