@@ -8,6 +8,14 @@ vim.lsp.config("elixirls", {
 	},
 })
 
+vim.lsp.config("ts_ls", {
+	init_options = {
+		preferences = {
+			importModuleSpecifierPreference = "non-relative",
+		},
+	},
+})
+
 vim.lsp.enable({
 	"bashls",
 	"eslint",
