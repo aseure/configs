@@ -1,13 +1,3 @@
-vim.lsp.config("elixirls", {
-	cmd = { "/opt/homebrew/bin/elixir-ls" },
-	settings = {
-		elixirLS = {
-			dialyzerEnabled = false,
-			fetchDeps = false,
-		},
-	},
-})
-
 vim.lsp.config("ts_ls", {
 	init_options = {
 		preferences = {
