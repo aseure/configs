@@ -22,7 +22,6 @@ return {
 			},
 			symbol = "│",
 		})
-		require("mini.operators").setup()
 		require("mini.surround").setup()
 	end,
 	keys = {

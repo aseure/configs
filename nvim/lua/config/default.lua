@@ -89,6 +89,7 @@ end, { desc = "Previous quickfix item" })
 vim.keymap.set("x", "p", '"_dP')
 
 vim.opt.clipboard = vim.opt.clipboard + "unnamedplus"
+vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
@@ -102,11 +103,12 @@ vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.smartindent = false
 vim.opt.softtabstop = 2
+vim.opt.splitkeep = "screen"
 vim.opt.tabstop = 2
-vim.opt.termguicolors = true
-vim.opt.updatetime = 100
-vim.opt.cursorline = true
 vim.opt.tags = { "./tags", "tags" }
+vim.opt.termguicolors = true
+vim.opt.undofile = true
+vim.opt.updatetime = 100
 
 vim.wo.wrap = false
 
