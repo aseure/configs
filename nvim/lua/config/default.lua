@@ -138,6 +138,7 @@ local ignore_list_treesitter_filetypes = {
 	"gitsigns-blame",
 	"lazy",
 	"lazy_backdrop",
+	"netrc",
 	"oil",
 }
 
