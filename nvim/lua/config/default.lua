@@ -132,6 +132,8 @@ vim.api.nvim_create_autocmd("FileType", {
 local ignore_list_treesitter_filetypes = {
 	"blink-cmp-menu",
 	"fzf",
+	"lazy",
+	"lazy_backdrop",
 	"oil",
 }
 
