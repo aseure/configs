@@ -127,3 +127,19 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "qf" },
 	command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
+
+-- Enable treesitter highlighting for all filetypes with an installed parser
+local ignore_list_treesitter_filetypes = {
+	"blink-cmp-menu",
+	"fzf",
+	"oil",
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(args)
+		if vim.tbl_contains(ignore_list_treesitter_filetypes, args.match) then
+			return
+		end
+		vim.treesitter.start()
+	end,
+})
