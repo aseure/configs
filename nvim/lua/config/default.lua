@@ -134,6 +134,7 @@ local ignore_list_treesitter_filetypes = {
 	"blink-cmp-menu",
 	"conform-info",
 	"fzf",
+	"gitsigns-blame",
 	"lazy",
 	"lazy_backdrop",
 	"oil",
