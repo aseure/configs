@@ -60,6 +60,7 @@ return {
 				"mermaid",
 				"nginx",
 				"pem",
+				"po",
 				"properties",
 				"python",
 				"query",
