@@ -130,7 +130,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Enable treesitter highlighting for all filetypes with an installed parser
 local ignore_list_treesitter_filetypes = {
+	"DiffviewFiles",
 	"blink-cmp-menu",
+	"conform-info",
 	"fzf",
 	"lazy",
 	"lazy_backdrop",
