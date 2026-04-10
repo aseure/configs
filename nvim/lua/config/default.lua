@@ -128,23 +128,29 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
 
--- Enable treesitter highlighting for all filetypes with an installed parser
-local ignore_list_treesitter_filetypes = {
-	"DiffviewFileHistory",
-	"DiffviewFiles",
-	"blink-cmp-menu",
-	"conform-info",
-	"fzf",
-	"gitsigns-blame",
-	"lazy",
-	"lazy_backdrop",
-	"netrc",
-	"oil",
-}
+local function is_treesitter_ignored_language(lang)
+	local ignored_languages = {
+		"DiffviewFileHistory",
+		"DiffviewFiles",
+		"blink-cmp-menu",
+		"blink-cmp-signature",
+		"conform-info",
+		"fzf",
+		"git",
+		"gitsigns-blame",
+		"grug-far",
+		"lazy",
+		"lazy_backdrop",
+		"netrc",
+		"oil",
+		"text",
+	}
+	return vim.tbl_contains(ignored_languages, lang)
+end
 
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function(args)
-		if vim.tbl_contains(ignore_list_treesitter_filetypes, args.match) then
+		if is_treesitter_ignored_language(args.match) then
 			return
 		end
 		vim.treesitter.start()
