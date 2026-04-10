@@ -11,6 +11,10 @@ return {
 		config = function()
 			-- https://tduyng.com/blog/neovim-highlight-syntax/
 			require("nvim-treesitter").setup({})
+
+			local inc_sel = require("config.incremental-selection")
+			vim.keymap.set("v", "v", inc_sel.increment, { desc = "Increment treesitter selection" })
+			vim.keymap.set("v", "V", inc_sel.decrement, { desc = "Decrement treesitter selection" })
 			require("nvim-treesitter").install({
 				"asm",
 				"awk",
