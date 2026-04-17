@@ -135,6 +135,8 @@ local function is_treesitter_ignored_language(lang)
 		"blink-cmp-menu",
 		"blink-cmp-signature",
 		"conform-info",
+		"env",
+		"flash_prompt",
 		"fzf",
 		"git",
 		"gitsigns-blame",
@@ -143,6 +145,7 @@ local function is_treesitter_ignored_language(lang)
 		"lazy_backdrop",
 		"netrc",
 		"oil",
+		"smarty",
 		"text",
 	}
 	return vim.tbl_contains(ignored_languages, lang)

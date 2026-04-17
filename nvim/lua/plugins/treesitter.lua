@@ -22,6 +22,7 @@ return {
 				"bash",
 				"c",
 				"caddy",
+				"cmake",
 				"comment",
 				"cpp",
 				"css",
