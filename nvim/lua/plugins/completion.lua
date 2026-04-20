@@ -3,7 +3,6 @@ return {
 		"saghen/blink.cmp",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			"milanglacier/minuet-ai.nvim",
 		},
 		version = "1.*",
 		opts = {
@@ -49,16 +48,7 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "minuet", "snippets", "path", "buffer" },
-				providers = {
-					minuet = {
-						name = "minuet",
-						module = "minuet.blink",
-						async = true,
-						timeout_ms = 3000,
-						score_offset = 50,
-					},
-				},
+				default = { "lsp", "snippets", "path", "buffer" },
 			},
 		},
 	},
