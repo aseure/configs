@@ -147,6 +147,7 @@ local function is_treesitter_ignored_language(lang)
 		"oil",
 		"smarty",
 		"text",
+		"oil_preview",
 	}
 	return vim.tbl_contains(ignored_languages, lang)
 end
