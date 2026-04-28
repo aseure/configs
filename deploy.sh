@@ -29,6 +29,7 @@ rm -f ~/.zshrc && ln -s $PWD/.zshrc ~
 rm -rf ~/.config/nvim* && ln -s $PWD/nvim* ~/.config
 rm -rf ~/.zfunctions && ln -s $PWD/.zfunctions ~
 rm -rf ~/.config/ripgreprc && ln -s $PWD/ripgreprc ~/.config/.ripgreprc
+rm -f ~/.wezterm.lua && ln -s $PWD/.wezterm.lua ~
 
 # Download Git completion for ZSH
 mkdir -p ~/.zsh
