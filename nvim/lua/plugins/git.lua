@@ -32,27 +32,16 @@ return {
 		},
 	},
 	{
-		"sindrets/diffview.nvim",
-		lazy = false,
-		opts = {},
+		"NeogitOrg/neogit",
+		lazy = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"ibhagwan/fzf-lua",
+		},
+		cmd = "Neogit",
 		keys = {
-			{
-				"<leader>gg",
-				function()
-					local lib = require("diffview.lib")
-					if lib.get_current_view() then
-						vim.cmd("DiffviewClose")
-					else
-						vim.cmd("DiffviewOpen")
-					end
-				end,
-				desc = "Toggle DiffView",
-			},
-			{
-				"<leader>gf",
-				"<CMD>DiffviewFileHistory %<CR>",
-				desc = "File git history",
-			},
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
 		},
 	},
 }
