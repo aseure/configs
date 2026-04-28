@@ -130,10 +130,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local function is_treesitter_ignored_language(lang)
 	local ignored_languages = {
-		"DiffviewFileHistory",
-		"DiffviewFiles",
-		"blink-cmp-menu",
-		"blink-cmp-signature",
+		"Diffview*",
+		"Neogit*",
+		"blink-cmp*",
 		"conform-info",
 		"env",
 		"flash_prompt",
@@ -141,17 +140,29 @@ local function is_treesitter_ignored_language(lang)
 		"git",
 		"gitsigns-blame",
 		"grug-far",
-		"lazy",
-		"lazy_backdrop",
+		"lazy*",
 		"netrc",
 		"oil",
-		"oil_preview",
+		"oil*",
 		"qf",
 		"smarty",
 		"text",
 		"zip",
 	}
-	return vim.tbl_contains(ignored_languages, lang)
+	for _, ignored_lang in pairs(ignored_languages) do
+		if lang == ignored_lang then
+			return true
+		end
+
+		if ignored_lang:sub(-1) == "*" then
+			local prefix = ignored_lang:sub(1, -2)
+			if lang:sub(1, #prefix) == prefix then
+				return true
+			end
+		end
+	end
+
+	return false
 end
 
 vim.api.nvim_create_autocmd("FileType", {
