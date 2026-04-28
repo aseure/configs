@@ -145,9 +145,11 @@ local function is_treesitter_ignored_language(lang)
 		"lazy_backdrop",
 		"netrc",
 		"oil",
+		"oil_preview",
+		"qf",
 		"smarty",
 		"text",
-		"oil_preview",
+		"zip",
 	}
 	return vim.tbl_contains(ignored_languages, lang)
 end
