@@ -4,7 +4,6 @@ return {
 		mode = "normal",
 		formatters_by_ft = {
 			bash = { "shfmt" },
-			elixir = { "mix" },
 			javascript = { "prettier" },
 			json = { "prettier" },
 			lua = { "stylua" },

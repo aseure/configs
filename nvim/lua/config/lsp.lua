@@ -33,10 +33,16 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
+vim.lsp.config("dexter", {
+	cmd = { "dexter", "lsp" },
+	filetypes = { "elixir", "eelixir", "heex" },
+	root_markers = { ".dexter/dexter.db", ".dexter.db", "mix.exs", ".git" },
+})
+
 vim.lsp.enable({
 	"bashls",
+	"dexter",
 	"eslint",
-	"expert",
 	"lua_ls",
 	"pyright",
 	"ts_ls",
