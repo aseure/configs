@@ -25,7 +25,7 @@ return {
 			{
 				"<leader>go",
 				function()
-					require("gitportal").open_file_in_browser()
+					require("gitportal").to_remote()
 				end,
 				mode = { "n", "v" },
 			},
