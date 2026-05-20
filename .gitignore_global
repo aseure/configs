@@ -1,3 +1,4 @@
+**/.claude/**/*.local.json
 **/sandbox
 *.DS_Store
 *.bak
@@ -11,7 +12,6 @@
 .bloop/
 .build/
 .classpath
-.claude
 .expert/
 .git
 .idea
