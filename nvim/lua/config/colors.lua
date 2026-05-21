@@ -1,4 +1,4 @@
-vim.cmd.colorscheme("kanagawa")
+vim.cmd.colorscheme("amber")
 
 local red_color = "#f56565"
 
