@@ -12,6 +12,9 @@ return {
 			-- https://tduyng.com/blog/neovim-highlight-syntax/
 			require("nvim-treesitter").setup({})
 
+			-- JSON Lines has no parser of its own, the JSON one handles it
+			vim.treesitter.language.register("json", "jsonl")
+
 			local inc_sel = require("config.incremental-selection")
 			vim.keymap.set("v", "v", inc_sel.increment, { desc = "Increment treesitter selection" })
 			vim.keymap.set("v", "V", inc_sel.decrement, { desc = "Decrement treesitter selection" })
