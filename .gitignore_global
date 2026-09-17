@@ -31,3 +31,5 @@ node_modules/
 tags
 target/
 values-override.yaml
+
+**/.claude/.cc-writes/
