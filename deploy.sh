@@ -1,71 +1,96 @@
 #!/bin/bash
 
-echo "> Current configuration files for Git, Vim, ZSH and iTerm2 will be overriden."
-echo "> Press any key to continue or press ^C to abort"
-read
+confirm_overwrite() {
+  echo "> Current configuration files for Git, Vim, ZSH and iTerm2 will be overriden."
+  echo "> Press any key to continue or press ^C to abort"
+  read
+}
 
-git reset --hard HEAD
+reset_repository() {
+  git reset --hard HEAD
+}
 
-# Mac specific
-PLATFORM=$(uname)
-if [[ $PLATFORM == "Darwin" ]]; then
+configure_macos() {
+  [[ $(uname) == "Darwin" ]] || return 0
+
   defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false       # For IntelliJ
   defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false         # For VS Code
   defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false # For VS Code Insider
   defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false    # For VS Codium
   # defaults delete -g ApplePressAndHoldEnabled                                    # If necessary, reset global default
-fi
+}
 
-# Prepare ZSH (Pure prompt)
-rm -rf .zfunctions/pure
-git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
+install_pure_prompt() {
+  rm -rf .zfunctions/pure
+  git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
+}
 
-# Create relatives links
-mkdir -p ~/.config ~/.claude
-rm -f ~/.gitconfig && ln -s $PWD/.gitconfig ~
-rm -f ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
-rm -f ~/.tokeirc && ln -s $PWD/.tokeirc ~
-rm -f ~/.zshrc && ln -s $PWD/.zshrc ~
-rm -rf ~/.config/nvim* && ln -s $PWD/nvim* ~/.config
-rm -rf ~/.zfunctions && ln -s $PWD/.zfunctions ~
-rm -rf ~/.config/ripgreprc && ln -s $PWD/ripgreprc ~/.config/.ripgreprc
-rm -f ~/.wezterm.lua && ln -s $PWD/.wezterm.lua ~
-rm -f ~/.claude/CLAUDE.md && ln -s $PWD/agents/CLAUDE.md ~/.claude/CLAUDE.md
+link() {
+  local source=$1
+  local target=$2
 
-# Link agent skills into Claude Code.
-#
-# Skills are linked one by one rather than linking the whole directory, as
-# Claude Code installs the skills coming from plugins right next to ours and
-# replacing the whole directory with a symlink would wipe them out.
-link_skills() {
-  local target=~/.claude/skills
-  local skill name
+  rm -rf "$target" && ln -s "$PWD/$source" "$target"
+}
 
-  mkdir -p "$target"
+link_configs() {
+  mkdir -p ~/.config ~/.claude
 
-  # Drop symlinks pointing back at this repository so renamed and deleted
-  # skills don't linger. Anything else in the directory is left untouched.
+  link .gitconfig ~/.gitconfig
+  link .gitignore_global ~/.gitignore_global
+  link .tokeirc ~/.tokeirc
+  link .zshrc ~/.zshrc
+  link .zfunctions ~/.zfunctions
+  link .wezterm.lua ~/.wezterm.lua
+  link nvim ~/.config/nvim
+  link ripgreprc ~/.config/.ripgreprc
+  link agents/CLAUDE.md ~/.claude/CLAUDE.md
+}
+
+prune_stale_skills() {
+  local target=$1
+  local skill
+
   for skill in "$target"/*; do
     if [[ -L $skill && $(readlink "$skill") == $PWD/agents/skills/* ]]; then
       rm -f "$skill"
     fi
   done
+}
+
+link_skills() {
+  local target=~/.claude/skills
+  local skill name
+
+  mkdir -p "$target"
+  prune_stale_skills "$target"
 
   for skill in agents/skills/*/; do
-    [[ -d $skill ]] || continue # No skill at all: the glob stayed unexpanded
+    [[ -d $skill ]] || continue
     name=$(basename "$skill")
-    rm -rf "${target:?}/$name" && ln -s "$PWD/agents/skills/$name" "$target/$name"
+    link "agents/skills/$name" "$target/$name"
   done
 }
 
-link_skills
+install_git_completion() {
+  mkdir -p ~/.zsh
+  curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+  curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+}
 
-# Download Git completion for ZSH
-mkdir -p ~/.zsh
-curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+print_next_steps() {
+  echo
+  echo "> Configurations updated. Now just run \`source .zshrc\`"
+}
 
-cd
+main() {
+  confirm_overwrite
+  reset_repository
+  configure_macos
+  install_pure_prompt
+  link_configs
+  link_skills
+  install_git_completion
+  print_next_steps
+}
 
-echo
-echo "> Configurations updated. Now just run \`source .zshrc\`"
+main
