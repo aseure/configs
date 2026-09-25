@@ -21,7 +21,7 @@ rm -rf .zfunctions/pure
 git clone git@github.com:sindresorhus/pure.git .zfunctions/pure
 
 # Create relatives links
-mkdir -p ~/.config
+mkdir -p ~/.config ~/.claude
 rm -f ~/.gitconfig && ln -s $PWD/.gitconfig ~
 rm -f ~/.gitignore_global && ln -s $PWD/.gitignore_global ~
 rm -f ~/.tokeirc && ln -s $PWD/.tokeirc ~
@@ -30,6 +30,35 @@ rm -rf ~/.config/nvim* && ln -s $PWD/nvim* ~/.config
 rm -rf ~/.zfunctions && ln -s $PWD/.zfunctions ~
 rm -rf ~/.config/ripgreprc && ln -s $PWD/ripgreprc ~/.config/.ripgreprc
 rm -f ~/.wezterm.lua && ln -s $PWD/.wezterm.lua ~
+rm -f ~/.claude/CLAUDE.md && ln -s $PWD/agents/CLAUDE.md ~/.claude/CLAUDE.md
+
+# Link agent skills into Claude Code.
+#
+# Skills are linked one by one rather than linking the whole directory, as
+# Claude Code installs the skills coming from plugins right next to ours and
+# replacing the whole directory with a symlink would wipe them out.
+link_skills() {
+  local target=~/.claude/skills
+  local skill name
+
+  mkdir -p "$target"
+
+  # Drop symlinks pointing back at this repository so renamed and deleted
+  # skills don't linger. Anything else in the directory is left untouched.
+  for skill in "$target"/*; do
+    if [[ -L $skill && $(readlink "$skill") == $PWD/agents/skills/* ]]; then
+      rm -f "$skill"
+    fi
+  done
+
+  for skill in agents/skills/*/; do
+    [[ -d $skill ]] || continue # No skill at all: the glob stayed unexpanded
+    name=$(basename "$skill")
+    rm -rf "${target:?}/$name" && ln -s "$PWD/agents/skills/$name" "$target/$name"
+  done
+}
+
+link_skills
 
 # Download Git completion for ZSH
 mkdir -p ~/.zsh
