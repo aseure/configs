@@ -130,8 +130,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local function is_treesitter_ignored_language(lang)
 	local ignored_languages = {
-		"Diffview*",
-		"Neogit*",
 		"blink-cmp*",
 		"conform-info",
 		"env",
