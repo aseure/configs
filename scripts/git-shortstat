@@ -1,0 +1,9 @@
+#!/bin/sh
+
+git log --shortstat --format= --no-merges "$@" | awk '{
+  for (i = 1; i < NF; i++) {
+    if ($(i+1) ~ /^file/)      f += $i
+    if ($(i+1) ~ /^insertion/) a += $i
+    if ($(i+1) ~ /^deletion/)  d += $i
+  }
+} END { printf "%d files changed, %d insertions(+), %d deletions(-)\n", f, a, d }'
