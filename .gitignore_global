@@ -1,4 +1,5 @@
 **/.claude/**/*.local.json
+**/.claude/.cc-writes/
 **/sandbox
 *.DS_Store
 *.bak
@@ -23,6 +24,7 @@
 .vscode
 CLAUDE.local.md
 TAGS
+__pycache__
 a.out
 aaaa/
 dist/
@@ -31,5 +33,3 @@ node_modules/
 tags
 target/
 values-override.yaml
-
-**/.claude/.cc-writes/
