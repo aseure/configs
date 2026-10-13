@@ -43,32 +43,8 @@ link_configs() {
   link .wezterm.lua ~/.wezterm.lua
   link nvim ~/.config/nvim
   link ripgreprc ~/.config/.ripgreprc
-  link agents/CLAUDE.md ~/.claude/CLAUDE.md
-}
-
-prune_stale_skills() {
-  local target=$1
-  local skill
-
-  for skill in "$target"/*; do
-    if [[ -L $skill && $(readlink "$skill") == $PWD/agents/skills/* ]]; then
-      rm -f "$skill"
-    fi
-  done
-}
-
-link_skills() {
-  local target=~/.claude/skills
-  local skill name
-
-  mkdir -p "$target"
-  prune_stale_skills "$target"
-
-  for skill in agents/skills/*/; do
-    [[ -d $skill ]] || continue
-    name=$(basename "$skill")
-    link "agents/skills/$name" "$target/$name"
-  done
+  link claude/CLAUDE.md ~/.claude/CLAUDE.md
+  link claude/skills ~/.claude/skills
 }
 
 install_git_completion() {
@@ -88,7 +64,6 @@ main() {
   configure_macos
   install_pure_prompt
   link_configs
-  link_skills
   install_git_completion
   print_next_steps
 }
