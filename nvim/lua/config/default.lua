@@ -146,6 +146,7 @@ local function is_treesitter_ignored_language(lang)
 		"smarty",
 		"text",
 		"zip",
+		"conf",
 	}
 	for _, ignored_lang in pairs(ignored_languages) do
 		if lang == ignored_lang then
