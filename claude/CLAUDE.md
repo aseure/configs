@@ -49,3 +49,8 @@ Leave Bash as soon as it stops being obvious: no elaborate shell functions, no
 array-based subtleties, no layered quoting and escaping, no reaching for `awk`,
 `sed` or `perl` one-liners to transform data. Hitting any of these means the
 step belongs in Python — rewrite it there rather than making the Bash work.
+
+# Branch naming
+
+All my branches must be named `aseure/<LINEAR_TICKET_ID>`. For example:
+`aseure/PF-42`.
