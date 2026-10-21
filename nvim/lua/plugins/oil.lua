@@ -10,8 +10,8 @@ return {
 
 			oil.setup({
 				keymaps = {
-					-- create a new mapping, gs, to search and replace in the current directory
-					G = {
+					-- create a new mapping, <leader>sr, to search and replace in the current directory
+					["<leader>sr"] = {
 						callback = function()
 							-- get the current directory
 							local prefills = { paths = oil.get_current_dir() }
