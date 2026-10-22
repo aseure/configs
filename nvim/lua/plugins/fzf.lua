@@ -44,5 +44,11 @@ return {
 				require("fzf-lua").buffers()
 			end,
 		},
+		{
+			"<leader>fq",
+			function()
+				require("fzf-lua").quickfix()
+			end,
+		},
 	},
 }

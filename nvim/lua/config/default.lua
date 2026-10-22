@@ -40,51 +40,6 @@ vim.keymap.set("n", "<A-s>", "<C-w>l", { desc = "Focus left window" })
 vim.keymap.set("n", "<C-t>c", ":tabclose<CR>")
 vim.keymap.set("n", "<C-t>n", ":tabnew<CR>")
 
--- Quickfix helpers
-local function is_qf_open()
-	for _, win in pairs(vim.fn.getwininfo()) do
-		if win["quickfix"] == 1 then
-			return true
-		end
-	end
-	return false
-end
-
-local function is_qf_empty()
-	return #vim.fn.getqflist() == 0
-end
-
--- Toggle quickfix list
-local function toggle_quickfix()
-	if is_qf_open() then
-		vim.cmd("cclose")
-	else
-		vim.cmd("copen")
-	end
-end
-vim.keymap.set("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
-
--- Navigate quickfix list
-local function qf_navigate(direction)
-	if is_qf_empty() then
-		return
-	end
-
-	if not is_qf_open() then
-		vim.cmd("copen")
-	end
-
-	pcall(vim.cmd, direction)
-end
-
-vim.keymap.set("n", "<A-Down>", function()
-	qf_navigate("cnext")
-end, { desc = "Next quickfix item" })
-
-vim.keymap.set("n", "<A-Up>", function()
-	qf_navigate("cprev")
-end, { desc = "Previous quickfix item" })
-
 -- Paste in visual mode without overwriting the register with the replaced text
 vim.keymap.set("x", "p", '"_dP')
 
@@ -120,12 +75,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	command = [[%s/\s\+$//e]],
-})
-
--- Close the quickfix menu after selecting choice
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "qf" },
-	command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
 })
 
 local function is_treesitter_ignored_language(lang)
