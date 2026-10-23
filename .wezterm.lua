@@ -10,6 +10,15 @@ local function send_tmux(keys)
 	return act.SendString("\x02" .. keys)
 end
 
+-- Cmd-c copies WezTerm's own selection (Shift-drag), else tmux's copy-mode selection
+local copy_selection = wezterm.action_callback(function(window, pane)
+	if window:get_selection_text_for_pane(pane) ~= "" then
+		window:perform_action(act.CopyTo("Clipboard"), pane)
+	else
+		window:perform_action(send_tmux("Y"), pane)
+	end
+end)
+
 local function tmux_window_keys()
 	local keys = {}
 	for i = 1, 9 do
@@ -38,6 +47,7 @@ config.keys = {
 	{ key = "LeftArrow", mods = "ALT", action = act.SendKey({ key = "b", mods = "ALT" }) },
 	{ key = "RightArrow", mods = "ALT", action = act.SendKey({ key = "f", mods = "ALT" }) },
 	{ key = "Enter", mods = "CMD", action = act.ToggleFullScreen },
+	{ key = "c", mods = "CMD", action = copy_selection },
 
 	-- Cmd-hjkl send the Dvorak Alt-h/t/c/n navigation keys shared by tmux and Neovim
 	{ key = "h", mods = "CMD", action = send_alt("h") },
