@@ -1,0 +1,79 @@
+#!/bin/bash
+
+list_repositories() {
+  zoxide query --list | while read -r dir; do
+    [[ -e "$dir/.git" ]] && echo "${dir/#$HOME/~}"
+  done
+}
+
+list_sessions() {
+  local current
+
+  [[ -n "$TMUX" ]] && current=$(tmux display-message -p '#S')
+  tmux list-sessions -F '#{session_last_attached} #{session_name}' |
+    sort -rn |
+    cut -d ' ' -f 2- |
+    grep -vxF -e popup -e "$current"
+}
+
+pick() {
+  local prompt=$1
+
+  fzf --reverse --prompt "$prompt> "
+}
+
+session_name() {
+  local dir=$1
+  local name
+
+  name=$(basename "$dir")
+  echo "${name//[.:]/_}"
+}
+
+create_session() {
+  local name=$1
+  local dir=$2
+
+  tmux new-session -d -s "$name" -c "$dir"
+  tmux split-window -h -t "=$name:" -c "$dir"
+  tmux send-keys -t "=$name:" nvim Enter
+  tmux select-pane -t "=$name:" -L
+}
+
+open_session() {
+  local name=$1
+
+  if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "=$name"
+  else
+    tmux attach-session -t "=$name"
+  fi
+}
+
+open_existing_session() {
+  local name
+
+  name=$(list_sessions | pick session) || exit 0
+  open_session "$name"
+}
+
+open_repository() {
+  local choice dir name
+
+  choice=$(list_repositories | pick repository) || exit 0
+  dir="${choice/#\~/$HOME}"
+  name=$(session_name "$dir")
+
+  tmux has-session -t "=$name" 2>/dev/null || create_session "$name" "$dir"
+  open_session "$name"
+}
+
+main() {
+  if [[ "$1" == "--repositories" ]]; then
+    open_repository
+  else
+    open_existing_session
+  fi
+}
+
+main "$@"

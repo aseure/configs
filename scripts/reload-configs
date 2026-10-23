@@ -1,0 +1,27 @@
+#!/bin/bash
+
+reload_wezterm() {
+  touch ~/.wezterm.lua
+}
+
+reload_tmux() {
+  tmux has-session 2>/dev/null && tmux source-file ~/.config/tmux/tmux.conf
+}
+
+neovim_servers() {
+  find "${TMPDIR%/}/nvim.$USER" -type s -name 'nvim.*.0' 2>/dev/null
+}
+
+reload_neovim() {
+  neovim_servers | while read -r server; do
+    nvim --server "$server" --remote-send '<C-\><C-N>:restart<CR>' 2>/dev/null
+  done
+}
+
+main() {
+  reload_wezterm
+  reload_tmux
+  reload_neovim
+}
+
+main
