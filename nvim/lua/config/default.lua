@@ -135,6 +135,11 @@ vim.api.nvim_create_autocmd("FileType", {
 		if is_treesitter_ignored_language(args.match) then
 			return
 		end
-		vim.treesitter.start()
+		-- Only use treesitter when it can highlight, otherwise keep the built-in syntax highlighting
+		local lang = vim.treesitter.language.get_lang(args.match) or args.match
+		local ok, query = pcall(vim.treesitter.query.get, lang, "highlights")
+		if ok and query then
+			vim.treesitter.start()
+		end
 	end,
 })
