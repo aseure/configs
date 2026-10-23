@@ -35,9 +35,6 @@ create_session() {
   local dir=$2
 
   tmux new-session -d -s "$name" -c "$dir"
-  tmux split-window -h -t "=$name:" -c "$dir"
-  tmux send-keys -t "=$name:" nvim Enter
-  tmux select-pane -t "=$name:" -L
 }
 
 open_session() {
