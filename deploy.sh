@@ -40,7 +40,7 @@ link_configs() {
   link .tokeirc ~/.tokeirc
   link .zshrc ~/.zshrc
   link .zfunctions ~/.zfunctions
-  link .wezterm.lua ~/.wezterm.lua
+  link ghostty ~/.config/ghostty
   link nvim ~/.config/nvim
   link tmux ~/.config/tmux
   link ripgreprc ~/.config/.ripgreprc

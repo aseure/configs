@@ -36,6 +36,21 @@ bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 bindkey -e
 
+run_sessionizer() {
+  zle push-input
+  BUFFER=" ~/.config/tmux/sessionizer $1"
+  zle accept-line
+}
+
+open_tmux_sessions() { run_sessionizer }
+open_tmux_repositories() { run_sessionizer --repositories }
+
+# Same keys Ghostty sends for Cmd-p and Cmd-Shift-p, so they also work outside tmux (tmux takes them first inside)
+zle -N open_tmux_sessions
+zle -N open_tmux_repositories
+bindkey "^Bo" open_tmux_sessions
+bindkey "^BO" open_tmux_repositories
+
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
 export PATH="$HOME/anthony/configs/scripts:$PATH"

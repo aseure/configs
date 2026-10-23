@@ -1,19 +1,81 @@
 auto-update = download
 auto-update-channel = stable
-cursor-style = block
-font-family = "Iosevka Nerd Font"
-font-feature = -calt, -liga, -dlig
-font-size = 14
-font-thicken = true
-keybind = cmd+h=goto_split:left
-keybind = cmd+j=goto_split:down
-keybind = cmd+k=goto_split:up
-keybind = cmd+l=goto_split:right
-macos-option-as-alt = true
+
+term = xterm-256color
+shell-integration = none
+
+# Plain Iosevka with Ghostty's built-in Nerd Font icons; the Nerd Font is only a fallback while Iosevka is not installed
+font-family = "Iosevka"
+font-size = 16
+
+confirm-close-surface = false
+copy-on-select = clipboard
+cursor-style-blink = false
+macos-option-as-alt = left
 quit-after-last-window-closed = true
-shell-integration-features = no-cursor
-split-divider-color = 434c5e
-theme = nord
-unfocused-split-fill = 000000
 window-padding-x = 15
 window-padding-y = 10
+
+# Nordic colours, written out because the plugin's Ghostty theme swaps magenta and cyan
+background = #242933
+foreground = #C0C8D8
+cursor-color = #D8DEE9
+cursor-text = #242933
+selection-background = #2E3440
+selection-foreground = #D8DEE9
+palette = 0=#191D24
+palette = 1=#BF616A
+palette = 2=#A3BE8C
+palette = 3=#EBCB8B
+palette = 4=#5E81AC
+palette = 5=#B48EAD
+palette = 6=#8FBCBB
+palette = 7=#C0C8D8
+palette = 8=#3B4252
+palette = 9=#C5727A
+palette = 10=#B1C89D
+palette = 11=#EFD49F
+palette = 12=#88C0D0
+palette = 13=#BE9DB8
+palette = 14=#9FC6C5
+palette = 15=#D8DEE9
+
+# Cmd shortcuts drive tmux and Neovim: esc:<key> is Alt-<key>, \x02 is Ctrl-b (the tmux prefix)
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = cmd+enter=toggle_fullscreen
+keybind = cmd+c=text:\x02Y
+
+keybind = cmd+h=esc:h
+keybind = cmd+j=esc:t
+keybind = cmd+k=esc:c
+keybind = cmd+l=esc:n
+
+keybind = cmd+shift+h=text:\x02H
+keybind = cmd+shift+j=text:\x02T
+keybind = cmd+shift+k=text:\x02C
+keybind = cmd+shift+l=text:\x02N
+
+keybind = cmd+d=text:\x02v
+keybind = cmd+shift+d=text:\x02s
+keybind = cmd+t=text:\x02c
+keybind = cmd+w=text:\x02x
+keybind = cmd+z=text:\x02z
+keybind = cmd+f=text:\x02t
+keybind = cmd+p=text:\x02o
+keybind = cmd+shift+p=text:\x02O
+keybind = cmd+s=text:\x02)
+keybind = cmd+shift+s=text:\x02(
+keybind = cmd+r=text:\x02r
+keybind = cmd+y=text:\x02[
+keybind = cmd+/=text:\x02[?
+
+keybind = cmd+1=esc:1
+keybind = cmd+2=esc:2
+keybind = cmd+3=esc:3
+keybind = cmd+4=esc:4
+keybind = cmd+5=esc:5
+keybind = cmd+6=esc:6
+keybind = cmd+7=esc:7
+keybind = cmd+8=esc:8
+keybind = cmd+9=esc:9

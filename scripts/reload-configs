@@ -1,7 +1,7 @@
 #!/bin/bash
 
-reload_wezterm() {
-  touch ~/.wezterm.lua
+reload_ghostty() {
+  pkill -USR2 -x ghostty
 }
 
 reload_tmux() {
@@ -19,7 +19,7 @@ reload_neovim() {
 }
 
 main() {
-  reload_wezterm
+  reload_ghostty
   reload_tmux
   reload_neovim
 }
