@@ -29,6 +29,7 @@ config.font = wezterm.font("Iosevka Nerd Font")
 config.font_size = 16.0
 config.front_end = "WebGpu"
 config.max_fps = 60
+config.mux_enable_ssh_agent = false
 config.window_close_confirmation = "NeverPrompt"
 config.window_decorations = "TITLE | RESIZE | MACOS_USE_BACKGROUND_COLOR_AS_TITLEBAR_COLOR"
 config.window_padding = { left = 15, right = 15, top = 30, bottom = 15 }
