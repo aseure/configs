@@ -50,5 +50,17 @@ return {
 				require("fzf-lua").quickfix()
 			end,
 		},
+		{
+			"<leader>fsd",
+			function()
+				require("fzf-lua").lsp_document_symbols()
+			end,
+		},
+		{
+			"<leader>fsw",
+			function()
+				require("fzf-lua").lsp_live_workspace_symbols()
+			end,
+		},
 	},
 }
