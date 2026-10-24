@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 list_repositories() {
   zoxide query --list | while read -r dir; do
@@ -7,13 +7,54 @@ list_repositories() {
 }
 
 list_sessions() {
-  local current
-
-  [[ -n "$TMUX" ]] && current=$(tmux display-message -p '#S')
   tmux list-sessions -F '#{session_last_attached} #{session_name}' |
     sort -rn |
     cut -d ' ' -f 2- |
-    grep -vxF -e popup -e "$current"
+    grep -vxF -e popup
+}
+
+list_tree() {
+  local session windows panes i j index name pindex cmd path branch indent marker
+  local cur_pane=''
+  local reset=$'\033[0m' dim=$'\033[2m' bold_cyan=$'\033[1;36m'
+  local here=$'\033[1;32m●\033[0m'
+  local pane_name='#{?#{m/r:^[0-9.]+$,#{pane_current_command}},claude,#{?#{m:#{b:pane_current_path}: *,#{pane_title}},#{s/^[^ ]+ //;=/30/…:pane_title},#{pane_current_command}}}'
+  local pane_fmt="#{pane_index}"$'\t'"$pane_name"$'\t'"#{b:pane_current_path}"
+
+  [[ -n "$TMUX" ]] && cur_pane=$(tmux display-message -p '#S:#I.#P')
+
+  list_sessions | while read -r session; do
+    mapfile -t windows < <(tmux list-windows -t "=$session" -F '#{window_index} #{window_name}')
+    printf '%s\t  %s%s%s %s(%d)%s\n' \
+      "$session" "$bold_cyan" "$session" "$reset" "$dim" "${#windows[@]}" "$reset"
+
+    for i in "${!windows[@]}"; do
+      read -r index name <<<"${windows[i]}"
+      if ((i == ${#windows[@]} - 1)); then branch='└─' indent='   '; else branch='├─' indent='│  '; fi
+      printf '%s\t  %s%s%s %s\n' \
+        "$session:$index" "$dim" "$branch" "$reset" "$name"
+
+      mapfile -t panes < <(tmux list-panes -t "=$session:$index" -F "$pane_fmt")
+      ((${#panes[@]} > 1)) || continue
+      for j in "${!panes[@]}"; do
+        IFS=$'\t' read -r pindex cmd path <<<"${panes[j]}"
+        ((j == ${#panes[@]} - 1)) && branch='└─' || branch='├─'
+        [[ "$session:$index.$pindex" == "$cur_pane" ]] && marker=$here || marker=' '
+        printf '%s\t%s %s%s%s%s %s %s[%s]%s\n' \
+          "$session:$index.$pindex" "$marker" "$dim" "$indent" "$branch" "$reset" "$cmd" "$dim" "$path" "$reset"
+      done
+    done
+  done
+}
+
+kill_target() {
+  local target=$1
+
+  case "$target" in
+    *.*) tmux kill-pane -t "=$target" ;;
+    *:*) tmux kill-window -t "=$target" ;;
+    *)   tmux kill-session -t "=$target" ;;
+  esac
 }
 
 pick() {
@@ -48,10 +89,15 @@ open_session() {
 }
 
 open_existing_session() {
-  local name
+  local target script
 
-  name=$(list_sessions | pick session) || exit 0
-  open_session "$name"
+  script=$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")
+  target=$(list_tree |
+    fzf --ansi --reverse --prompt "session> " --delimiter '\t' --with-nth 2 --no-sort \
+      --preview 'tmux capture-pane -ep -t {1} -S -200' \
+      --preview-window 'right:60%:wrap' \
+      --bind "ctrl-x:execute-silent($script --kill {1})+reload($script --list-tree)") || exit 0
+  open_session "$(cut -f1 <<<"$target")"
 }
 
 open_repository() {
@@ -66,11 +112,12 @@ open_repository() {
 }
 
 main() {
-  if [[ "$1" == "--repositories" ]]; then
-    open_repository
-  else
-    open_existing_session
-  fi
+  case "$1" in
+    --repositories) open_repository ;;
+    --list-tree)    list_tree ;;
+    --kill)         kill_target "$2" ;;
+    *)              open_existing_session ;;
+  esac
 }
 
 main "$@"
