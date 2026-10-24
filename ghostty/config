@@ -70,12 +70,12 @@ keybind = cmd+r=text:\x02r
 keybind = cmd+y=text:\x02[
 keybind = cmd+/=text:\x02[?
 
-keybind = cmd+1=esc:1
-keybind = cmd+2=esc:2
-keybind = cmd+3=esc:3
-keybind = cmd+4=esc:4
-keybind = cmd+5=esc:5
-keybind = cmd+6=esc:6
-keybind = cmd+7=esc:7
-keybind = cmd+8=esc:8
-keybind = cmd+9=esc:9
+keybind = cmd+digit_1=esc:1
+keybind = cmd+digit_2=esc:2
+keybind = cmd+digit_3=esc:3
+keybind = cmd+digit_4=esc:4
+keybind = cmd+digit_5=esc:5
+keybind = cmd+digit_6=esc:6
+keybind = cmd+digit_7=esc:7
+keybind = cmd+digit_8=esc:8
+keybind = cmd+digit_9=esc:9
