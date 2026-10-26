@@ -17,7 +17,7 @@ cursor-style-blink = false
 macos-option-as-alt = left
 quit-after-last-window-closed = true
 window-padding-x = 15
-window-padding-y = 10
+window-padding-y = 10,2
 
 # Nordic colours, written out because the plugin's Ghostty theme swaps magenta and cyan
 background = #242933
