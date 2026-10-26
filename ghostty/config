@@ -67,8 +67,8 @@ keybind = cmd+z=text:\x02z
 keybind = cmd+f=text:\x02t
 keybind = cmd+p=text:\x02o
 keybind = cmd+shift+p=text:\x02O
-keybind = cmd+s=text:\x02)
-keybind = cmd+shift+s=text:\x02(
+keybind = cmd+backquote=text:\x02)
+keybind = cmd+shift+backquote=text:\x02(
 keybind = cmd+r=text:\x02r
 keybind = cmd+y=text:\x02[
 keybind = cmd+/=text:\x02[?
