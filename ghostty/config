@@ -7,6 +7,9 @@ shell-integration = none
 # Plain Iosevka with Ghostty's built-in Nerd Font icons; the Nerd Font is only a fallback while Iosevka is not installed
 font-family = "Iosevka"
 font-size = 16
+font-thicken = true
+adjust-underline-thickness = 3
+adjust-underline-position = 4
 
 confirm-close-surface = false
 copy-on-select = clipboard
