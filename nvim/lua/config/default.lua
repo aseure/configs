@@ -89,17 +89,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	command = "setlocal nonumber",
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	command = [[%s/\s\+$//e]],
-})
-
 local function is_treesitter_ignored_language(lang)
 	local ignored_languages = {
 		"blink-cmp*",
 		"conform-info",
 		"env",
-		"flash_prompt",
 		"fzf",
 		"git",
 		"gitsigns-blame",
