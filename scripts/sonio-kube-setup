@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+add_cluster() {
+  local profile=$1 region=$2 alias=$3
+  aws eks update-kubeconfig --profile "$profile" --region "$region" \
+    --name "sonio-$alias-eks" --alias "$alias" --user-alias "$alias"
+  kubectl config set-context "$alias" --namespace=sonio
+}
+
+main() {
+  rm -f ~/.kube/config
+  add_cluster sonio-prod-rw us-east-2 prd-use2
+  add_cluster sonio-prod-rw eu-west-3 prd-euw3
+  add_cluster sonio-staging-admin eu-west-3 stg-euw3
+}
+
+main

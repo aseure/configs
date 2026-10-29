@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 git log --shortstat --format= --no-merges "$@" | awk '{
   for (i = 1; i < NF; i++) {

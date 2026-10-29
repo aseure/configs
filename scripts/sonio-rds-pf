@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+require_profile() {
+  : "${AWS_PROFILE:?AWS_PROFILE must be set}"
+}
+
+find_bastion() {
+  aws ec2 describe-instances \
+    --filters 'Name=tag:Name,Values=SSM Bastion' 'Name=instance-state-name,Values=running' \
+    --output text --query 'Reservations[*].Instances[*].InstanceId'
+}
+
+select_db_host() {
+  aws rds describe-db-instances --output text --query 'DBInstances[].Endpoint.Address' |
+    tr '\t' '\n' | sort | fzf --height=20% --select-1
+}
+
+port_forward() {
+  local remote_port=$1 local_port=$2 host=$3 parameters
+  parameters=$(jq -nc --arg r "$remote_port" --arg l "$local_port" --arg h "$host" \
+    '{portNumber: [$r], localPortNumber: [$l], host: [$h]}')
+  echo "aws ssm start-session --target $INSTANCE_ID --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters '$parameters'"
+  aws ssm start-session --target "$INSTANCE_ID" --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters "$parameters"
+}
+
+forward_db() {
+  local host
+  host=$(select_db_host)
+  echo "Running portforward on DB ($host)..."
+  port_forward 5432 5433 "$host"
+}
+
+main() {
+  require_profile
+  INSTANCE_ID=$(find_bastion)
+  echo "SSM Bastion for $AWS_PROFILE profile is $INSTANCE_ID"
+  forward_db
+}
+
+main "$@"

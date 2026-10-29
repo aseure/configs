@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+
+NAMESPACE=sonio
+
+select_pod() {
+  kubectl get pods -n "$NAMESPACE" --no-headers -o custom-columns=:metadata.name | fzf --height 40%
+}
+
+main() {
+  local pod
+  pod=$(select_pod)
+  exec kubectl exec -n "$NAMESPACE" -it "$pod" -- sh
+}
+
+main
