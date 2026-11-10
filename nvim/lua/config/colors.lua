@@ -14,4 +14,4 @@ vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = red_color })
 vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = red_color })
 vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = red_color })
 
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#dee5ed" })
+vim.api.nvim_set_hl(0, "Visual", { fg = "#181818", bg = "#FFDD33" })

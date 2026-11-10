@@ -19,32 +19,33 @@ window-padding-y = 10,2
 quick-terminal-position = center
 quick-terminal-size = 80%,80%
 drag-handle = always
+unfocused-split-opacity = 0.85
 notify-on-command-finish = unfocused
 notify-on-command-finish-action = notify
 
-# Nordic colours, written out because the plugin's Ghostty theme swaps magenta and cyan
-background = #242933
-foreground = #C0C8D8
-cursor-color = #D8DEE9
-cursor-text = #242933
-selection-background = #2E3440
-selection-foreground = #D8DEE9
-palette = 0=#191D24
-palette = 1=#BF616A
-palette = 2=#A3BE8C
-palette = 3=#EBCB8B
-palette = 4=#5E81AC
-palette = 5=#B48EAD
-palette = 6=#8FBCBB
-palette = 7=#C0C8D8
-palette = 8=#3B4252
-palette = 9=#C5727A
-palette = 10=#B1C89D
-palette = 11=#EFD49F
-palette = 12=#88C0D0
-palette = 13=#BE9DB8
-palette = 14=#9FC6C5
-palette = 15=#D8DEE9
+# Gruber Darker colours from gruber-darker.nvim, written out because Ghostty's bundled theme uses different values
+background = #181818
+foreground = #E4E4E4
+cursor-color = #FFDD33
+cursor-text = #181818
+selection-background = #453D41
+selection-foreground = #F4F4FF
+palette = 0=#181818
+palette = 1=#F43841
+palette = 2=#73D936
+palette = 3=#FFDD33
+palette = 4=#96A6C8
+palette = 5=#9E95C7
+palette = 6=#95A99F
+palette = 7=#F5F5F5
+palette = 8=#52494E
+palette = 9=#F43841
+palette = 10=#73D936
+palette = 11=#FFDD33
+palette = 12=#96A6C8
+palette = 13=#9E95C7
+palette = 14=#95A99F
+palette = 15=#FFFFFF
 
 # Cmd shortcuts drive Ghostty; while Neovim runs, its nvim table sends Cmd-h/j/k/l as Alt-h/t/c/n (esc:<key>)
 keybind = cmd+h=goto_split:left
