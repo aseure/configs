@@ -4,7 +4,7 @@ send me your personal adjustments.
 
 ## Deployment
 
-Those are guidelines to install my Git, Tmux, Vim, ZSH and Pentadactyl
+Those are guidelines to install my Git, Vim, ZSH and Pentadactyl
 configurations but you probably want to modify several steps such as the
 variables at the beginning of the deploy.sh script.
 

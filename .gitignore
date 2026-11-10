@@ -8,4 +8,3 @@
 .zfunctions/pure/
 .zshenv
 nvim.log
-tmux/plugins/

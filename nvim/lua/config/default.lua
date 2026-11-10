@@ -31,27 +31,50 @@ end, { expr = true, noremap = true })
 -- Better window navigation
 vim.keymap.set("n", "<C-w>v", "<C-w>v<C-w>l", { desc = "Split window vertically and focus new split" })
 vim.keymap.set("n", "<C-w>s", "<C-w>s<C-w>j", { desc = "Split window horizontally and focus new split" })
--- Move to the neighbouring split, or to the neighbouring tmux pane at the edge
-local function focus_window(direction, tmux_direction)
+local in_ghostty = vim.env.TERM_PROGRAM == "ghostty"
+
+local ghostty_tty
+
+local function ghostty_action(action, opts)
+	ghostty_tty = ghostty_tty or "/dev/" .. vim.trim(vim.fn.system({ "ps", "-o", "tty=", "-p", tostring(vim.fn.getpid()) }))
+	local script = ('tell application "Ghostty" to perform action "%s" on (first terminal whose tty is "%s")'):format(action, ghostty_tty)
+	vim.system({ "osascript", "-e", script }, opts)
+end
+
+if in_ghostty then
+	vim.api.nvim_create_autocmd({ "VimEnter", "VimResume" }, {
+		callback = function()
+			ghostty_action("activate_key_table:nvim")
+		end,
+	})
+	vim.api.nvim_create_autocmd({ "VimLeavePre", "VimSuspend" }, {
+		callback = function()
+			ghostty_action("deactivate_key_table", { detach = true })
+		end,
+	})
+end
+
+-- Move to the neighbouring split, or to the neighbouring Ghostty split at the edge
+local function focus_window(direction, ghostty_direction)
 	local window = vim.api.nvim_get_current_win()
 	vim.cmd.wincmd(direction)
-	if vim.env.TMUX and window == vim.api.nvim_get_current_win() then
-		vim.system({ "tmux", "select-pane", "-" .. tmux_direction })
+	if in_ghostty and window == vim.api.nvim_get_current_win() then
+		ghostty_action("goto_split:" .. ghostty_direction)
 	end
 end
 
 vim.keymap.set("n", "<A-h>", function()
-	focus_window("h", "L")
-end, { desc = "Focus left window or tmux pane" })
+	focus_window("h", "left")
+end, { desc = "Focus left window or Ghostty split" })
 vim.keymap.set("n", "<A-t>", function()
-	focus_window("j", "D")
-end, { desc = "Focus lower window or tmux pane" })
+	focus_window("j", "down")
+end, { desc = "Focus lower window or Ghostty split" })
 vim.keymap.set("n", "<A-c>", function()
-	focus_window("k", "U")
-end, { desc = "Focus upper window or tmux pane" })
+	focus_window("k", "up")
+end, { desc = "Focus upper window or Ghostty split" })
 vim.keymap.set("n", "<A-n>", function()
-	focus_window("l", "R")
-end, { desc = "Focus right window or tmux pane" })
+	focus_window("l", "right")
+end, { desc = "Focus right window or Ghostty split" })
 
 -- Better tab navigation
 vim.keymap.set("n", "<C-t>c", ":tabclose<CR>")

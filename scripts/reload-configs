@@ -4,10 +4,6 @@ reload_ghostty() {
   pkill -USR2 -x ghostty
 }
 
-reload_tmux() {
-  tmux has-session 2>/dev/null && tmux source-file ~/.config/tmux/tmux.conf
-}
-
 neovim_servers() {
   find "${TMPDIR%/}/nvim.$USER" -type s -name 'nvim.*.0' 2>/dev/null
 }
@@ -20,7 +16,6 @@ reload_neovim() {
 
 main() {
   reload_ghostty
-  reload_tmux
   reload_neovim
 }
 

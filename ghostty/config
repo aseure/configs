@@ -1,8 +1,6 @@
 auto-update = download
-auto-update-channel = stable
 
-term = xterm-256color
-shell-integration = none
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 
 # Plain Iosevka with Ghostty's built-in Nerd Font icons; the Nerd Font is only a fallback while Iosevka is not installed
 font-family = "Iosevka"
@@ -18,6 +16,11 @@ macos-option-as-alt = left
 quit-after-last-window-closed = true
 window-padding-x = 15
 window-padding-y = 10,2
+quick-terminal-position = center
+quick-terminal-size = 80%,80%
+drag-handle = always
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = notify
 
 # Nordic colours, written out because the plugin's Ghostty theme swaps magenta and cyan
 background = #242933
@@ -43,42 +46,30 @@ palette = 13=#BE9DB8
 palette = 14=#9FC6C5
 palette = 15=#D8DEE9
 
-# Cmd shortcuts drive tmux and Neovim: esc:<key> is Alt-<key>, \x02 is Ctrl-b (the tmux prefix)
-keybind = alt+left=esc:b
-keybind = alt+right=esc:f
-keybind = cmd+enter=toggle_fullscreen
-keybind = cmd+c=text:\x02Y
+# Cmd shortcuts drive Ghostty; while Neovim runs, its nvim table sends Cmd-h/j/k/l as Alt-h/t/c/n (esc:<key>)
+keybind = cmd+h=goto_split:left
+keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
+keybind = cmd+l=goto_split:right
 
-keybind = cmd+h=esc:h
-keybind = cmd+j=esc:t
-keybind = cmd+k=esc:c
-keybind = cmd+l=esc:n
+keybind = nvim/cmd+h=esc:h
+keybind = nvim/cmd+j=esc:t
+keybind = nvim/cmd+k=esc:c
+keybind = nvim/cmd+l=esc:n
 
-keybind = cmd+shift+h=text:\x02H
-keybind = cmd+shift+j=text:\x02T
-keybind = cmd+shift+k=text:\x02C
-keybind = cmd+shift+l=text:\x02N
+keybind = alt+shift+left=resize_split:left,40
+keybind = alt+shift+down=resize_split:down,60
+keybind = alt+shift+up=resize_split:up,60
+keybind = alt+shift+right=resize_split:right,40
 
-keybind = cmd+d=text:\x02v
-keybind = cmd+shift+d=text:\x02s
-keybind = cmd+t=text:\x02c
-keybind = cmd+w=text:\x02x
-keybind = cmd+z=text:\x02z
-keybind = cmd+f=text:\x02t
-keybind = cmd+p=text:\x02o
-keybind = cmd+shift+p=text:\x02O
-keybind = cmd+backquote=text:\x02)
-keybind = cmd+shift+backquote=text:\x02(
-keybind = cmd+r=text:\x02r
-keybind = cmd+y=text:\x02[
-keybind = cmd+/=text:\x02[?
-
-keybind = cmd+digit_1=esc:1
-keybind = cmd+digit_2=esc:2
-keybind = cmd+digit_3=esc:3
-keybind = cmd+digit_4=esc:4
-keybind = cmd+digit_5=esc:5
-keybind = cmd+digit_6=esc:6
-keybind = cmd+digit_7=esc:7
-keybind = cmd+digit_8=esc:8
-keybind = cmd+digit_9=esc:9
+keybind = cmd+d=new_split:right
+keybind = chain=equalize_splits
+keybind = cmd+shift+d=new_split:down
+keybind = chain=equalize_splits
+keybind = cmd+f=toggle_quick_terminal
+keybind = cmd+backquote=goto_window:next
+keybind = cmd+shift+backquote=goto_window:previous
+keybind = cmd+shift+,=move_tab:-1
+keybind = cmd+shift+.=move_tab:1
+keybind = cmd+r=reload_config
+keybind = cmd+/=start_search

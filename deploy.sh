@@ -42,7 +42,6 @@ link_configs() {
   link .zfunctions ~/.zfunctions
   link ghostty ~/.config/ghostty
   link nvim ~/.config/nvim
-  link tmux ~/.config/tmux
   link ripgreprc ~/.config/.ripgreprc
   link claude/CLAUDE.md ~/.claude/CLAUDE.md
   link claude/skills ~/.claude/skills
