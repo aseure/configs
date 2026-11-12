@@ -88,6 +88,12 @@ vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
+-- foldmethod: compute folds from an expression instead of creating them manually
+-- foldexpr: that expression asks Treesitter for foldable nodes (functions, blocks, do...end, etc.)
+-- foldtext: show a closed fold as its first line with regular syntax highlighting
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
