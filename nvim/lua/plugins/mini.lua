@@ -21,12 +21,23 @@ local function statusline_inactive()
 	return "%#MiniStatuslineInactive# " .. statusline_filename() .. "%="
 end
 
+local function setup_ai()
+	local spec_treesitter = require("mini.ai").gen_spec.treesitter
+	require("mini.ai").setup({
+		custom_textobjects = {
+			F = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+			c = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
+		},
+	})
+end
+
 return {
 	"echasnovski/mini.nvim",
 	lazy = false,
 	version = false,
 	config = function()
-		require("mini.ai").setup()
+		setup_ai()
+		require("mini.align").setup()
 		require("mini.cursorword").setup()
 		local hipatterns = require("mini.hipatterns")
 		hipatterns.setup({
@@ -54,6 +65,7 @@ return {
 			},
 			use_icons = false,
 		})
+		require("mini.splitjoin").setup()
 		require("mini.surround").setup()
 		require("mini.trailspace").setup()
 
