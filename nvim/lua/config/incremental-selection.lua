@@ -8,6 +8,34 @@ local function reset()
 	buf_tick = nil
 end
 
+local function current_selection()
+	local v = vim.fn.getpos("v")
+	local c = vim.fn.getpos(".")
+	local first, last = { v[2], v[3] }, { c[2], c[3] }
+	if last[1] < first[1] or (last[1] == first[1] and last[2] < first[2]) then
+		first, last = last, first
+	end
+	return { first[1], first[2], last[1], last[2] }
+end
+
+local function same_selection(a, b)
+	return a[1] == b[1] and a[2] == b[2] and a[3] == b[3] and a[4] == b[4]
+end
+
+local function same_range(a, b)
+	local asr, asc, aer, aec = a:range()
+	local bsr, bsc, ber, bec = b:range()
+	return asr == bsr and asc == bsc and aer == ber and aec == bec
+end
+
+local function larger_ancestor(node)
+	local parent = node:parent()
+	while parent and same_range(parent, node) do
+		parent = parent:parent()
+	end
+	return parent
+end
+
 local function select_node(node)
 	local sr, sc, er, ec = node:range()
 	-- end position from :range() is exclusive; adjust to inclusive
@@ -24,12 +52,26 @@ local function select_node(node)
 	vim.cmd("normal! gv")
 end
 
+local function push(node)
+	select_node(node)
+	table.insert(node_stack, { node = node, selection = current_selection() })
+end
+
+local function stack_is_stale()
+	if #node_stack == 0 then
+		return false
+	end
+	if vim.api.nvim_buf_get_changedtick(0) ~= buf_tick then
+		return true
+	end
+	return not same_selection(node_stack[#node_stack].selection, current_selection())
+end
+
 function M.increment()
-	local tick = vim.api.nvim_buf_get_changedtick(0)
-	if tick ~= buf_tick then
+	if stack_is_stale() then
 		reset()
 	end
-	buf_tick = tick
+	buf_tick = vim.api.nvim_buf_get_changedtick(0)
 
 	local node
 	if #node_stack == 0 then
@@ -38,26 +80,27 @@ function M.increment()
 			return
 		end
 	else
-		node = node_stack[#node_stack]:parent()
+		local top = node_stack[#node_stack].node
+		node = larger_ancestor(top)
 		if not node then
 			-- already at root, re-select current
-			node = node_stack[#node_stack]
+			select_node(top)
+			return
 		end
 	end
 
-	table.insert(node_stack, node)
-	select_node(node)
+	push(node)
 end
 
 function M.decrement()
-	if #node_stack <= 1 then
+	if stack_is_stale() or #node_stack <= 1 then
 		vim.cmd("normal! \27") -- escape to deselect
 		reset()
 		return
 	end
 
 	table.remove(node_stack)
-	select_node(node_stack[#node_stack])
+	select_node(node_stack[#node_stack].node)
 end
 
 return M
