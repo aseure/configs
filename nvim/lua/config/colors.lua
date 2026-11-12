@@ -15,3 +15,7 @@ vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = red_color })
 vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = red_color })
 
 vim.api.nvim_set_hl(0, "Visual", { fg = "#181818", bg = "#FFDD33" })
+
+vim.api.nvim_set_hl(0, "MiniJump2dDim", { fg = "#52494E" })
+vim.api.nvim_set_hl(0, "MiniJump2dSpot", { fg = "#FFDD33", bold = true, nocombine = true })
+vim.api.nvim_set_hl(0, "MiniJump2dSpotAhead", { fg = "#96A6C8", nocombine = true })

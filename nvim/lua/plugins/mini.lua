@@ -46,7 +46,7 @@ return {
 			},
 			symbol = "│",
 		})
-		require("mini.jump2d").setup()
+		require("mini.jump2d").setup({ view = { dim = true } })
 		require("mini.statusline").setup({
 			content = {
 				active = statusline_active,
