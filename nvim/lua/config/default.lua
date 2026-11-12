@@ -102,10 +102,23 @@ vim.opt.splitkeep = "screen"
 vim.opt.tabstop = 2
 vim.opt.tags = { "./tags", "tags" }
 vim.opt.termguicolors = true
+vim.opt.textwidth = 80
 vim.opt.undofile = true
 vim.opt.updatetime = 100
 
 vim.wo.wrap = false
+
+-- Auto-wrap comments at 'textwidth' while typing, set per buffer since ftplugins override 'formatoptions':
+--   c: auto-wrap comments at 'textwidth', inserting the comment leader
+--   q: allow formatting comments with gq/gw
+--   j: remove the comment leader when joining lines with J
+--   removing t: never auto-wrap regular code
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		vim.opt_local.formatoptions:append("cqj")
+		vim.opt_local.formatoptions:remove("t")
+	end,
+})
 
 vim.api.nvim_create_autocmd("TermOpen", {
 	pattern = "*",
