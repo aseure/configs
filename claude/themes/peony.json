@@ -1,0 +1,25 @@
+{
+  "name": "peony",
+  "base": "dark",
+  "overrides": {
+    "claude": "#ff6ac1",
+    "claudeShimmer": "#ffb8d9",
+    "text": "#e6e6e6",
+    "inverseText": "#0c0d10",
+    "inactive": "#a5a9b5",
+    "inactiveShimmer": "#e6e6e6",
+    "subtle": "#6b7080",
+    "promptBorder": "#ff6ac1",
+    "promptBorderShimmer": "#ffb8d9",
+    "suggestion": "#7cc7e8",
+    "permission": "#7cc7e8",
+    "remember": "#ffb8d9",
+    "success": "#a6e37f",
+    "warning": "#f0c674",
+    "error": "#ff5c5c",
+    "diffAdded": "#0f3318",
+    "diffRemoved": "#3d1014",
+    "userMessageBackground": "#2e1426",
+    "selectionBg": "#2e1426"
+  }
+}

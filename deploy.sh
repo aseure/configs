@@ -45,6 +45,7 @@ link_configs() {
   link ripgreprc ~/.config/.ripgreprc
   link claude/CLAUDE.md ~/.claude/CLAUDE.md
   link claude/skills ~/.claude/skills
+  link claude/themes ~/.claude/themes
 }
 
 install_git_completion() {
