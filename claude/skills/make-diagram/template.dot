@@ -1,0 +1,4 @@
+digraph diagram {
+  graph [rankdir=TB, newrank=true, splines=spline, bgcolor="white", pad=0.3, nodesep=0.5, ranksep=1.0, fontname="Helvetica Neue"];
+  node  [shape=box, style="rounded,filled", color="#1E1E1E", penwidth=1, fontname="Helvetica Neue", fontsize=13, fontcolor="#1E1E1E", margin="0.18,0.12"];
+  edge  [color="#1E1E1E", penwidth=1, arrowsize=0.7, fontname="Helvetica Neue", fontsize=11, fontcolor="#343A40"];

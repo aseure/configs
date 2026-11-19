@@ -1,161 +1,148 @@
 ---
 name: make-diagram
-description: Produce a compact, horizontal, light-themed, high-contrast architecture diagram and/or sequence diagram as a PDF, rendered with D2 using rectangles only and a fixed colour code for each kind of component
+description: Produce a minimalist, light-themed flow or architecture diagram (rendered with Graphviz, shaped to fit a 16:9 slide) and/or a sequence diagram (rendered with D2), using a handful of pastel boxes with thin dark borders, plain black arrows and short labels, delivered as PDF plus slide-ready JPEG/PNG
 ---
 
 ## 1. Check prerequisites first
 
-- Run `command -v d2 && d2 --version` before anything else
-- If `d2` is missing, warn me straight away, before you start designing the diagram:
-  - say it is missing and give the install command: `brew install d2`
-  - mention that the first PDF export downloads a headless Chromium through Playwright, which needs network access
+- Run `command -v dot && dot -V` before anything else. Flow and architecture diagrams need Graphviz
+- Only when a sequence diagram is needed, also run `command -v d2 && d2 --version`
+- If a tool is missing, warn me straight away, before you start designing the diagram:
+  - say which one is missing and give the install command: `brew install graphviz` or `brew install d2`
+  - for D2, mention that the first PDF export downloads a headless Chromium through Playwright, which needs network access
   - do not continue until I confirm it is installed
-- If `d2` is older than `0.7`, warn me that the legend (`vars.d2-legend`) needs `0.7` or newer and suggest `brew upgrade d2`
+- Check the font with `fc-list | grep -i "helvetica neue"`. If it is missing, use `Helvetica` everywhere the template says `Helvetica Neue`
 
 ## 2. Understand what to draw
 
 - Start from the subject I give you; if I gave none, ask me for it
-- Explore the codebase, infrastructure files or docs whenever they can answer better than I can. For database tables, read the migrations and schemas to get the columns, their types, and which ones the change adds or modifies
+- Explore the codebase, infrastructure files or docs whenever they can answer better than I can. For database tables, read the migrations and schemas to find the few columns that matter to the flow
+- When other Claude sessions own the neighbouring services, ask them through SendMessage for the exact calls, queues, S3 keys and triggers, with file:line references, instead of guessing
 - Decide which diagrams are needed:
-  - **architecture**: components, the zones they live in, and the flows between them
-  - **sequence**: the ordered messages exchanged between participants for one scenario
+  - **flow / architecture**: components and the flows between them, drawn with Graphviz
+  - **sequence**: the ordered messages exchanged between participants for one scenario, drawn with D2
   - both, when I ask for both or when one alone would not explain the subject
-- Ask me only about what you cannot find: missing components, protocols, ports, ownership of zones
+- Ask me only about what you cannot find
 
-## 3. Write the D2 source
+## 3. Write the source
 
-- Write the `.d2` source in `$TMPDIR`, never in the current directory or the repository. It is an intermediate file: do not persist it anywhere else unless I explicitly ask for it
-- Make one `.d2` file per diagram. Start each one by copying `template.d2` from this skill's directory verbatim, then add the content below it
-- Give every shape and every connection a class from the tables below. Never set `shape` or `style` inline, so the same kind of component always looks the same everywhere
-- If a component fits none of the kinds, tell me and suggest a new class to add to `template.d2` rather than improvising a style
+- Write sources in `$TMPDIR`, never in the current directory or the repository. They are intermediate files: do not persist them anywhere else unless I explicitly ask for it
+- Make one source file per diagram:
+  - flow / architecture: a `.dot` file. Start by copying `template.dot` from this skill's directory verbatim, add the content below it, and close the graph with `}`
+  - sequence: a `.d2` file. Start by copying `template.d2` verbatim, then add the content below it
+- Give every node the attributes of its kind and every edge the look of its class, exactly as in the tables below, so the same kind of component always looks the same everywhere
+- If a component fits none of the kinds, pick the closest one rather than inventing a style
 
-### Shapes: rectangles only, colour carries the meaning
+### Style: minimalist
 
-Every component is a rectangle. Never use any other D2 shape (no cylinder, diamond, hexagon, person, queue, page…), nor `sql_table`.
+The diagram must look clean and quiet: pastel fills, thin near-black borders, plain black arrows, regular text. Do not add:
 
-- **Rounded corners** mean something active, that runs or decides
-- **Square corners** mean something passive, that holds or carries data
-- **The colour** tells the kind
+- a title or a legend: the colours are self-explanatory once the diagram is read
+- zones or nested containers, unless grouping is essential to understand the subject; then use one level of `group`
+- monospace, code spans, colour-coded protocols, ports tables or markdown tables
 
-| Class      | Corners | Use for                                            | Colour (fill / border) |
-|------------|---------|----------------------------------------------------|------------------------|
-| `service`  | Rounded | Our application, API, container, server, UI, step  | White / blue           |
-| `external` | Rounded | Third-party or customer-owned system               | White / slate          |
-| `actor`    | Rounded | Human user, role                                   | Grey / dark slate      |
-| `gateway`  | Rounded | Load balancer, firewall, VPN gateway, API gateway  | Green                  |
-| `job`      | Rounded | Batch job, cron, worker, serverless function       | Indigo                 |
-| `decision` | Rounded | Branch in a flow                                   | Yellow                 |
-| `terminal` | Rounded | Start or end of a flow                             | Dark, white text       |
-| `database` | Square  | Database, table (monospace font)                   | Blue                   |
-| `bucket`   | Square  | Object storage bucket, file share                  | Red                    |
-| `queue`    | Square  | Queue, topic, stream, event bus                    | Purple                 |
-| `cache`    | Square  | Cache, in-memory store                             | Teal                   |
-| `document` | Square  | File, report, message payload (monospace font)     | White / slate          |
-| `note`     | Square  | Annotation, caveat                                 | Pale yellow, dashed    |
+### Node kinds
 
-### Zones (containers)
+| Kind         | Use for                                                         | Graphviz attributes (on top of the template defaults)                                  | D2 class     |
+|--------------|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------|--------------|
+| `entry`      | Where the flow starts: upstream or third-party system, trigger  | `fillcolor="#A5D8FF"`                                                                   | `entry`      |
+| `process`    | Our service, worker, job, function, step that does something    | `fillcolor="#FFEC99"`                                                                   | `process`    |
+| `data`       | Table, database, bucket, queue, cache: anything that holds data | `fillcolor="#B2F2BB"`                                                                   | `data`       |
+| `decision`   | Branch in the flow                                              | `shape=diamond, style=filled, fillcolor="#FFC9C9"`                                      | `decision`   |
+| `human`      | User, role, or the UI a human acts through                      | `fillcolor="#D0BFFF"`                                                                   | `human`      |
+| `background` | Safety net, cron, fallback mechanism, out-of-band actor         | `style="filled,dashed", fillcolor="#F1F3F5"`                                            | `background` |
+| `group`      | Optional grouping, only when essential                          | `subgraph cluster_<name> { style="rounded,dashed"; color="#ADB5BD"; fontcolor="#495057"; fontsize=12; label="..." }` | `group`      |
 
-| Class               | Use for                                        | Look                                |
-|---------------------|------------------------------------------------|-------------------------------------|
-| `zone-internal`     | Customer or on-premises network                | Light grey fill, grey border        |
-| `zone-owned`        | Our cloud, our platform, our VPC               | Light blue fill, blue border        |
-| `zone-third-party`  | Vendor or partner cloud, SaaS                  | Light amber fill, amber border      |
-| `zone-public`       | The internet, any untrusted network            | White fill, dashed grey border      |
-| `zone-isolated`     | Sub-network, tenant isolation, group of tables | Near-white fill, dashed blue border |
-| `stack`             | Invisible wrapper used only for grid layout    | Transparent, no label               |
+The single footnote is not a node in Graphviz: see the note under Layout.
 
-### Connections
+### Edge classes
 
-| Class      | Use for                                                       | Look                 |
-|------------|---------------------------------------------------------------|----------------------|
-| `flow-1`…`flow-5` | One class per protocol or channel family, assigned in that order (e.g. DICOM → `flow-1`, HL7 → `flow-2`, web → `flow-3`) | Solid, blue, gold, dark slate, purple, orange |
-| `internal` | Sync write or call inside one trusted zone                    | Thin slate           |
-| `async`    | Asynchronous message, event, job enqueue, callback            | Dashed purple        |
-| `tunnel`   | VPN or encrypted tunnel                                       | Dashed green         |
-| `optional` | Safety net, foreign key, read only, optional or rare path     | Thin dashed grey     |
+| Class       | Use for                                                        | Graphviz        | D2                   |
+|-------------|----------------------------------------------------------------|-----------------|----------------------|
+| `flow`      | Every main step, call, write or enqueue                        | template default | `{class: flow}`      |
+| `secondary` | Safety net, read-only access, reference, optional or rare path | `style=dashed`  | `{class: secondary}` |
 
-Keep a protocol on the same `flow-N` class across every diagram of the same subject.
+### Labels in Graphviz
 
-### Monospace for literal strings
-
-Write every hardcoded string in monospace: enum values, table and column names, file names, bucket and queue names, module and function names, SQL, commands, paths.
-
-- Use a markdown label, `|md ...|`, and wrap each literal in backticks: ``persist: |md **Persist**<br/>sets `auto_resolved`| {class: service}``. Backticks in a plain quoted label are not rendered
-- Use `<br/>` for line breaks inside a markdown label
-- Separate a code span from the following words with ` · `, otherwise D2 swallows the space between them
-- When a markdown label ends with a code span, add `&nbsp;&nbsp;&nbsp;&nbsp;` after it, otherwise D2 clips its last characters
-- Always give a markdown label a class: without one, D2 renders it as bare text with no box
-
-### Database tables
-
-Draw each table as a `database` node holding a markdown table of its columns with their types. Delimit the block with `|||md` and `|||`, since a single `|` clashes with the table pipes.
-
-- Which columns to list:
-  - a table with fewer than 10 columns: all of them
-  - a larger table: its primary key, then every column the change adds or modifies, then a last row `… N more columns`
-  - in every case, every added or modified column, whatever the table size
-- One row per column, in schema order. The type cell carries constraints: `PK`, `FK <table>`, `UNIQUE`, `NULL`, `NOT NULL`
-- Rows can group `inserted_at, updated_at` into one, and list composite unique indexes as a last `UNIQUE` row
-- Put **in bold** every column, constraint or type the change being drawn adds or modifies, and nothing else. Suffix the name of a new table with ` · new`, and bold all its rows
-- When some columns are bold, add "**bold** = new or modified column" to the footnote
-- Note any type you inferred rather than read from a migration, and tell me in step 5
-
-```
-receipt: |||md
-  **dicom_receipt** · new
-
-  | column | type |
-  |:--|:--|
-  | **id** | **uuid PK** |
-  | **status** | **dicom_receipt_status_t** |
-||| {class: database}
-```
-
-- Group related tables in a `zone-isolated` container with `grid-columns: N` and `grid-gap: 12`, rather than leaving them for ELK to place. Wrap each grid cell in a `stack` container so a short table is not stretched to the height of the tallest one, and give a `stack` `grid-rows: 2` to pile two short tables in one column
-- Never name a container `left`, `right`, `top`, `bottom` or another D2 reserved word: use `col1`, `col2`…
-
-### Layout: horizontal and compact
-
-- Always lay diagrams out horizontally: `direction: right`, zones from left to right in the order traffic flows (users → public → ours). Never switch to `direction: down` to save width
-- ELK ignores `direction` set on containers; set it only at the root
-- Keep labels short: a bold name, then at most two short lines of detail
-- Edge labels: when there is a ports table, prefix them with its reference letter, e.g. `"A · DICOM C-STORE · TCP 4001"`
-- Merge components that always appear together and add nothing on their own, e.g. seven similar queues into one `queue` node listing their names
-- Never nest zones more than two levels deep, not counting `stack` wrappers
-- Fold rules and invariants into one short footnote markdown block with `near: bottom-center`, rather than separate notes
-- Add a title with `title: |md # <Title>| {near: top-center}`
-- Add a legend through `vars.d2-legend` that lists only the classes the diagram actually uses. Give the endpoints of each legend connection the `legend-anchor` class, with an empty label, so they stay invisible:
+- Node labels are HTML-like labels: a bold name on the first line, then at most three or four short lines of plain detail, often in parentheses. End every line with `<BR ALIGN="LEFT"/>` so the text is left-aligned:
     ```
-    a: "" {class: legend-anchor}
-    b: "" {class: legend-anchor}
-    a -> b: DICOM {class: flow-1}
+    workers [fillcolor="#FFEC99", label=<<B>Record workers</B><BR ALIGN="LEFT"/>(one Oban job per SQS message:<BR ALIGN="LEFT"/>RecordMetadata, RecordOrigin...)<BR ALIGN="LEFT"/>>];
     ```
-- For architecture diagrams with several protocols, add a ports and protocols table as a markdown block placed with `near: bottom-center`, with columns `Ref`, `Flow`, `Protocol`, `Port`, `Opened by`, `Path`
+- For a table, put its name in bold, an empty line (`<BR ALIGN="LEFT"/><BR ALIGN="LEFT"/>`), then only the two or three columns the flow relies on, written as plain text (`id = receipt_id`, `status = pending`)
+- For a step that does several things, put the name in bold, an empty line, then one `• ` bullet line per action
+- A one-line label is just `label=<<B>Name</B>>`
+- Escape `&`, `<` and `>` inside HTML labels as `&amp;`, `&lt;` and `&gt;`
+- Edge labels are plain quoted strings with `\n` line breaks: lowercase plain phrases of a few words, e.g. `"upsert row\n(per column group)"`. Leave an edge unlabelled when the arrow speaks for itself
+- When the order of operations matters, prefix each edge label with its step number (`"7a. request\n(file.dcm URI)"`), use the same number with letters for steps that run in parallel, and explain the numbering in the note
+- When one service reads or writes storage, draw one arrow per reader or writer and name the file kinds on it (`"8a. read file.dcm"`). Point read arrows from the reader to the store too, so every arrow follows the call direction
+- Write names as they appear in the code, without backticks, and use `→` for chains (`study → series → instance`)
 
-### Sequence diagrams
+### Layout: fit a 16:9 slide
 
-- Set `shape: sequence_diagram` on the root or on a container, and give each participant the class of its kind from the table above
+- Aim for a drawing close to 16:9 (about 1.8:1), so it fills a slide without large blank bands. A long left-to-right chain ends up 4:1 or wider and leaves most of the slide empty
+- Lay the diagram out in a few explicit rows with `rankdir=TB`. Fill each row with a `{ rank=same; a; b; c; }` group, for instance:
+    - entry points and the first service
+    - the central service
+    - the services it calls
+    - the stores they read and write
+- Order the nodes inside a row with invisible edges (`a -> b -> c [style=invis];`) so that each node sits above or below the nodes it talks to
+- Add `constraint=false` to arrows that go back up or across: results, callbacks, pushes, reads from a store in the same row. Without it, every return arrow adds a row
+- Keep `rankdir=LR` only for a short chain that already fits 16:9, and use the same `rank=same` and `constraint=false` tools there to stack boxes into columns
+- Merge components that always appear together and add nothing on their own, e.g. four related tables into one `data` node: `<B>patient · dicom_study ·</B><BR ALIGN="LEFT"/>dicom_series · dicom_instance`. Fold a sidecar into its host when it only adds width (`sonio-uplink + Orthanc`)
+- Fold rules and invariants into one short note under the drawing, as plain sentences. Make it the graph label, not a node: a node sits in a row and widens it. Use this as a graph attribute, which keeps a gap above the dashed box:
+    ```
+    graph [labelloc=b, labeljust=c, label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"><TR><TD HEIGHT="24"></TD></TR><TR><TD><TABLE BORDER="1" STYLE="dashed" COLOR="#868E96" BGCOLOR="#F1F3F5" CELLPADDING="10" CELLSPACING="0"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="12" COLOR="#495057">First sentence.<BR ALIGN="LEFT"/>Second sentence.<BR ALIGN="LEFT"/></FONT></TD></TR></TABLE></TD></TR></TABLE>>];
+    ```
+
+### Sequence diagrams (D2)
+
+- Set `shape: sequence_diagram` on the root, and give each participant the class of its kind from the table above
 - Order participants left to right as they first appear in the scenario
-- Use the connection classes for messages, `async` for anything not awaited
+- Use `flow` for messages and `secondary` for anything not awaited
 - Use groups for `alt`, `opt` and `loop` blocks, and `note` for short annotations
+- In a D2 markdown label, never write the `…` character: D2 drops the whole line it sits on. Write `...` instead. Always give a markdown label a class, or D2 renders it as bare text with no box
+- D2 cannot reshape a flow diagram into rows: it ignores `direction` inside containers with ELK and dagre, and refuses `top`/`left` positions. Do not use it for flow diagrams
 
 ## 4. Render and check
 
-- Render with these flags, which tighten ELK's default spacing:
+- Render a preview and measure its shape:
     ```
-    d2 --elk-nodeNodeBetweenLayers 30 --elk-edgeNodeBetweenLayers 12 \
-      --elk-padding "[top=36,left=12,bottom=12,right=12]" \
-      "$TMPDIR/<name>.d2" "$TMPDIR/<name>.pdf"
+    dot -Tpng -Gdpi=96 "$TMPDIR/<name>.dot" -o "$TMPDIR/<name>-preview.png"
+    python3 -c "import struct,sys; f=open(sys.argv[1],'rb'); f.read(16); w,h=struct.unpack('>II',f.read(8)); print(w,h,round(w/h,2))" "$TMPDIR/<name>-preview.png"
     ```
-- PDF is the default output. Produce SVG or PNG only when I ask, by changing the output extension
-- Check the result critically. A wide diagram is too small to judge from the PDF alone: also render a PNG with `--scale 1.5` in `$TMPDIR` and read it in vertical slices (for instance cropped with Pillow through `uv run --with pillow`):
-  - no overlapping labels or shapes, no edge label hidden behind a box, no clipped text
+- For a sequence diagram: `d2 --elk-nodeNodeBetweenLayers 60 --elk-edgeNodeBetweenLayers 20 "$TMPDIR/<name>.d2" "$TMPDIR/<name>.png" --scale 1.5`
+- Read the preview and check it critically:
+  - no overlapping labels or shapes, no edge label sitting on another one or hidden behind a box, no clipped or missing text
   - no needless edge crossings or long detours
-  - no large empty areas; the diagram must be compact
-  - every element has a class and the legend matches what is drawn
-- Fix and re-render until all checks pass, trying `layout-engine: dagre` in `vars.d2-config` if ELK keeps producing a poor layout
+  - a shape close to 16:9, with no large empty areas
+  - every node and edge has the look of its kind
+- Fix and re-render until all checks pass:
+  - too wide: move nodes into fewer rows, add `constraint=false` to return arrows, or raise `ranksep`
+  - too tall: lower `ranksep`, or put more nodes in a row
+  - crossings: reorder a row with invisible edges
 
 ## 5. Deliver
 
-- Copy only the PDF to the current directory, named `<kebab-case-title>.pdf`, unless I asked for another place. Leave the `.d2` source and previews in `$TMPDIR`, unless I explicitly asked to keep the source
-- Give me the path, and list any assumption you made about components, flows or column types I did not confirm
+- Export the final files in `$TMPDIR`:
+  - PDF: `dot -Tpdf "$TMPDIR/<name>.dot" -o "$TMPDIR/<name>.pdf"`
+  - JPEG and PNG for slides, as large as possible under the 25-megapixel limit of Google Slides (a larger image is rejected or misbehaves). Render at high resolution, then downscale with Pillow:
+    ```
+    dot -Tpng -Gdpi=340 "$TMPDIR/<name>.dot" -o "$TMPDIR/<name>-hi.png"
+    UV_CACHE_DIR="$TMPDIR/uv-cache" uv run --quiet --no-project --with pillow python -I -c "
+    import math, sys
+    from PIL import Image
+    Image.MAX_IMAGE_PIXELS = None
+    src, out = sys.argv[1], sys.argv[2]
+    im = Image.open(src).convert('RGB')
+    ratio = im.height / im.width
+    w = math.floor(math.sqrt(24_900_000 / ratio))
+    h = round(w * ratio)
+    im = im.resize((w, h), Image.LANCZOS)
+    im.save(out + '.jpg', quality=92, optimize=True)
+    im.save(out + '.png', optimize=True)
+    " "$TMPDIR/<name>-hi.png" "$TMPDIR/<name>"
+    ```
+  - In the sandbox, `sips` cannot write its temporary files and uv's default cache is not writable: that is why the command above uses Pillow and `UV_CACHE_DIR="$TMPDIR/uv-cache"`
+- Copy the PDF, JPEG and PNG to the current directory, named `<kebab-case-title>.<ext>`, unless I asked for another place. Recommend the JPEG for Google Slides. Leave the sources and previews in `$TMPDIR`, unless I explicitly asked to keep the source
+- When I want the diagram in Google Slides and no Google connector is available, deliver the files and tell me to insert the JPEG through Insert → Image → Upload from computer
+- Give me the paths, and list any assumption you made about components or flows I did not confirm
