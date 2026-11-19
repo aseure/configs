@@ -1,11 +1,11 @@
-background = #0c0d10
+background = #1e151b
 foreground = #e6e6e6
 cursor-color = #ffffff
-cursor-text = #0c0d10
+cursor-text = #1e151b
 selection-background = #ff6ac1
-selection-foreground = #0c0d10
+selection-foreground = #1e151b
 split-divider-color = #ff6ac1
-palette = 0=#252830
+palette = 0=#3a2735
 palette = 1=#ff5c5c
 palette = 2=#a6e37f
 palette = 3=#f0c674
