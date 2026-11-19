@@ -60,22 +60,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 export DOCKER_HOST="unix://$HOME/.docker/run/docker.sock"
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS="
-  --color=bg:#0c0d10,fg:#e6e6e6
-  --color=bg+:#2e1426,fg+:#ffffff
-  --color=hl:#ff6ac1,hl+:#ff6ac1
-  --color=info:#6b7080
-  --color=prompt:#ff6ac1
-  --color=pointer:#ff6ac1
-  --color=marker:#a6e37f
-  --color=spinner:#ff6ac1
-  --color=header:#7cc7e8
-  --color=border:#353943
-  --color=separator:#252830
-  --color=scrollbar:#6b7080
-  --color=gutter:#0c0d10
-  --color=query:#ffffff
-"
+export FZF_DEFAULT_OPTS_FILE="$HOME/.local/state/colorscheme/fzf"
 export GOPATH="$HOME/go"
 export GPG_TTY=$(tty)
 export HISTFILE="$HOME/.history"
@@ -136,6 +121,8 @@ _fzf_complete_git() {
 _fzf_complete_git_post() {
   sed -e 's/^[^a-z0-9]*//' | awk '{print $1}'
 }
+
+[[ -e $FZF_DEFAULT_OPTS_FILE ]] || colorscheme peony > /dev/null
 
 eval "$(zoxide init --cmd j zsh)"
 eval "$(mise activate zsh)"

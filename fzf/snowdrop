@@ -1,0 +1,14 @@
+--color=bg:#e4e4e4,fg:#1c1c1c
+--color=bg+:#dadada,fg+:#000000
+--color=hl:#3535c0,hl+:#3535c0
+--color=info:#6a6a6a
+--color=prompt:#3535c0
+--color=pointer:#3535c0
+--color=marker:#3535c0
+--color=spinner:#3535c0
+--color=header:#4e4e4e
+--color=border:#acacac
+--color=separator:#c2c2c2
+--color=scrollbar:#8c8c8c
+--color=gutter:#e4e4e4
+--color=query:#000000

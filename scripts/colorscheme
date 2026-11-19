@@ -1,0 +1,62 @@
+#!/bin/bash
+
+DARK=peony
+LIGHT=snowdrop
+CONFIGS="$(cd "$(dirname "$0")/.." && pwd)"
+STATE="$HOME/.local/state/colorscheme"
+
+current_colorscheme() {
+  cat "$STATE/name" 2>/dev/null || echo "$DARK"
+}
+
+toggled_colorscheme() {
+  if [[ $(current_colorscheme) == "$DARK" ]]; then
+    echo "$LIGHT"
+  else
+    echo "$DARK"
+  fi
+}
+
+ensure_known() {
+  local name=$1
+
+  if [[ ! -f "$CONFIGS/fzf/$name" ]]; then
+    echo "Unknown colorscheme: $name (expected $DARK or $LIGHT)" >&2
+    exit 1
+  fi
+}
+
+write_state() {
+  local name=$1
+
+  mkdir -p "$STATE"
+  ln -sfn "$CONFIGS/fzf/$name" "$STATE/fzf"
+  echo "theme = $name" > "$STATE/ghostty"
+  echo "$name" > "$STATE/name"
+}
+
+reload_ghostty() {
+  osascript -e 'tell application "Ghostty" to perform action "reload_config" on focused terminal of selected tab of front window' > /dev/null 2>&1
+}
+
+set_claude_theme() {
+  local name=$1
+  local settings="$HOME/.claude/settings.json"
+  local updated
+
+  [[ -f "$settings" ]] || return 0
+  updated=$(jq --arg theme "custom:$name" '.theme = $theme' "$settings") || return 1
+  echo "$updated" > "$settings"
+}
+
+main() {
+  local name=${1:-$(toggled_colorscheme)}
+
+  ensure_known "$name"
+  write_state "$name"
+  reload_ghostty
+  set_claude_theme "$name"
+  echo "$name"
+}
+
+main "$@"

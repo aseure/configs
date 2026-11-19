@@ -196,34 +196,6 @@ local terminal_colors = {
 	palette.white,
 }
 
-local function reset()
-	if vim.g.colors_name then
-		vim.cmd.highlight("clear")
-	end
-	vim.g.colors_name = "peony"
-end
+vim.o.background = "dark"
 
-local function apply_highlights()
-	for _, groups in ipairs({ editor, syntax, diagnostics, diff, treesitter, plugins }) do
-		for group, definition in pairs(groups) do
-			vim.api.nvim_set_hl(0, group, definition)
-		end
-	end
-end
-
-local function apply_terminal_colors()
-	for index, color in ipairs(terminal_colors) do
-		vim.g["terminal_color_" .. (index - 1)] = color
-	end
-end
-
-local function apply_cursor_highlight()
-	if not vim.o.guicursor:find("a:Cursor/lCursor", 1, true) then
-		vim.opt.guicursor:append("a:Cursor/lCursor")
-	end
-end
-
-reset()
-apply_highlights()
-apply_terminal_colors()
-apply_cursor_highlight()
+require("colorscheme").load("peony", { editor, syntax, diagnostics, diff, treesitter, plugins }, terminal_colors)

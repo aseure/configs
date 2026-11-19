@@ -1,0 +1,25 @@
+{
+  "name": "snowdrop",
+  "base": "light",
+  "overrides": {
+    "claude": "#3535c0",
+    "claudeShimmer": "#7a7ad8",
+    "text": "#1c1c1c",
+    "inverseText": "#f4f4f4",
+    "inactive": "#6a6a6a",
+    "inactiveShimmer": "#1c1c1c",
+    "subtle": "#8c8c8c",
+    "promptBorder": "#3535c0",
+    "promptBorderShimmer": "#7a7ad8",
+    "suggestion": "#3535c0",
+    "permission": "#3535c0",
+    "remember": "#7a7ad8",
+    "success": "#2f7a3a",
+    "warning": "#3535c0",
+    "error": "#b02a2a",
+    "diffAdded": "#cbe3cd",
+    "diffRemoved": "#ecc8c8",
+    "userMessageBackground": "#dadada",
+    "selectionBg": "#c4c4e8"
+  }
+}
