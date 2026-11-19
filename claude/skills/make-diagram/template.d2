@@ -1,0 +1,261 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+    theme-id: 0
+    pad: 12
+  }
+}
+
+direction: right
+
+classes: {
+  legend-anchor: {
+    shape: circle
+    width: 1
+    style: {opacity: 0}
+  }
+
+  stack: {
+    label: ""
+    style: {fill: transparent; stroke: transparent}
+  }
+
+  zone-internal: {
+    style: {
+      fill: "#EEF2F6"
+      stroke: "#94A3B8"
+      stroke-width: 1
+      border-radius: 6
+      font-color: "#334155"
+      font-size: 12
+      bold: true
+      text-transform: uppercase
+    }
+  }
+  zone-owned: {
+    style: {
+      fill: "#E3F0FC"
+      stroke: "#1F6FC5"
+      stroke-width: 1
+      border-radius: 6
+      font-color: "#0B3B6E"
+      font-size: 12
+      bold: true
+      text-transform: uppercase
+    }
+  }
+  zone-third-party: {
+    style: {
+      fill: "#FCF3E0"
+      stroke: "#C98A12"
+      stroke-width: 1
+      border-radius: 6
+      font-color: "#7A5200"
+      font-size: 12
+      bold: true
+      text-transform: uppercase
+    }
+  }
+  zone-public: {
+    style: {
+      fill: "#FFFFFF"
+      stroke: "#94A3B8"
+      stroke-width: 1
+      stroke-dash: 4
+      border-radius: 6
+      font-color: "#334155"
+      font-size: 12
+      bold: true
+      text-transform: uppercase
+    }
+  }
+  zone-isolated: {
+    style: {
+      fill: "#F5F9FE"
+      stroke: "#5B9BD5"
+      stroke-width: 1
+      stroke-dash: 3
+      border-radius: 6
+      font-color: "#0B3B6E"
+      font-size: 11
+      bold: true
+    }
+  }
+
+  service: {
+    shape: rectangle
+    style: {
+      fill: "#FFFFFF"
+      stroke: "#1F6FC5"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  external: {
+    shape: rectangle
+    style: {
+      fill: "#FFFFFF"
+      stroke: "#64748B"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  actor: {
+    shape: rectangle
+    style: {
+      fill: "#E2E8F0"
+      stroke: "#334155"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  gateway: {
+    shape: rectangle
+    style: {
+      fill: "#DCFCE7"
+      stroke: "#15803D"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  job: {
+    shape: rectangle
+    style: {
+      fill: "#E0E7FF"
+      stroke: "#4338CA"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  decision: {
+    shape: rectangle
+    style: {
+      fill: "#FEF9C3"
+      stroke: "#A16207"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  terminal: {
+    shape: rectangle
+    style: {
+      fill: "#1E293B"
+      stroke: "#1E293B"
+      stroke-width: 2
+      border-radius: 8
+      font-color: "#FFFFFF"
+      font-size: 13
+      bold: true
+    }
+  }
+
+  database: {
+    shape: rectangle
+    style: {
+      fill: "#DBEAFE"
+      stroke: "#1D4ED8"
+      stroke-width: 2
+      border-radius: 0
+      font-color: "#0F172A"
+      font-size: 11
+      font: mono
+    }
+  }
+  bucket: {
+    shape: rectangle
+    style: {
+      fill: "#FEE2E2"
+      stroke: "#B91C1C"
+      stroke-width: 2
+      border-radius: 0
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  queue: {
+    shape: rectangle
+    style: {
+      fill: "#F3E8FF"
+      stroke: "#7E22CE"
+      stroke-width: 2
+      border-radius: 0
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  cache: {
+    shape: rectangle
+    style: {
+      fill: "#CCFBF1"
+      stroke: "#0F766E"
+      stroke-width: 2
+      border-radius: 0
+      font-color: "#0F172A"
+      font-size: 13
+    }
+  }
+  document: {
+    shape: rectangle
+    style: {
+      fill: "#FFFFFF"
+      stroke: "#64748B"
+      stroke-width: 2
+      border-radius: 0
+      font-color: "#0F172A"
+      font-size: 12
+      font: mono
+    }
+  }
+  note: {
+    shape: rectangle
+    style: {
+      fill: "#FFFBEB"
+      stroke: "#D6B656"
+      stroke-width: 1
+      stroke-dash: 3
+      border-radius: 0
+      font-color: "#422006"
+      font-size: 12
+    }
+  }
+
+  flow-1: {
+    style: {stroke: "#1F6FC5"; stroke-width: 2; font-color: "#1F6FC5"; font-size: 11}
+  }
+  flow-2: {
+    style: {stroke: "#B7861A"; stroke-width: 2; font-color: "#8A6410"; font-size: 11}
+  }
+  flow-3: {
+    style: {stroke: "#334155"; stroke-width: 2; font-color: "#334155"; font-size: 11}
+  }
+  flow-4: {
+    style: {stroke: "#7C3AED"; stroke-width: 2; font-color: "#6D28D9"; font-size: 11}
+  }
+  flow-5: {
+    style: {stroke: "#C2410C"; stroke-width: 2; font-color: "#C2410C"; font-size: 11}
+  }
+  internal: {
+    style: {stroke: "#64748B"; stroke-width: 1; font-color: "#334155"; font-size: 11}
+  }
+  async: {
+    style: {stroke: "#7C3AED"; stroke-width: 2; stroke-dash: 4; font-color: "#6D28D9"; font-size: 11}
+  }
+  tunnel: {
+    style: {stroke: "#15803D"; stroke-width: 2; stroke-dash: 5; font-color: "#15803D"; font-size: 11}
+  }
+  optional: {
+    style: {stroke: "#94A3B8"; stroke-width: 1; stroke-dash: 6; font-color: "#475569"; font-size: 11}
+  }
+}
