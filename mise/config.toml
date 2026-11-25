@@ -1,7 +1,12 @@
 [tools]
 clojure = "latest"
 java = "openjdk-25"
-node = "22"
+node = "24"
+"npm:eslint" = "latest"
+"npm:prettier" = "latest"
+"npm:typescript" = "6"
+"npm:typescript-language-server" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
 python = "3.15"
 ruff = "latest"
 ty = "latest"
