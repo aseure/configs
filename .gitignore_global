@@ -17,8 +17,12 @@
 .git
 .idea
 .metals/
+.mypy_cache/
 .project
+.pytest_cache/
+.ruff_cache/
 .settings/
+.venv/
 .vs
 .vscode
 CLAUDE.local.md

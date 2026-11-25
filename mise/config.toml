@@ -1,0 +1,11 @@
+[tools]
+clojure = "latest"
+java = "openjdk-25"
+node = "22"
+python = "3.15"
+ruff = "latest"
+ty = "latest"
+uv = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]

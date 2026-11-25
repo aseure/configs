@@ -41,6 +41,7 @@ link_configs() {
   link .zshrc ~/.zshrc
   link .zfunctions ~/.zfunctions
   link ghostty ~/.config/ghostty
+  link mise ~/.config/mise
   link nvim ~/.config/nvim
   link ripgreprc ~/.config/.ripgreprc
   link claude/CLAUDE.md ~/.claude/CLAUDE.md

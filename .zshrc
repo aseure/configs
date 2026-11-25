@@ -78,6 +78,7 @@ export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export MANPAGER="most -S"
 export MANPATH="/opt/hombrew/opt/coreutils/libexec/gnuman:$MANPATH"
 export PAGER="less -S"
+export PIP_REQUIRE_VIRTUALENV="1"
 export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
 export SAVEHIST="10000"
 export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
@@ -126,6 +127,8 @@ _fzf_complete_git_post() {
 
 eval "$(zoxide init --cmd j zsh)"
 eval "$(mise activate zsh)"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 source ~/.zprivate
 source /opt/homebrew/etc/profile.d/bash_completion.sh

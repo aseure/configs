@@ -44,8 +44,9 @@ vim.lsp.enable({
 	"dexter",
 	"eslint",
 	"lua_ls",
-	"pyright",
+	"ruff",
 	"ts_ls",
+	"ty",
 	"gopls",
 })
 

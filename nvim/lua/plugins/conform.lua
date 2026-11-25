@@ -8,7 +8,7 @@ return {
 			json = { "prettier" },
 			lua = { "stylua" },
 			css = { "prettier" },
-			python = { "isort", "black" },
+			python = { "ruff_organize_imports", "ruff_format" },
 			typescript = { "prettier" },
 		},
 		format_on_save = {
