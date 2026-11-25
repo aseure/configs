@@ -4,6 +4,9 @@ return {
 		mode = "normal",
 		formatters_by_ft = {
 			bash = { "shfmt" },
+			eelixir = { "mix" },
+			elixir = { "mix" },
+			heex = { "mix" },
 			html = { "prettier" },
 			javascript = { "prettier" },
 			javascriptreact = { "prettier" },
