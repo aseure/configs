@@ -1,5 +1,7 @@
 [tools]
 clojure = "latest"
+go = "1.27.4"
+"go:golang.org/x/tools/gopls" = "0.24.0"
 java = "openjdk-25"
 node = "24"
 "npm:eslint" = "latest"
