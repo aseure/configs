@@ -1,4 +1,5 @@
 require("config.default")
 require("config.colors")
+require("config.filetype")
 require("config.lazy")
 require("config.lsp")
