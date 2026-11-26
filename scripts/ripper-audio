@@ -1,0 +1,247 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["discid", "musicbrainzngs"]
+# ///
+"""
+One-shot audio CD ripper for macOS:
+  disc ID -> MusicBrainz lookup -> cd-paranoia rip -> LAME 320k MP3 -> ID3 tags + cover -> eject
+
+Requirements:  brew install libdiscid libcdio-paranoia lame uv
+Usage:         ./ripcd.py                    # rip inserted CD into ~/Music/Rips
+               ./ripcd.py -o ~/Music/MP3     # custom output root
+               ./ripcd.py -r <release-mbid>  # force a specific MusicBrainz release
+               ./ripcd.py --vbr              # LAME -V0 instead of CBR 320
+"""
+
+import argparse
+import re
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+
+def _locate_libdiscid() -> str:
+    """Find Homebrew's libdiscid explicitly; uv's Python doesn't search Homebrew's lib dir."""
+    prefixes = []
+    try:
+        prefixes.append(
+            subprocess.run(
+                ["brew", "--prefix", "libdiscid"],
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout.strip()
+        )
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    prefixes += ["/opt/homebrew", "/usr/local"]
+    for p in prefixes:
+        for name in ("libdiscid.0.dylib", "libdiscid.dylib"):
+            path = Path(p) / "lib" / name
+            if path.exists():
+                return str(path)
+    sys.exit("libdiscid not found. Install it with: brew install libdiscid")
+
+
+# python-discid resolves the library via ctypes.util.find_library; point it at Homebrew's copy
+import ctypes.util
+
+_LIBDISCID = _locate_libdiscid()
+_orig_find_library = ctypes.util.find_library
+ctypes.util.find_library = lambda name: (
+    _LIBDISCID if name == "discid" else _orig_find_library(name)
+)
+
+import discid
+import musicbrainzngs as mb
+
+mb.set_useragent("ripcd", "1.0", "https://musicbrainz.org")
+
+
+def run(cmd, **kw):
+    return subprocess.run(cmd, check=True, text=True, **kw)
+
+
+def find_bsd_device() -> str:
+    out = subprocess.run(["drutil", "status"], capture_output=True, text=True).stdout
+    m = re.search(r"/dev/(disk\d+)", out)
+    if not m:
+        sys.exit(
+            "No audio CD found (drutil status shows no disc). Is the drive connected and a CD inserted?"
+        )
+    return m.group(1)
+
+
+def safe(name: str) -> str:
+    return re.sub(r'[/:\\?*"<>|]', "_", name).strip().rstrip(".") or "_"
+
+
+def pick_release(disc_id: str, forced: str | None):
+    inc = ["artists", "recordings", "artist-credits", "release-groups"]
+    try:
+        if forced:
+            rel = mb.get_release_by_id(forced, includes=inc + ["discids"])["release"]
+            return rel, None
+        res = mb.get_releases_by_discid(disc_id, includes=inc)
+    except mb.ResponseError:
+        return None, None
+    if "disc" not in res:
+        return None, None
+    releases = res["disc"]["release-list"]
+    if len(releases) > 1:
+        print(
+            f"{len(releases)} matching releases, using the first. Others (use -r to force):"
+        )
+        for r in releases[1:]:
+            print(
+                f"  {r['id']}  {r.get('date', '????')}  {r.get('country', '??')}  {r['title']}"
+            )
+    return releases[0], disc_id
+
+
+def medium_for(release, disc_id):
+    media = release["medium-list"]
+    for m in media:
+        if disc_id and any(d["id"] == disc_id for d in m.get("disc-list", [])):
+            return m, len(media)
+    cds = [m for m in media if m.get("format", "CD").endswith("CD")] or media
+    return cds[0], len(media)
+
+
+def fetch_cover(release_id: str, dest: Path) -> Path | None:
+    try:
+        dest.write_bytes(mb.get_image_front(release_id, size="500"))
+        return dest
+    except Exception:
+        return None
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-o", "--out", default="~/Music/Rips")
+    ap.add_argument("-r", "--release", help="force MusicBrainz release MBID")
+    ap.add_argument("--vbr", action="store_true", help="LAME -V0 instead of CBR 320")
+    ap.add_argument("--no-eject", action="store_true")
+    args = ap.parse_args()
+
+    bsd = find_bsd_device()
+    disc = discid.read()
+    print(f"Disc ID {disc.id} ({len(disc.tracks)} tracks) on /dev/{bsd}")
+
+    release, matched_id = pick_release(disc.id, args.release)
+    tmp = Path(tempfile.mkdtemp(prefix="ripcd-"))
+
+    if release:
+        medium, total_discs = medium_for(release, matched_id or disc.id)
+        album = release["title"]
+        album_artist = release.get("artist-credit-phrase", "Unknown Artist")
+        year = (release.get("date") or "")[:4]
+        disc_no = int(medium.get("position", 1))
+        tracks = [
+            (
+                int(t["position"]),
+                t.get("title") or t["recording"]["title"],
+                t.get("artist-credit-phrase")
+                or t["recording"].get("artist-credit-phrase")
+                or album_artist,
+            )
+            for t in medium["track-list"]
+        ]
+        cover = fetch_cover(release["id"], tmp / "cover.jpg")
+        print(
+            f"→ {album_artist} — {album} ({year or 'no date'}), {len(tracks)} tracks, cover: {'yes' if cover else 'no'}"
+        )
+    else:
+        print("No MusicBrainz match. Ripping untagged. Add this disc to MusicBrainz:")
+        print(f"  {disc.submission_url}")
+        album, album_artist, year, disc_no, total_discs, cover = (
+            f"Unknown ({disc.id})",
+            "Unknown Artist",
+            "",
+            1,
+            1,
+            None,
+        )
+        tracks = [
+            (t.number, f"Track {t.number:02d}", album_artist) for t in disc.tracks
+        ]
+
+    folder = f"{safe(album)} ({year})" if year else safe(album)
+    outdir = Path(args.out).expanduser() / safe(album_artist) / folder
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    run(["diskutil", "unmountDisk", f"/dev/{bsd}"], capture_output=True)
+    first = disc.first_track_num
+    multi = total_discs > 1
+
+    for pos, title, artist in tracks:
+        cd_track = first + pos - 1
+        wav = tmp / f"{pos:02d}.wav"
+        name = (
+            f"{disc_no}-{pos:02d} - {safe(title)}.mp3"
+            if multi
+            else f"{pos:02d} - {safe(title)}.mp3"
+        )
+        mp3 = outdir / name
+        print(f"[{pos:02d}/{len(tracks)}] {title}")
+        rip = subprocess.run(
+            [
+                "cd-paranoia",
+                "-q",
+                "-d",
+                f"/dev/rdisk{bsd[4:]}",
+                str(cd_track),
+                str(wav),
+            ],
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        # Cheap drives reject optional MMC commands (speed/cache control) with a harmless 405
+        noise = [
+            l
+            for l in rip.stderr.splitlines()
+            if l.strip() and "405: Option not supported" not in l
+        ]
+        if noise:
+            print("\n".join(noise), file=sys.stderr)
+        if rip.returncode != 0 or not wav.exists():
+            sys.exit(f"cd-paranoia failed on track {cd_track} (exit {rip.returncode})")
+        quality = ["-V", "0"] if args.vbr else ["-b", "320"]
+        lame = [
+            "lame",
+            "--quiet",
+            *quality,
+            "-q",
+            "0",
+            "--id3v2-only",
+            "--tt",
+            title,
+            "--ta",
+            artist,
+            "--tl",
+            album,
+            "--tn",
+            f"{pos}/{len(tracks)}",
+            "--tv",
+            f"TPE2={album_artist}",
+            "--tv",
+            f"TPOS={disc_no}/{total_discs}",
+        ]
+        if year:
+            lame += ["--ty", year]
+        if cover:
+            lame += ["--ti", str(cover)]
+        run(lame + [str(wav), str(mp3)])
+        wav.unlink()
+
+    if cover:
+        (outdir / "cover.jpg").write_bytes(cover.read_bytes())
+    if not args.no_eject:
+        subprocess.run(["drutil", "eject"], capture_output=True)
+    print(f"Done → {outdir}")
+
+
+if __name__ == "__main__":
+    main()
